@@ -1,23 +1,26 @@
+import { AuthProvider } from './providers/auth.provider'
+import { Navbar, Footer } from './components'
+import RouteHandler from "./routes";
 import './App.css';
 
+
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Reac
-        </a>
-      </header>
-    </div>
+      <AuthProvider>
+
+        <Navbar />
+
+        <div className="router">
+          <RouteHandler />
+        </div>
+
+        <Footer />
+
+      </AuthProvider>
   );
 }
+
+
 
 export default App;

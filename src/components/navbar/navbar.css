@@ -1,0 +1,45 @@
+.navbar {
+    height: 50px;
+    width: 100vw;
+    background-color: red;
+}
+
+.nav-list {
+    width:80vw;
+    margin:auto;
+    text-decoration: none;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    background-color: purple;
+
+}
+
+ul {
+    margin:0px;
+}
+
+.nav-item {
+    height:50px;
+    width: 50px;
+    margin: 0px 5px;
+    line-height: 50px;
+    background-color: aqua;
+    text-align: center;
+}
+
+.end {
+    margin-left:auto;
+}
+
+.profile {
+    background-color: brown;
+    width:auto;
+    display:flex;
+    flex-direction: row;
+}
+
+.username {
+    margin: 0px 10px;
+}
+
