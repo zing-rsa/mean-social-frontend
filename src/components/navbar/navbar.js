@@ -5,7 +5,8 @@ import './navbar.css'
 
 function Navbar() {
 
-    const { onLogout, token } = useAuth();
+    const { onLogout, token, user } = useAuth();
+
     return (
         <div className='navbar'>
             <ul className='nav-list'>
@@ -18,18 +19,20 @@ function Navbar() {
                 <li className='nav-item'>
                     <Link to="/login">login</Link>
                 </li>
-                <li className='nav-item end profile'>
-                    <div className='username'>
-                        <Link to="/profile">
-                            Rob Kritzinger
-                        </Link>
-                    </div>
-                    <img height="50px" width="50px" src={profilePlaceholder} />
-                </li>
                 {token && (
-                    <button type="button" onClick={onLogout}>
-                        Sign Out
-                    </button>
+                    <>
+                        <li className='nav-item end profile'>
+                            <div className='username'>
+                                <Link to="/profile">
+                                    {token[1]}
+                                </Link>
+                            </div>
+                            <img height="50px" width="50px" src={profilePlaceholder} />
+                        </li>
+                        <button type="button" onClick={onLogout}>
+                            Sign Out
+                        </button>
+                    </>
                 )}
             </ul>
         </div>
