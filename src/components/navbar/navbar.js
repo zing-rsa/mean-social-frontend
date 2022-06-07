@@ -5,7 +5,7 @@ import './navbar.css'
 
 function Navbar() {
 
-    const { onLogout, token, user } = useAuth();
+    const { onLogout, authenticated, user } = useAuth();
 
     return (
         <div className='navbar'>
@@ -19,12 +19,12 @@ function Navbar() {
                 <li className='nav-item'>
                     <Link to="/login">login</Link>
                 </li>
-                {token && (
+                {authenticated && (
                     <>
                         <li className='nav-item end profile'>
                             <div className='username'>
                                 <Link to="/profile">
-                                    {token[1]}
+                                    {user.name}
                                 </Link>
                             </div>
                             <img height="50px" width="50px" src={profilePlaceholder} />
