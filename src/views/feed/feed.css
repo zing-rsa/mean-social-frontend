@@ -1,0 +1,17 @@
+.feed-container {
+    width: 80vw;
+    margin: auto;
+    background-color: red;
+}
+
+.posts-list {
+    width: 600px;
+    margin:auto;
+    background-color: yellow;
+}
+
+.feed-loader {
+    width:80px;
+    margin: auto;
+}
+

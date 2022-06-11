@@ -1,4 +1,4 @@
-const fakeAuth = () =>
+const mock_auth = () =>
   new Promise((resolve) => {
     setTimeout(() => resolve(
       {
@@ -13,4 +13,4 @@ const fakeAuth = () =>
     ), 250);
   });
 
-export { fakeAuth };
+export { mock_auth };

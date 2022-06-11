@@ -1,0 +1,39 @@
+.post-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.post {
+    width: 100%; 
+    height: 200px;
+    display: flex; 
+    flex-direction: column;
+}
+
+.post-details {
+    height:50px;
+    width:100%;
+    display: flex;
+    background-color: aqua;
+}
+
+.post-author {
+    width:50%;
+    height:100%;
+    
+}
+
+.post-meta {
+    width:50%;
+    height:100%;
+
+}
+
+.post-body {
+
+}
+
+.comments {
+    width:100%;
+
+}

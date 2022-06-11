@@ -1,8 +1,8 @@
 import { useState, createContext, useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { clearLocalUserInfo, getLocalUserInfo, setLocalUserInfo } from "../services/storage.service";
-import { fakeAuth } from "../services/auth.service";
-import { fakeUser } from "../services/user.service";
+import { mock_auth } from "../services/auth.service";
+import { mock_user } from "../services/user.service";
 
 const AuthContext = createContext(null);
 
@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
 
         const fetchData = async (token) => {
-            const data = await fakeUser(token);
+            const data = await mock_user(token);
             setUser(data);
             setAuthenticated(true);
         };
@@ -39,7 +39,7 @@ const AuthProvider = ({ children }) => {
 
     const handleLogin = async () => {
         try {
-            const { token, ...user } = await fakeAuth();
+            const { token, ...user } = await mock_auth();
 
             setToken(token);
             setUser(user);

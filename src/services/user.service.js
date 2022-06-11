@@ -1,4 +1,4 @@
-const fakeUser = (token) =>
+const mock_user = (token) =>
   new Promise((resolve) => {
     setTimeout(() => resolve(
       {
@@ -12,4 +12,4 @@ const fakeUser = (token) =>
     ), 250);
   });
 
-export { fakeUser };
+export { mock_user };

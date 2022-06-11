@@ -1,0 +1,29 @@
+.post-compose {
+    width:100%;
+    min-height:100px;
+    background-color:chocolate;
+    
+}
+
+.compose-body {
+    width: calc(100% - 5px);
+    min-height:50px;
+    height:50px;
+    
+}
+
+.compose-operations {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.submit-post {
+    height:36px;
+    width: 80px;
+    margin-left:auto;
+}
+
+textarea {
+    resize: none;
+}
