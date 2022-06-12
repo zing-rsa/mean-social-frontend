@@ -15,6 +15,7 @@ const AuthProvider = ({ children }) => {
 
     const [token, setToken] = useState(LocalToken);
     const [user, setUser] = useState(null);
+    const [authLoading, setAuthLoading] = useState(true);
     const [authenticated, setAuthenticated] = useState(false);
 
     useEffect(() => {
@@ -23,12 +24,16 @@ const AuthProvider = ({ children }) => {
             const data = await mock_user(token);
             setUser(data);
             setAuthenticated(true);
+            setAuthLoading(false);
+            console.log('setting authenticated')
         };
 
         if (token) {
             try {
+                setAuthLoading(true);
                 fetchData(token);
             } catch (e) {
+                setAuthLoading(false);
                 clearLocalUserInfo();
                 setUser(null);
                 setToken(null);
@@ -39,13 +44,16 @@ const AuthProvider = ({ children }) => {
 
     const handleLogin = async () => {
         try {
+            setAuthLoading(true);
             const { token, ...user } = await mock_auth();
 
             setToken(token);
             setUser(user);
             setAuthenticated(true);
             setLocalUserInfo(token);
+            setAuthLoading(false);
         } catch (e) {
+            setAuthLoading(false);
             clearLocalUserInfo();
             setAuthenticated(false);
             setUser(null);
@@ -63,16 +71,17 @@ const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
-    const value = {
+    const auth = {
         token,
         user,
+        authLoading,
         authenticated,
         onLogin: handleLogin,
         onLogout: handleLogout,
     };
 
     return (
-        <AuthContext.Provider value={value}>
+        <AuthContext.Provider value={auth}>
             {children}
         </AuthContext.Provider>
     );

@@ -1,0 +1,96 @@
+.profile-container {
+    width: 80vw;
+    height: calc(100vh - 100px);
+    margin: auto;
+    background-color: red;
+}
+
+.profile-cover {
+    height: 300px;
+    width: 100%;
+    background-color:grey;
+}
+
+.profile-avatar {
+    position: absolute;
+    height: 150px;
+    width: 150px;
+    margin-left: 50px;
+}
+
+.profile-avatar img {
+    height: inherit;
+    width: inherit;
+    margin-top: -75px;
+}
+
+.profile-details {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    background-color:yellow;
+    
+}
+
+.profile-details-header {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    background-color: aquamarine
+}
+
+.profile-details-name {
+    font-size: 30px;
+    margin-left: 220px;
+}
+
+.profile-details-followers {
+    margin: 0px 20px;
+    height: 100%;
+    display: flex;
+    
+    background-color: green;
+    
+}
+
+.follow-display {
+        height: 100%;
+        line-height: 50px;
+        margin: 0px 5px;
+        font-size: 14px;
+}
+
+.follow-button {
+    margin: 0px 20px; 
+}
+
+.profile-details-footer {
+    height: 50px; 
+    width: 100%;
+    background-color: orange;
+}
+
+.profile-details-bio {
+    height: 100%;
+    margin: 0px 200px;  
+    background-color: blue;   
+}
+
+.profile-posts-list {
+    width: 600px;
+    margin:auto;
+    height:100%;
+    background-color: yellow;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.profile-posts-list {
+    width: 600px;
+    margin:auto;
+    height: calc(100% - 400px);
+    background-color: yellow;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}

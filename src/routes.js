@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate, useLocation, Outlet } from 'react-router-dom';
-import { Feed, Login, Signup } from './views'
+import { Feed, Login, Signup, Profile } from './views'
 import { useAuth } from './providers/auth.provider'
+import Loader from './components/loader/loader';
 
 function RouteHandler() {
     return (
@@ -11,7 +12,14 @@ function RouteHandler() {
             <Route path='/feed' element={
                 <ProtectedRoute>
                     <Feed />
-                </ProtectedRoute>} />
+                </ProtectedRoute>} 
+            />
+            <Route path='/profile' element={
+                <ProtectedRoute>
+                    <Profile />
+                </ProtectedRoute>} 
+            />
+
             {/* <Route path='/admin' element={
                 <AdminRoute>
                     <Route path='/dashboard' element={<AdminDashboard />}></Route>
@@ -24,10 +32,14 @@ function RouteHandler() {
 }
 
 const ProtectedRoute = ({ children }) => {
-    const { token } = useAuth();
+    const { authenticated, authLoading } = useAuth();
     const location = useLocation();
 
-    if (!token) {
+    if (authLoading){
+        return <Loader />
+    }
+
+    if (!authenticated) {
         return <Navigate to="/login" replace state={{from: location }}/>;
     }
 
