@@ -1,5 +1,5 @@
 import PostCompose from '../../components/post-composer/post-composer';
-import { mock_userPosts } from '../../services/post.service'
+import { useUserPosts } from '../../services/post.service'
 import avatar from '../../assets/profile-placeholder.png'
 import { useAuth } from "../../providers/auth.provider"
 import Loader from '../../components/loader/loader';
@@ -10,26 +10,7 @@ import './profile.css'
 function Profile() {
     const { user } = useAuth();
 
-    const [posts, setPosts] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [fetchError, setFetchError] = useState(false);
-
-    useEffect(() => {
-        const fetchUserPosts = async (userId) => {
-            const data = await mock_userPosts(userId);
-            setPosts(data);
-            setIsLoading(false);
-        };
-
-        try {
-            setIsLoading(true);
-            fetchUserPosts(user._id);
-        } catch (e) {
-            setIsLoading(false);
-            setFetchError(true);
-            console.log('error while loading post info')
-        }
-    }, [])
+    const { posts, isLoading, isError } = useUserPosts(user._id);
 
     return (
         <div className='profile-container'>
@@ -69,6 +50,12 @@ function Profile() {
 
             {isLoading &&
                 <Loader />
+            }
+
+            {isError && !isLoading &&
+                <div>
+                    Oops
+                </div>
             }
         </div>
     )

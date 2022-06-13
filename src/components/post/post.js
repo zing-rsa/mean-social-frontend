@@ -8,7 +8,7 @@ function Post(props) {
             <div className='post'>
                 <div className='post-details'>
                     <div className='post-author'>
-                        <span>{props.owner}</span>
+                        <span>{props.owner.name}&nbsp;{props.owner.surname}</span>
                     </div>
                     <div className='post-meta'>
                         <span>{props.timestamp}</span>
@@ -19,10 +19,10 @@ function Post(props) {
                 </div>
             </div>
             <CommentCompose parent={props._id} />
-            {/* {
+            {
                 props.comments.map((item, index) =>
                     <Comment key={item._id} {...item} />)
-            } */}
+            }
         </div>
 
     )

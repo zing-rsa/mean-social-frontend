@@ -4,7 +4,7 @@ function Comment(props) {
     return (
         <div className='comment'>
             <div className='comment-meta'>
-                <div className='author'>{props.owner}</div>
+                <div className='author'>{props.owner.name}</div>
                 :&nbsp;
                 <div className='timestamp'>{props.timestamp}</div>
             </div>
