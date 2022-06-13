@@ -19,10 +19,10 @@ function Post(props) {
                 </div>
             </div>
             <CommentCompose parent={props._id} />
-            {
+            {/* {
                 props.comments.map((item, index) =>
                     <Comment key={item._id} {...item} />)
-            }
+            } */}
         </div>
 
     )

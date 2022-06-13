@@ -19,6 +19,7 @@ const AuthProvider = ({ children }) => {
     const [authenticated, setAuthenticated] = useState(false);
 
     useEffect(() => {
+        console.log('doing this')
 
         const fetchData = async (token) => {
             const data = await mock_user(token);
@@ -33,12 +34,16 @@ const AuthProvider = ({ children }) => {
                 setAuthLoading(true);
                 fetchData(token);
             } catch (e) {
-                setAuthLoading(false);
+                console.log('err during auth')
                 clearLocalUserInfo();
                 setUser(null);
                 setToken(null);
                 setAuthenticated(false);
+                setAuthLoading(false);
             }
+        } else {
+            setAuthenticated(false);
+            setAuthLoading(false);
         }
     }, [])
 
@@ -71,7 +76,7 @@ const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
-    const auth = {
+    const value = {
         token,
         user,
         authLoading,
@@ -81,7 +86,7 @@ const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={auth}>
+        <AuthContext.Provider value={value}>
             {children}
         </AuthContext.Provider>
     );

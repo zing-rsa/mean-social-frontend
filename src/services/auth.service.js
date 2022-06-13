@@ -8,7 +8,7 @@ const mock_auth = () =>
         "username": "John.Guy",
         "email": "test1@test.com",
         "bio": "Hi, I'm John, and I like cheese",
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjhmOGViYmQ2NDRiN2Q0YTkyOGUyY2EiLCJpYXQiOjE2NTQ1NDQyMzYsImV4cCI6MTY1NDU0NjAzNn0.lDn-tH5uVGh62ZnbDd5pzlC4qPY2AuZY3FRuN8a-Kfk"
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjhmOGViYmQ2NDRiN2Q0YTkyOGUyY2EiLCJpYXQiOjE2NTUwNjM2NjAsImV4cCI6MTY1NTA2NTQ2MH0.YjsHB6jqof_LmEW9XReLRhryEDb9O9kKPHRyC15vxXM"
     }
     ), 250);
   });
