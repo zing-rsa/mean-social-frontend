@@ -1,8 +1,6 @@
+import { clearLocalUserInfo, getLocalUserInfo, setLocalUserInfo } from "../services/storage.service";
 import { useState, createContext, useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { clearLocalUserInfo, getLocalUserInfo, setLocalUserInfo } from "../services/storage.service";
-import { mock_auth } from "../services/auth.service";
-import { mock_user } from "../services/user.service";
 import config from '../config'
 import axios from "axios";
 
@@ -22,7 +20,7 @@ const AuthProvider = ({ children }) => {
     const [authenticated, setAuthenticated] = useState(false);
 
     useEffect(() => {
-        const fetchData = async (token) => {
+        const fetchData = async () => {
             try {
 
                 setAuthLoading(true);
@@ -47,7 +45,7 @@ const AuthProvider = ({ children }) => {
         };
 
         if (token) {
-            fetchData(token);
+            fetchData();
         } else {
             setAuthenticated(false);
             setAuthLoading(false);

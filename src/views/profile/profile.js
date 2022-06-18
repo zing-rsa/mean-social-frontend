@@ -4,13 +4,17 @@ import avatar from '../../assets/profile-placeholder.png'
 import { useAuth } from "../../providers/auth.provider"
 import Loader from '../../components/loader/loader';
 import Post from '../../components/post/post';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import './profile.css'
 
 function Profile() {
     const { user } = useAuth();
 
-    const { posts, isLoading, isError } = useUserPosts(user._id);
+    const { posts, isLoading, isError, fetchUserPosts } = useUserPosts(user._id);
+
+    useEffect(() => {
+        fetchUserPosts();
+    }, [fetchUserPosts]);
 
     return (
         <div className='profile-container'>
@@ -42,7 +46,7 @@ function Profile() {
 
             {posts &&
                 <div className='profile-posts-list'>
-                    <PostCompose />
+                    <PostCompose refresh={fetchUserPosts} />
                     {posts && posts.map((item, index) =>
                         <Post key={item._id} {...item} />)}
                 </div>
