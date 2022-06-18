@@ -5,7 +5,7 @@ import './navbar.css'
 
 function Navbar() {
 
-    const { onLogout, authenticated, user } = useAuth();
+    const { logout, authenticated, user } = useAuth();
 
     return (
         <div className='navbar'>
@@ -13,27 +13,27 @@ function Navbar() {
                 <li className='nav-item'>
                     <Link to="/feed">Feed</Link>
                 </li>
-                <li className='nav-item'>
-                    <Link to="/signup">signup</Link>
-                </li>
-                <li className='nav-item'>
-                    <Link to="/login">login</Link>
-                </li>
-                {authenticated && (
-                    <>
-                        <li className='nav-item end profile'>
-                            <div className='username'>
-                                <Link to="/profile">
-                                    {user.name}
-                                </Link>
-                            </div>
-                            <img height="50px" width="50px" src={profilePlaceholder} />
-                        </li>
-                        <button type="button" onClick={onLogout}>
-                            Sign Out
-                        </button>
-                    </>
-                )}
+
+                {authenticated ?
+                    (
+                        <>
+                            <li className='nav-item end profile'>
+                                <div className='username'>
+                                    <Link to="/profile">
+                                        {user.name}
+                                    </Link>
+                                </div>
+                                <img height="50px" width="50px" src={profilePlaceholder} />
+                            </li>
+                            <button type="button" onClick={logout}>
+                                Sign Out
+                            </button>
+                        </>
+                    )
+                    :
+                    <li className='nav-item login'>
+                        <Link to="/login">login</Link>
+                    </li>}
             </ul>
         </div>
     )

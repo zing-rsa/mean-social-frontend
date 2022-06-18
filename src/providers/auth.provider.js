@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { clearLocalUserInfo, getLocalUserInfo, setLocalUserInfo } from "../services/storage.service";
 import { mock_auth } from "../services/auth.service";
 import { mock_user } from "../services/user.service";
+import config from '../config'
+import axios from "axios";
 
 const AuthContext = createContext(null);
 
@@ -12,52 +14,72 @@ const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
 
     const { LocalToken } = getLocalUserInfo();
-
     const [token, setToken] = useState(LocalToken);
+
     const [user, setUser] = useState(null);
+
     const [authLoading, setAuthLoading] = useState(true);
     const [authenticated, setAuthenticated] = useState(false);
 
     useEffect(() => {
-        console.log('doing this')
-
         const fetchData = async (token) => {
-            const data = await mock_user(token);
-            setUser(data);
-            setAuthenticated(true);
-            setAuthLoading(false);
-            console.log('setting authenticated')
-        };
-
-        if (token) {
             try {
+
                 setAuthLoading(true);
-                fetchData(token);
+
+                const result = await axios({
+                    method: "GET",
+                    url: config.api_url + 'users/self',
+                    headers: config.headers(token)
+                });
+
+                setUser(result.data);
+                setAuthenticated(true);
+                setAuthLoading(false)
             } catch (e) {
-                console.log('err during auth')
+
                 clearLocalUserInfo();
                 setUser(null);
                 setToken(null);
                 setAuthenticated(false);
                 setAuthLoading(false);
             }
+        };
+
+        if (token) {
+            fetchData(token);
         } else {
             setAuthenticated(false);
             setAuthLoading(false);
         }
     }, [])
 
-    const handleLogin = async () => {
+    const handleLogin = async (email, pass) => {
         try {
             setAuthLoading(true);
-            const { token, ...user } = await mock_auth();
 
-            setToken(token);
+            const result = await axios({
+                method: "POST",
+                url: config.api_url + 'auth/login',
+                data: {
+                    email: email,
+                    pass: pass
+                }
+            });
+
+            const { token: newToken, ...user } = result.data;
+
+            setToken(newToken);
             setUser(user);
             setAuthenticated(true);
-            setLocalUserInfo(token);
+            setLocalUserInfo(newToken);
             setAuthLoading(false);
+
+            const origin = location.state?.from?.pathname || '/feed';
+            navigate(origin);
+
         } catch (e) {
+
             setAuthLoading(false);
             clearLocalUserInfo();
             setAuthenticated(false);
@@ -65,8 +87,6 @@ const AuthProvider = ({ children }) => {
             setToken(null);
         }
 
-        const origin = location.state?.from?.pathname || '/feed';
-        navigate(origin);
     };
 
     const handleLogout = () => {
@@ -81,8 +101,8 @@ const AuthProvider = ({ children }) => {
         user,
         authLoading,
         authenticated,
-        onLogin: handleLogin,
-        onLogout: handleLogout,
+        login: handleLogin,
+        logout: handleLogout,
     };
 
     return (
