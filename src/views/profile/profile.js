@@ -1,6 +1,5 @@
 import PostCompose from '../../components/post-composer/post-composer';
 import { useUserPosts } from '../../services/post.service'
-import { useFollows } from '../../services/follows.service'
 import { useUser } from '../../services/user.service'
 import avatar from '../../assets/profile-placeholder.png'
 import { useAuth } from "../../providers/auth.provider"
@@ -18,8 +17,6 @@ function Profile() {
     const { user: viewed_user, isLoading: userLoading, isError: userError, fetchUser } = useUser(viewed_user_id);
     const { posts: posts, isLoading: postsLoading, isError: postsError, fetchUserPosts } = useUserPosts(viewed_user_id);
 
-    const profileLoadError = userError || postsError;
-
     useEffect(() => {
         fetchUser();
         fetchUserPosts();
@@ -28,7 +25,7 @@ function Profile() {
     return (
         <div className='profile-container'>
 
-            {viewed_user && !profileLoadError &&
+            {viewed_user && !userError  && !userLoading &&
                 <>
                     <div className='profile-cover'>
                         {/* <img>  */}
@@ -51,30 +48,36 @@ function Profile() {
                             </div>
                         </div>
                     </div>
+
+                    {posts &&
+                        <div className='profile-posts-list'>
+
+                            {
+                                viewed_user._id == user._id && <PostCompose refresh={fetchUserPosts} />
+                            }
+
+                            {posts && posts.map((item, index) =>
+                                <Post key={item._id} {...item} />)}
+                        </div>
+                    }
+
+                    {postsLoading &&
+                        <Loader />
+                    }
+
+                    {postsError &&
+                        <div>
+                            Oops
+                        </div>
+                    }
                 </>
             }
 
-            {userLoading && !profileLoadError &&
+            {userLoading &&
                 <Loader />
             }
 
-            {posts && !profileLoadError &&
-                <div className='profile-posts-list'>
-
-                    {
-                        viewed_user._id == user._id && <PostCompose refresh={fetchUserPosts} />
-                    }
-
-                    {posts && posts.map((item, index) =>
-                        <Post key={item._id} {...item} />)}
-                </div>
-            }
-
-            {postsLoading && !profileLoadError &&
-                <Loader />
-            }
-
-            {profileLoadError &&
+            {userError && !userLoading &&
                 <div>
                     Oops
                 </div>

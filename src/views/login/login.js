@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from "../../providers/auth.provider";
 
-function Login() {
+function Login(props) {
 
     const { login } = useAuth();
+    const { state } = useLocation();
+    const { remark } = state || '';
 
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
@@ -24,7 +26,9 @@ function Login() {
 
     return (
         <>
-
+            { remark &&
+                <span>{remark}</span>
+            }
             <form >
                 <label>
                     <p>Email:</p>

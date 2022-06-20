@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useLocation, Outlet } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation, Outlet, useParams } from 'react-router-dom';
 import { Feed, Login, Signup, Profile } from './views'
 import { useAuth } from './providers/auth.provider'
 import Loader from './components/loader/loader';
@@ -9,16 +9,18 @@ function RouteHandler() {
             <Route index element={<Navigate replace to="/feed" />} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Signup />} />
-            <Route path='/feed' element={
+            {/* <Route path='/feed' element={
                 <ProtectedRoute>
                     <Feed />
                 </ProtectedRoute>} 
-            />
+            /> */}
             <Route path='/profile/:id' element={
-                <ProtectedRoute>
-                    <Profile />
-                </ProtectedRoute>} 
-            />
+                <ProtectedRoute component={(props) => <Profile {...props} key={props.id}/>} />
+            } />
+                
+            <Route path='/feed' element={
+                <ProtectedRoute component={(props) => <Feed {...props}/>} />
+            } />
 
             {/* <Route path='/admin' element={
                 <AdminRoute>
@@ -31,20 +33,36 @@ function RouteHandler() {
     );
 }
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({component, ...rest}) => {
     const { authenticated, authLoading } = useAuth();
-    const location = useLocation();
+    const { id } = useParams();
 
     if (authLoading){
         return <Loader />
     }
 
     if (!authenticated) {
-        return <Navigate to="/login" replace state={{from: location }}/>;
+        let remark = 'Please log in to continue...'
+        return <Navigate to="/login" replace state={{ remark }}/>;
     }
 
-    return children ? children : <Outlet />;
+    return component({ ...rest, id });
 };
+
+// const ProtectedRoute = ({ children }) => {
+//     const { authenticated, authLoading } = useAuth();
+//     const location = useLocation();
+
+//     if (authLoading){
+//         return <Loader />
+//     }
+
+//     if (!authenticated) {
+//         return <Navigate to="/login" replace state={{from: location }}/>;
+//     }
+
+//     return children ? children : <Outlet />;
+// };
 
 const AdminRoute = ({ children }) => {
     const { token } = useAuth();
