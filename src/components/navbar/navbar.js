@@ -19,7 +19,7 @@ function Navbar() {
                         <>
                             <li className='nav-item end profile'>
                                 <div className='username'>
-                                    <Link to="/profile">
+                                    <Link to={`/profile/${user._id}`}>
                                         {user.name}
                                     </Link>
                                 </div>

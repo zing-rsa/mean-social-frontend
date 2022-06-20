@@ -1,8 +1,10 @@
 import { usePostComments } from '../../services/comment.service'
 import CommentCompose from '../comment-composer/comment-composer';
 import Comment from '../comment/comment'
+import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import './post.css'
+import Loader from '../loader/loader';
 
 function Post(props) {
 
@@ -17,7 +19,7 @@ function Post(props) {
             <div className='post'>
                 <div className='post-details'>
                     <div className='post-author'>
-                        <span>{props.owner.name}&nbsp;{props.owner.surname}</span>
+                        <Link to={`/profile/${props.owner._id}`}>{props.owner.name}&nbsp;{props.owner.surname}</Link>
                     </div>
                     <div className='post-meta'>
                         <span>{props.timestamp}</span>
@@ -28,9 +30,17 @@ function Post(props) {
                 </div>
             </div>
             <CommentCompose parent={props._id} refresh={fetchComments} />
-            {comments &&
+            {comments && !isError &&
                 comments.map((item, index) =>
                     <Comment key={item._id} {...item} />)
+            }
+            {isLoading && !isError &&
+                <Loader />
+            }
+            {isError &&
+                <div>
+                    Oops
+                </div>
             }
         </div>
 

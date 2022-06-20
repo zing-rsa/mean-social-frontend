@@ -11,6 +11,7 @@ const useFeedPosts = () => {
   const [isError, setIsError] = useState(false);
 
   const fetchPosts = useCallback(async () => {
+    setIsError(false);
     setIsLoading(true);
     try {
       const result = await axios({
@@ -38,6 +39,8 @@ const useUserPosts = (user_id) => {
   const [isError, setIsError] = useState(false);
 
   const fetchUserPosts = useCallback(async () => {
+    setIsError(false);
+    setIsLoading(true);
     try {
       const result = await axios({
         method: 'GET',

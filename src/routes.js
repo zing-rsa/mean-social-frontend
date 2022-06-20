@@ -14,7 +14,7 @@ function RouteHandler() {
                     <Feed />
                 </ProtectedRoute>} 
             />
-            <Route path='/profile' element={
+            <Route path='/profile/:id' element={
                 <ProtectedRoute>
                     <Profile />
                 </ProtectedRoute>} 
