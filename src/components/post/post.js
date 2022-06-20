@@ -6,9 +6,6 @@ import './post.css'
 
 function Post(props) {
 
-    // think about lazy loading 
-    // comments per post rendered to the screen 
-
     const { comments, isLoading, isError, fetchComments } = usePostComments(props._id);
 
     useEffect(() => {

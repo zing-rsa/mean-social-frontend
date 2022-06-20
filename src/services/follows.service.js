@@ -1,26 +1,25 @@
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../providers/auth.provider';
-import { useState, useCallback } from 'react';
 import config from '../config'
 import axios from 'axios'
 
-const usePostComments = (parent) => { 
+const useFollows = (user_id) => {
   const { token } = useAuth();
 
-  const [comments, setComments] = useState(null);
+  const [follows, setFollows] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  const fetchComments = useCallback(async () => {
+  const fetchFollows = useCallback(async () => {
     setIsLoading(true);
-    
     try {
       const result = await axios({
         method: 'GET',
-        url: config.api_url + `posts/${parent}/comments`,
+        url: config.api_url + `users/${user_id}/follows`,
         headers: config.headers(token)
       })
 
-      setComments(result.data);
+      setFollows(result.data);
       setIsLoading(false);
     } catch (e) {
       setIsError(true);
@@ -28,7 +27,7 @@ const usePostComments = (parent) => {
     }
   }, [token]);
 
-  return { comments, isLoading, isError, fetchComments };
+  return { follows, isLoading, isError, fetchFollows };
 }
 
-export { usePostComments };
+export { useFollows };

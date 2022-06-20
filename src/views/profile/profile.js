@@ -1,7 +1,9 @@
 import PostCompose from '../../components/post-composer/post-composer';
 import { useUserPosts } from '../../services/post.service'
+import { useFollows } from '../../services/follows.service'
 import avatar from '../../assets/profile-placeholder.png'
 import { useAuth } from "../../providers/auth.provider"
+import Follows from '../../components/follows/follows'
 import Loader from '../../components/loader/loader';
 import Post from '../../components/post/post';
 import { useEffect } from "react";
@@ -29,12 +31,8 @@ function Profile() {
                     <div className='profile-details-name'>
                         <span>{`${user.name} ${user.surname}`}</span>
                     </div>
-                    <div className='profile-details-followers'>
-                        <div className='follow-display'>{'103 Followers'}</div>
-                        <div className='follow-display'>{'Following 1003'}</div>
-                    </div>
-                    <div className='follow-button'>
-                        <button>Follow</button>
+                    <div className='follower-container'>
+                        <Follows _id={user._id} />
                     </div>
                 </div>
                 <div className='profile-details-footer'>

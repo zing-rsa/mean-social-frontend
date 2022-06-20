@@ -41,7 +41,7 @@ const useUserPosts = (user_id) => {
     try {
       const result = await axios({
         method: 'GET',
-        url: config.api_url + `posts/${user_id}`,
+        url: config.api_url + `users/${user_id}/posts`,
         headers: config.headers(token)
       })
 
