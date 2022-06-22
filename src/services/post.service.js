@@ -14,13 +14,13 @@ const useFeedPosts = () => {
     setIsError(false);
     setIsLoading(true);
     try {
-      const result = await axios({
+      const res = await axios({
         method: 'GET',
         url: config.api_url + 'posts',
         headers: config.headers(token)
       })
 
-      setPosts(result.data);
+      setPosts(res.data);
       setIsLoading(false);
     } catch (e) {
       setIsError(true);
@@ -42,13 +42,13 @@ const useUserPosts = (user_id) => {
     setIsError(false);
     setIsLoading(true);
     try {
-      const result = await axios({
+      const res = await axios({
         method: 'GET',
         url: config.api_url + `users/${user_id}/posts`,
         headers: config.headers(token)
       })
 
-      setPosts(result.data);
+      setPosts(res.data);
       setIsLoading(false);
     } catch (e) {
       setIsError(true);

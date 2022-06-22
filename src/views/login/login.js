@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from "../../providers/auth.provider";
 
@@ -8,20 +7,10 @@ function Login(props) {
     const { state } = useLocation();
     const { remark } = state || '';
 
-    const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value)
-    }
-
-    const handlePassChange = (e) => {
-        setPass(e.target.value)
-    }
-
-    const onLogin = () => {
-        console.log(email, pass);
-        login(email, pass);
+        login(e.target.email.value, e.target.pass.value);
     }
 
     return (
@@ -29,17 +18,17 @@ function Login(props) {
             { remark &&
                 <span>{remark}</span>
             }
-            <form >
+            <form onSubmit={handleSubmit}>
                 <label>
                     <p>Email:</p>
-                    <input type="text" onChange={handleEmailChange} />
+                    <input type="text" name="email" />
                 </label>
                 <label>
                     <p>Password</p>
-                    <input type="password" onChange={handlePassChange} />
+                    <input type="password" name="pass" />
                 </label>
                 <div>
-                    <button type="button" onClick={onLogin}>Submit</button>
+                    <button type="submit">Login</button>
                 </div>
             </form>
             <div>

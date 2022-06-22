@@ -13,19 +13,19 @@ const useFollows = (user_id) => {
   const fetchFollows = useCallback(async () => {
     setIsLoading(true);
     try {
-      const result = await axios({
+      const res = await axios({
         method: 'GET',
         url: config.api_url + `users/${user_id}/follows`,
         headers: config.headers(token)
       })
 
-      setFollows(result.data);
+      setFollows(res.data);
       setIsLoading(false);
     } catch (e) {
       setIsError(true);
       setIsLoading(false);
     }
-  }, [token]);
+  }, [token, user_id]);
 
   return { follows, isLoading, isError, fetchFollows };
 }

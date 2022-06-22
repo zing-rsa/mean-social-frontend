@@ -15,13 +15,13 @@ const useUser = (user_id) => {
     setIsError(false);
     setIsLoading(true);
     try {
-      const result = await axios({
+      const res = await axios({
         method: "GET",
         url: config.api_url + 'users/' + user_id,
         headers: config.headers(token)
       });
 
-      setUser(result.data);
+      setUser(res.data);
       setIsLoading(false);
     } catch (e) {
       setIsError(true);

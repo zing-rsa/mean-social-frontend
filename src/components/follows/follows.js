@@ -18,7 +18,7 @@ function Follows(props) {
 
     const follow = async () => {
         try {
-            const result = await axios({
+            const res = await axios({
                 method: 'POST',
                 url: config.api_url + 'follows/follow',
                 headers: config.headers(token),
@@ -38,7 +38,7 @@ function Follows(props) {
 
     const unfollow = async () => {
         try {
-            const result = await axios({
+            const res = await axios({
                 method: 'POST',
                 url: config.api_url + 'follows/unfollow',
                 headers: config.headers(token),
@@ -59,7 +59,6 @@ function Follows(props) {
         <>
             {
                 follows ?
-
                     <div className='follows'>
                         <div className='follow-display'>{follows.followerCount + ' Followers'}</div>
                         <div className='follow-display'>{follows.followingCount + ' Following'}</div>

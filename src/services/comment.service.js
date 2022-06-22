@@ -14,13 +14,13 @@ const usePostComments = (parent) => {
     setIsLoading(true);
     
     try {
-      const result = await axios({
+      const res = await axios({
         method: 'GET',
         url: config.api_url + `posts/${parent}/comments`,
         headers: config.headers(token)
       })
 
-      setComments(result.data);
+      setComments(res.data);
       setIsLoading(false);
     } catch (e) {
       setIsError(true);
