@@ -1,0 +1,27 @@
+
+.user-row {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    background-color: purple;
+}
+
+.user-img {
+    width: 50px;
+    background-color: green;
+}
+
+.user-avatar {
+    width: 50px;
+    height:50px;
+}
+
+.user-name {
+    line-height: 50px;
+}
+
+.user-del {
+    width:50px;
+    margin-left: auto;
+}

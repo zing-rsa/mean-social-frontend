@@ -1,12 +1,6 @@
-import { usePostComments } from '../../services/comment.service'
-import CommentCompose from '../comment-composer/comment-composer';
-import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
-import Loader from '../loader/loader';
 import { useAuth } from '../../providers/auth.provider';
 import axios from 'axios';
 import config from '../../config';
-
 
 import './comment.css'
 

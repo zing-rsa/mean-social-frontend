@@ -1,0 +1,19 @@
+.users-container {
+    width: 80vw;
+    height: calc(100vh - 100px);
+    margin: auto;
+    background-color: red;
+}
+
+.users-list {
+    width: 600px;
+    margin: auto;
+    height: 100%;
+    background-color: yellow;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.header {
+    margin: 0px;
+}
