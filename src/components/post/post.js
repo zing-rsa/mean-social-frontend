@@ -37,11 +37,7 @@ function Post(props) {
             console.log(e);
         }
     }
-
-    const handleDelete = () => {
-        deletePost();
-    }
-
+    
     return (
         <div className='post-container'>
             <div className='post'>
@@ -53,7 +49,7 @@ function Post(props) {
                         <span>{props.timestamp}</span>
                     </div>
                     {isAdmin &&
-                        <button onClick={handleDelete}>Delete</button>
+                        <button onClick={deletePost}>Delete</button>
                     }
                 </div>
                 <div className='post-body'>
@@ -63,7 +59,7 @@ function Post(props) {
             <CommentCompose parent={props._id} refresh={fetchComments} />
             {comments && !isError &&
                 comments.map((item, index) =>
-                    <Comment key={item._id} {...item} />)
+                    <Comment key={item._id} refresh={fetchComments} {...item} />)
             }
             {isLoading && !isError &&
                 <Loader />
