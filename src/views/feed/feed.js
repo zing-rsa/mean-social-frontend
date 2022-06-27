@@ -21,7 +21,7 @@ function Feed() {
                     <PostCompose refresh={fetchPosts} />
                     {posts && 
                         posts.map((item, index) =>
-                            <Post key={item._id} {...item} /> 
+                            <Post key={item._id} refresh={fetchPosts} {...item}  /> 
                         )
                     }
                 </div>

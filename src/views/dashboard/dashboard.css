@@ -1,0 +1,33 @@
+.dash-container {
+    width: 80vw;
+    height: calc(100vh - 100px);
+    margin:auto;
+    background-color:orange;
+}
+
+.dash-header {
+    height:200px;
+    width:100%;
+    margin: auto;
+    margin-top:50px;
+    display: inline-block;
+    background-color: red;
+}
+
+.dash-body {
+    height: calc(100% - 50px - 40px - 200px);
+    width:100%;
+    margin: 20px auto;
+    background-color: red;
+}
+
+.dash-posts-list {
+    width: 600px;
+    margin:auto;
+    height: 100%;
+    background-color: yellow;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+

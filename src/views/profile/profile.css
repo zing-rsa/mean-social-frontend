@@ -64,15 +64,6 @@
 .profile-posts-list {
     width: 600px;
     margin:auto;
-    height:100%;
-    background-color: yellow;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
-.profile-posts-list {
-    width: 600px;
-    margin:auto;
     height: calc(100% - 400px);
     background-color: yellow;
     overflow-y: scroll;

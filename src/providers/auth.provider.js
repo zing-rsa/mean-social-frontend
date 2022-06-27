@@ -15,6 +15,7 @@ const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(LocalToken);
 
     const [user, setUser] = useState(null);
+    const [isAdmin, setIsAdmin ] = useState(false);
 
     const [authLoading, setAuthLoading] = useState(true);
     const [authenticated, setAuthenticated] = useState(false);
@@ -25,19 +26,26 @@ const AuthProvider = ({ children }) => {
 
                 setAuthLoading(true);
 
-                const result = await axios({
+                const res = await axios({
                     method: "GET",
                     url: config.api_url + 'users/self',
                     headers: config.headers(token)
                 });
 
-                setUser(result.data);
+                setUser(res.data);
                 setAuthenticated(true);
                 setAuthLoading(false)
+
+                if (res.data.roles.includes('admin')){
+                    setIsAdmin(true);
+                } else {
+                    setIsAdmin(false);
+                }
             } catch (e) {
 
                 clearLocalUserInfo();
                 setUser(null);
+                setIsAdmin(false);
                 setToken(null);
                 setAuthenticated(false);
                 setAuthLoading(false);
@@ -56,7 +64,7 @@ const AuthProvider = ({ children }) => {
         try {
             setAuthLoading(true);
 
-            const result = await axios({
+            const res = await axios({
                 method: "POST",
                 url: config.api_url + 'auth/login',
                 data: {
@@ -65,10 +73,16 @@ const AuthProvider = ({ children }) => {
                 }
             });
 
-            const { token: newToken, ...user } = result.data;
+            console.log('loggin in')
+            const { token: newToken, ...user } = res.data;
 
             setToken(newToken);
             setUser(user);
+
+            if (user.roles.includes('admin')){
+                setIsAdmin(true);
+            }
+
             setAuthenticated(true);
             setLocalUserInfo(newToken);
             setAuthLoading(false);
@@ -77,7 +91,7 @@ const AuthProvider = ({ children }) => {
             navigate(origin);
 
         } catch (e) {
-
+            console.log(e); 
             setAuthLoading(false);
             clearLocalUserInfo();
             setAuthenticated(false);
@@ -92,11 +106,13 @@ const AuthProvider = ({ children }) => {
         setAuthenticated(false);
         setToken(null);
         setUser(null);
+        setIsAdmin(false)
     };
 
     const value = {
         token,
         user,
+        isAdmin,
         authLoading,
         authenticated,
         login: handleLogin,

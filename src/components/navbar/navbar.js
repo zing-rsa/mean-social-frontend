@@ -5,7 +5,7 @@ import './navbar.css'
 
 function Navbar() {
 
-    const { logout, authenticated, user } = useAuth();
+    const { logout, authenticated, user, isAdmin } = useAuth();
 
     return (
         <div className='navbar'>
@@ -13,6 +13,17 @@ function Navbar() {
                 <li className='nav-item'>
                     <Link to="/feed">Feed</Link>
                 </li>
+
+                {isAdmin &&
+                    <>
+                        <li className='nav-item'>
+                            <Link to="/admin/dashboard">Dash</Link>
+                        </li>
+                        <li className='nav-item'>
+                            <Link to="/admin/users">Users</Link>
+                        </li>
+                    </>
+                }
 
                 {authenticated ?
                     (
