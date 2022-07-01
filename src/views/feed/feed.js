@@ -3,6 +3,7 @@ import { useFeedPosts } from "../../services/post.service";
 import Loader from "../../components/loader/loader";
 import { useEffect } from "react";
 import Post from '../../components/post/post'
+import Error from "../../components/error/error";
 import './feed.css'
 
 function Feed() {
@@ -32,9 +33,7 @@ function Feed() {
             }
 
             {isError && !isLoading &&
-                <div>
-                    Oops
-                </div>
+                <Error />
             }
         </div>
     )

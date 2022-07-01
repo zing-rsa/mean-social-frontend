@@ -15,7 +15,7 @@ function Login(props) {
 
     return (
         <>
-            { remark &&
+            {remark &&
                 <span>{remark}</span>
             }
             <form onSubmit={handleSubmit}>

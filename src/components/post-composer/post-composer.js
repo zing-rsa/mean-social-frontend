@@ -7,9 +7,8 @@ import axios from 'axios';
 function PostCompose({ refresh }) {
 
     const { token } = useAuth();
-    const [text, setText] = useState('');
 
-    const createPost = async () => {
+    const createPost = async (text) => {
         try {
             await axios({
                 method: "POST",
@@ -20,7 +19,7 @@ function PostCompose({ refresh }) {
                 }
             })
 
-            if (refresh){
+            if (refresh) {
                 refresh();
             }
 
@@ -29,16 +28,22 @@ function PostCompose({ refresh }) {
         }
     }
 
-    const handleTextChange = (e) => {
-        setText(e.target.value);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        createPost(e.target.post.value);
+
+        e.target.reset();
     }
 
     return (
         <div className='post-compose'>
-            <textarea className='compose-body' placeholder='Post something...' onChange={handleTextChange} />
-            <div className='compose-operations'>
-                <button onClick={createPost} className='submit-post'>Post</button>
-            </div>
+            <form onSubmit={handleSubmit}>
+                <input type='text' name='post' className='compose-body' placeholder='Post something...' />
+                <div className='compose-operations'>
+                    <button className='submit-post'>Post</button>
+                </div>
+            </form>
         </div>
     )
 }

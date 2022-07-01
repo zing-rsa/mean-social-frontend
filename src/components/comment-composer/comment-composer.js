@@ -4,12 +4,11 @@ import axios from 'axios'
 import config from '../../config'
 import './comment-composer.css'
 
-function CommentCompose({parent, refresh}) {
+function CommentCompose({ parent, refresh }) {
 
     const { token } = useAuth();
-    const [text, setText] = useState('');
 
-    const createComment = async () => {
+    const createComment = async (text) => {
         try {
             await axios({
                 method: "POST",
@@ -21,7 +20,7 @@ function CommentCompose({parent, refresh}) {
                 }
             })
 
-            if (refresh){
+            if (refresh) {
                 refresh();
             }
 
@@ -30,15 +29,20 @@ function CommentCompose({parent, refresh}) {
         }
     }
 
-    const handleTextChange = (e) => {
-        setText(e.target.value);
-    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
+        createComment(e.target.comment.value);
+
+        e.target.reset();
+    }
 
     return (
         <div className='comment-composer'>
-            <textarea className='comment-composer-body' placeholder="reply..." onChange={handleTextChange}></textarea>
-            <button className='submit-comment' onClick={createComment}>Reply</button>
+            <form onSubmit={handleSubmit}>
+                <input type='text' name='comment' className='comment-composer-body' placeholder="reply..."></input>
+                <button className='submit-comment'>Reply</button>
+            </form>
         </div>
     )
 }

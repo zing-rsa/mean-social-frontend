@@ -21,10 +21,14 @@
     background-color: red;
 }
 
+.dash-body-header {
+    height:30px;
+}
+
 .dash-posts-list {
     width: 600px;
     margin:auto;
-    height: 100%;
+    height: calc(100% - 30px);   
     background-color: yellow;
     overflow-y: scroll;
     overflow-x: hidden;

@@ -3,6 +3,7 @@ import { useFeedPosts } from '../../services/post.service';
 import { useEffect } from 'react';
 import Post from '../../components/post/post';
 import Loader from '../../components/loader/loader';
+import Error from '../../components/error/error';
 
 function Dashboard() {
 
@@ -23,8 +24,9 @@ function Dashboard() {
                 <div><span>Posts per user: 1</span></div>
             </div>
             <div className='dash-body'>
-
-                <h2>Latest activity:</h2>
+                <div className='dash-body-header'>
+                    <h2>Latest activity:</h2>
+                </div>
 
                 {posts &&
                     <div className='dash-posts-list'>
@@ -43,9 +45,7 @@ function Dashboard() {
                 }
 
                 {postsError &&
-                    <div>
-                        Oops
-                    </div>
+                    <Error />
                 }
 
 

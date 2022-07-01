@@ -1,5 +1,6 @@
-import { Routes, Route, Navigate, useLocation, Outlet, useParams } from 'react-router-dom';
+import { Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { Feed, Login, Signup, Profile, Dashboard, Users } from './views'
+import NotFound from './views/notfound/notfound';
 import { useAuth } from './providers/auth.provider'
 import NoAuth from './views/unauthorized/unauthorized';
 import Loader from './components/loader/loader';
@@ -30,18 +31,8 @@ function RouteHandler() {
                     <AdminRoute component={(props) => <Users {...props} />}/> }
                 />
             </Route>
-
-
-            {/* 
-            <Route path='/admin' element={
-                <ProtectedRoute component={(props) =>    
-                    <AdminRoute>
-                        <Route path='dashboard' element={<Dashboard {...props}/> }/>
-                        <Route path='users'     element={<Users     {...props}/> }/>
-                    </AdminRoute>
-                } />
-            } /> */}
-            <Route path="*" element={<p>There's nothing here: 404!</p>} />
+            
+            <Route path="*" element={<NotFound />} />
         </Routes>
     );
 }

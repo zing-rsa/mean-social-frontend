@@ -8,6 +8,7 @@ import Loader from '../../components/loader/loader';
 import Post from '../../components/post/post';
 import { useEffect } from "react";
 import { useParams } from 'react-router-dom'
+import Error from '../../components/error/error';
 import './profile.css'
 
 function Profile() {
@@ -66,9 +67,7 @@ function Profile() {
                     }
 
                     {postsError &&
-                        <div>
-                            Oops
-                        </div>
+                        <Error />
                     }
                 </>
             }

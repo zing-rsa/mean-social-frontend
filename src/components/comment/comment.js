@@ -6,7 +6,7 @@ import './comment.css'
 
 function Comment(props) {
 
-    const {token} = useAuth();
+    const { token, isAdmin } = useAuth();
 
     const deleteComment = async () => {
         try {
@@ -36,7 +36,9 @@ function Comment(props) {
             </div>
             <div className='comment-body'>
                 <span>{props.text}</span>
-                <button onClick={deleteComment} >Delete</button>
+                {isAdmin &&
+                    <button onClick={deleteComment} >Delete</button>
+                }
             </div>
         </div>
     )

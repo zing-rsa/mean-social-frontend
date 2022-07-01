@@ -1,9 +1,12 @@
 .comment-composer {
     width: 95%;
     margin-left:5%;
+    background-color:brown;
+}
+
+.comment-composer form {
     display: flex;
     flex-direction: row;
-    background-color:brown;
 }
 
 .comment-composer-body {

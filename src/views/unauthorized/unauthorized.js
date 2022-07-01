@@ -1,6 +1,8 @@
-function NoAuth(props) {
+import './unauthorized.css'
+
+function NoAuth() {
     return (
-        <div>
+        <div className='noauth'>
             You are not authorized to view this content..
         </div>
     )
