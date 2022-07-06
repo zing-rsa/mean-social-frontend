@@ -1,0 +1,44 @@
+refresh token and access token architecture:
+
+1. user logs in, gets new refresh and access tokens
+2. client stores refresh token inside http-only cookie, mapped only to auth/refresh path. 
+3. client stores access token inside http-only cookie
+4. if 401 on any request - call refresh token - recall request
+5. 
+
+
+new user
+ - no auth in cookies
+1. Try to load user /self endpoint(returns user that lives inside access token)
+2a. fails with 401, try refresh
+  2i. refresh returns 200, token
+     - set token, try to load user(/self) again
+  2ii. refresh fails with 401
+     - route to login
+2b. succeeds, proceed to calling all other endpoint
+
+
+existing user
+ - auth exists inside cookies
+ 1. Try to load user /self endpoint
+ 2a. succeeds, proceed with other calls
+ 2b. fails
+    - try refresh
+      - succeeds, recall /self
+      - fails, route to login. 
+
+
+logged in user:
+- auth exists inside cookie but expires
+1. call endpoint
+2. receive 401
+3. attempt refresh: post to /refresh
+ 3a. new access token received, retry previous request
+ 3b. fails, user must re-auth at login 
+
+
+store both tokens inside http-only:
+ access-token - http-only
+ refresh-token - http-only, path=/refresh
+
+requests still post cookies - still vuln to csrf
