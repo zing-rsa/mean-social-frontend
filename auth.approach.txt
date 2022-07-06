@@ -4,7 +4,6 @@ refresh token and access token architecture:
 2. client stores refresh token inside http-only cookie, mapped only to auth/refresh path. 
 3. client stores access token inside http-only cookie
 4. if 401 on any request - call refresh token - recall request
-5. 
 
 
 new user
@@ -39,6 +38,26 @@ logged in user:
 
 store both tokens inside http-only:
  access-token - http-only
- refresh-token - http-only, path=/refresh
+ refresh-token - http-only, path=/refresh, exp(for now it will be a session cookie[user logs in each time], in future I can persist this)
 
 requests still post cookies - still vuln to csrf
+
+
+
+CSRF prevention:
+
+generate csrf token with:
+require('crypto').randomBytes(16, function(err, buffer) {
+  var token = buffer.toString('hex');
+});
+
+server creates a csrf token with each new user
+ - stores in db
+
+- /self(first request made by frontend) returns a csrf token in the payload
+1. set csrf token in the client side user(var in memory)
+2. add csrf token with all requests(if exists, which it should if user is logged in) etc inside custom headers
+
+- create server middleware 
+runs after user middleware, compares csrf token in request vs the one stored on the user. 
+
