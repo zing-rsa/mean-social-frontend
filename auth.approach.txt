@@ -1,9 +1,35 @@
-refresh token and access token architecture:
+latest refresh token and access token architecture:
+-----------------------------------------------------------------------------------------------
+
+access token: stored in memory, and expires in 15 min
+refresh token: stored in http-only, expires in 7 days
+
+user signs up
+ - assigned refresh token, stored in http-only mapped to refresh endpoint
+ - assigned access token, stored in memory
+ - client makes next request to pull data to show first page. 
+user makes new request 
+ - access token is sent with each request, in a headers
+user logs in 
+ - new refresh token
+ - new access token
+ - makes first request for paint
+user makes request with expired access token
+ - 401 received, client calls /refresh
+    two outcomes: 
+      -- 200 OK: sets new access token, recalls request
+      -- 401 Unauthed means refresh is expired, user needs to reauthenticate, log user out. 
+
+-----------------------------------------------------------------------------------------------
+
+
+
+Old:
 
 1. user logs in, gets new refresh and access tokens
-2. client stores refresh token inside http-only cookie, mapped only to auth/refresh path. 
-3. client stores access token inside http-only cookie
-4. if 401 on any request - call refresh token - recall request
+2. client stores refresh token inside http-only cookie, mapped only to auth/refresh path.
+3. client stores access token inside memory
+4. if 401 on any request - call refresh token, set new access token - recall request
 
 
 new user
