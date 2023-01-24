@@ -19,7 +19,7 @@ function CommentCompose({ parent, refresh }) {
             })
 
             if (refresh) {
-                refresh();
+                refresh(parent);
             }
 
         } catch (e) {

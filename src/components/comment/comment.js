@@ -21,7 +21,7 @@ function Comment(props) {
             });
 
             if (props.refresh) {
-                props.refresh();
+                props.refresh(props.parent);
             }
         } catch (e) {
             console.log(e);

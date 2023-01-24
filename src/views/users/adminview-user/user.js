@@ -8,8 +8,6 @@ import { getToken } from '../../../services/storage.service';
 
 function AdminView_User(props) {
 
-    // const { token } = useAuth();
-
     const deleteUser = async () => {
         try {
             const res = await axios({
