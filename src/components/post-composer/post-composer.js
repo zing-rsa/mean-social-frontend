@@ -4,7 +4,7 @@ import config from '../../config'
 import './post-composer.css'
 
 
-function PostCompose({ refresh }) {
+function PostCompose({ refresh, user_id}) {
 
     const createPost = async (text) => {
         try {
@@ -18,7 +18,7 @@ function PostCompose({ refresh }) {
             })
 
             if (refresh) {
-                refresh();
+                refresh(user_id);
             }
 
         } catch (e) {

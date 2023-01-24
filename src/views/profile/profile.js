@@ -58,7 +58,7 @@ function Profile() {
                         <div className='profile-posts-list'>
 
                             {
-                                viewed_user._id === user._id && <PostCompose refresh={fetchUserPosts} />
+                                viewed_user._id === user._id && <PostCompose refresh={fetchUserPosts} user_id={user._id} />
                             }
 
                             {posts && posts.map((item, index) =>
