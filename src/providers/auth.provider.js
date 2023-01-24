@@ -1,8 +1,9 @@
-import { clearLocalUserInfo, getLocalUserInfo, setLocalUserInfo } from "../services/storage.service";
-import { useState, createContext, useContext, useEffect } from "react";
+import { useState, createContext, useContext, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import api from '../services/axios.service';
 import config from '../config'
-import axios from "axios";
+import axios from 'axios'
+
 
 const AuthContext = createContext(null);
 
@@ -11,53 +12,47 @@ const AuthProvider = ({ children }) => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const { LocalToken } = getLocalUserInfo();
-    const [token, setToken] = useState(LocalToken);
+    const [token, setToken] = useState(null);
 
     const [user, setUser] = useState(null);
-    const [isAdmin, setIsAdmin ] = useState(false);
 
     const [authLoading, setAuthLoading] = useState(true);
     const [authenticated, setAuthenticated] = useState(false);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
+    const fetchUser = useCallback(async (new_token = null) => {
+        try {
 
-                setAuthLoading(true);
+            setAuthLoading(true);
 
-                const res = await axios({
-                    method: "GET",
-                    url: config.api_url + 'users/self',
-                    headers: config.headers(token)
-                });
+            const res = await api({
+                method: "GET",
+                url: 'users/self',
+                headers: config.headers(new_token ? new_token : token)
+            });
 
-                setUser(res.data);
-                setAuthenticated(true);
-                setAuthLoading(false)
-
-                if (res.data.roles.includes('admin')){
-                    setIsAdmin(true);
-                } else {
-                    setIsAdmin(false);
-                }
-            } catch (e) {
-
-                clearLocalUserInfo();
-                setUser(null);
-                setIsAdmin(false);
-                setToken(null);
-                setAuthenticated(false);
-                setAuthLoading(false);
+            if (res.refreshed_token) {
+                setToken(res.refreshed_token)
+            } else if (new_token) {
+                setToken(new_token);
             }
-        };
 
-        if (token) {
-            fetchData();
-        } else {
+            setUser({
+                ...res.data,
+                isAdmin: false} // hardcode for now
+                );
+
+            setAuthenticated(true);
+
+        } catch (e) {
+            setUser(null);
+            setToken(null);
             setAuthenticated(false);
-            setAuthLoading(false);
         }
+        setAuthLoading(false);
+    })
+
+    useEffect(() => {
+        fetchUser();
     }, [])
 
     const handleLogin = async (email, pass) => {
@@ -67,52 +62,36 @@ const AuthProvider = ({ children }) => {
             const res = await axios({
                 method: "POST",
                 url: config.api_url + 'auth/login',
+                withCredentials: true,
                 data: {
                     email: email,
                     pass: pass
                 }
             });
 
-            console.log('loggin in')
-            const { token: newToken, ...user } = res.data;
-
-            setToken(newToken);
-            setUser(user);
-
-            if (user.roles.includes('admin')){
-                setIsAdmin(true);
-            }
-
-            setAuthenticated(true);
-            setLocalUserInfo(newToken);
-            setAuthLoading(false);
+            fetchUser(res.data.access_token);
 
             const origin = location.state?.from?.pathname || '/feed';
             navigate(origin);
 
         } catch (e) {
             console.log(e); 
-            setAuthLoading(false);
-            clearLocalUserInfo();
             setAuthenticated(false);
             setUser(null);
             setToken(null);
         }
-
     };
 
     const handleLogout = () => {
-        clearLocalUserInfo();
         setAuthenticated(false);
         setToken(null);
         setUser(null);
-        setIsAdmin(false)
     };
 
     const value = {
         token,
+        setToken,
         user,
-        isAdmin,
         authLoading,
         authenticated,
         login: handleLogin,

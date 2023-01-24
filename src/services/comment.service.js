@@ -1,10 +1,11 @@
 import { useAuth } from '../providers/auth.provider';
 import { useState, useCallback } from 'react';
 import config from '../config'
-import axios from 'axios'
+import axiosConfig from '../services/axios.service';
+
 
 const usePostComments = (parent) => { 
-  const { token } = useAuth();
+  const { token, setToken } = useAuth();
 
   const [comments, setComments] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -14,13 +15,16 @@ const usePostComments = (parent) => {
     setIsLoading(true);
     
     try {
-      const res = await axios({
+      const res = await axiosConfig({
         method: 'GET',
-        url: config.api_url + `posts/${parent}/comments`,
+        url: `posts/${parent}/comments`,
         headers: config.headers(token)
       })
 
+      if (res.refreshed_token) setToken(res.refreshed_token)
+      
       setComments(res.data);
+
       setIsLoading(false);
     } catch (e) {
       setIsError(true);

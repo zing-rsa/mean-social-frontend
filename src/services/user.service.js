@@ -1,27 +1,62 @@
 import { useCallback, useState } from "react";
 import { useAuth } from "../providers/auth.provider";
+import axiosConfig from '../services/axios.service';
 import config from "../config";
-import axios from "axios";
 
-const useUser = (user_id) => {
+const useProfile = (user_id) => {
 
-  const { token } = useAuth();
+  const { token, setToken } = useAuth();
 
-  const [user, setUser ] = useState(null);
+  const [profile, setProfile ] = useState(null);
   const [isLoading, setIsLoading ] = useState(true);
   const [isError, setIsError ] = useState(false);
 
-  const fetchUser = useCallback(async () => {
+  const fetchProfile = useCallback(async () => {
     setIsError(false);
     setIsLoading(true);
     try {
-      const res = await axios({
+      const res = await axiosConfig({
         method: "GET",
-        url: config.api_url + 'users/' + user_id,
+        url: 'users/' + user_id,
         headers: config.headers(token)
       });
 
-      setUser(res.data);
+      if (res.refreshed_token) setToken(res.refreshed_token)
+      
+      setProfile(res.data);
+      
+      setIsLoading(false);
+    } catch (e) {
+      setIsError(true);
+      setIsLoading(false);
+    }
+  }, [token]);
+  
+  return { profile, isLoading, isError, fetchProfile };
+}
+
+const useProfiles = () => {
+  
+  const { token, setToken } = useAuth();
+  
+  const [profiles, setProfiles ] = useState(null);
+  const [isLoading, setIsLoading ] = useState(true);
+  const [isError, setIsError ] = useState(false);
+  
+  const fetchProfiles = useCallback(async () => {
+    setIsError(false);
+    setIsLoading(true);
+    
+    try {
+      const res = await axiosConfig({
+        method: "GET",
+        url: 'users',
+        headers: config.headers(token)
+      });
+      
+      if (res.refreshed_token) setToken(res.refreshed_token)
+
+      setProfiles(res.data);
       setIsLoading(false);
     } catch (e) {
       setIsError(true);
@@ -29,37 +64,7 @@ const useUser = (user_id) => {
     }
   }, [token]);
 
-  return { user, isLoading, isError, fetchUser };
+  return { profiles, isLoading, isError, fetchProfiles };
 }
 
-const useUsers = () => {
-
-  const { token } = useAuth();
-
-  const [users, setUsers ] = useState(null);
-  const [isLoading, setIsLoading ] = useState(true);
-  const [isError, setIsError ] = useState(false);
-
-  const fetchUsers = useCallback(async () => {
-    setIsError(false);
-    setIsLoading(true);
-
-    try {
-      const res = await axios({
-        method: "GET",
-        url: config.api_url + 'users',
-        headers: config.headers(token)
-      });
-
-      setUsers(res.data);
-      setIsLoading(false);
-    } catch (e) {
-      setIsError(true);
-      setIsLoading(false);
-    }
-  }, [token]);
-
-  return { users, isLoading, isError, fetchUsers };
-}
-
-export { useUser, useUsers };
+export { useProfile, useProfiles };

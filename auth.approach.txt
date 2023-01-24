@@ -8,7 +8,7 @@ user signs up
  - assigned refresh token, stored in http-only mapped to refresh endpoint
  - assigned access token, stored in memory
  - client makes next request to pull data to show first page. 
-user makes new request 
+user makes new request
  - access token is sent with each request, in a headers
 user logs in 
  - new refresh token
@@ -21,6 +21,22 @@ user makes request with expired access token
       -- 401 Unauthed means refresh is expired, user needs to reauthenticate, log user out. 
 
 -----------------------------------------------------------------------------------------------
+
+signup flow:
+- user goes to signup, posts to backend, backend returns access + refresh token, 
+- frontend stores this, frontend makes home request
+
+normal flow:
+- user requests home, frontend tries to call home, gets 401, posts to refresh, gets access, retries home, loads home
+
+expired refresh flow:
+- user requests home, frontend tries to call home, gets 401, posts to refresh, gets 401, redirects to login
+
+login flow:
+- user posts login, backend returns access + refresh token, frontend stores this, frontend makes home request
+
+
+
 
 
 

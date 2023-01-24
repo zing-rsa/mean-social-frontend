@@ -54,7 +54,7 @@ const ProtectedRoute = ({ component, ...rest }) => {
 };
 
 const AdminRoute = ({ component, ...rest }) => {
-    const {authenticated, authLoading, isAdmin } = useAuth();
+    const {authenticated, authLoading, user } = useAuth();
 
     if (authLoading) {
         return <Loader />
@@ -65,7 +65,7 @@ const AdminRoute = ({ component, ...rest }) => {
         return <Navigate to="/login" replace state={{ remark }} />;
     }
 
-    if (isAdmin){
+    if (user.isAdmin){
         return component(rest);
     } else {
         return <NoAuth />

@@ -11,7 +11,7 @@ import config from '../../config';
 
 function Post(props) {
 
-    const { isAdmin, token } = useAuth();
+    const { user, token } = useAuth();
 
     const { comments, isLoading, isError, fetchComments } = usePostComments(props._id);
 
@@ -48,7 +48,7 @@ function Post(props) {
                     <div className='post-meta'>
                         <span>{props.timestamp}</span>
                     </div>
-                    {isAdmin &&
+                    {user.isAdmin &&
                         <button onClick={deletePost}>Delete</button>
                     }
                 </div>

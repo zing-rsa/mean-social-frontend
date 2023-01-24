@@ -1,4 +1,5 @@
 import config from "../config";
+import axios from 'axios'
 
 const useAuthenticate = (token) => {
 
@@ -27,7 +28,7 @@ const useAuthenticate = (token) => {
     }
   }
 
-  return { tryAuth, authLoading, authenticated, isAdmin };
+  return { tryAuth, authLoading, authenticated };
 
 }
 

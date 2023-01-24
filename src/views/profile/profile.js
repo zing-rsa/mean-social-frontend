@@ -1,12 +1,12 @@
 import PostCompose from '../../components/post-composer/post-composer';
 import { useUserPosts } from '../../services/post.service'
-import { useUser } from '../../services/user.service'
+import { useProfile } from '../../services/user.service'
 import avatar from '../../assets/profile-placeholder.png'
 import { useAuth } from "../../providers/auth.provider"
 import Follows from '../../components/follows/follows'
 import Loader from '../../components/loader/loader';
 import Post from '../../components/post/post';
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useParams } from 'react-router-dom'
 import Error from '../../components/error/error';
 import './profile.css'
@@ -15,13 +15,17 @@ function Profile() {
     const { user } = useAuth();
     const { id: viewed_user_id } = useParams();
 
-    const { user: viewed_user, isLoading: userLoading, isError: userError, fetchUser } = useUser(viewed_user_id);
+    const { profile: viewed_user, isLoading: userLoading, isError: userError, fetchProfile } = useProfile(viewed_user_id);
     const { posts: posts, isLoading: postsLoading, isError: postsError, fetchUserPosts } = useUserPosts(viewed_user_id);
 
+    const populateProfileData = useCallback(async () => {
+        await fetchProfile();
+        await fetchUserPosts();
+    }, [fetchProfile, fetchUserPosts]);
+
     useEffect(() => {
-        fetchUser();
-        fetchUserPosts();
-    }, [fetchUser, fetchUserPosts]);
+        populateProfileData();
+    }, [populateProfileData]);
 
     return (
         <div className='profile-container'>
