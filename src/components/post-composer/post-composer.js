@@ -1,20 +1,18 @@
-import { useAuth } from '../../providers/auth.provider'
-import { useState } from 'react';
+import { getToken } from '../../services/storage.service';
+import api from '../../services/axios.service';
 import config from '../../config'
 import './post-composer.css'
-import axios from 'axios';
+
 
 function PostCompose({ refresh }) {
 
-    const { token } = useAuth();
-
     const createPost = async (text) => {
         try {
-            await axios({
+            await api({
                 method: "POST",
-                url: config.api_url + 'posts/create',
-                headers: config.headers(token),
-                data: {
+                url: 'posts/create',
+                headers: config.headers(getToken()),
+                data: { 
                     text: text
                 }
             })

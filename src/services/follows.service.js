@@ -1,21 +1,20 @@
 import { useState, useCallback } from 'react';
 
-import { useAuth } from '../providers/auth.provider';
-import axiosConfig from '../services/axios.service';
 import { getToken } from './storage.service';
+import api from '../services/axios.service';
 import config from '../config'
 
-const useFollows = (user_id) => {
-  // const { token, setToken } = useAuth();
+
+const useFollows = () => {
 
   const [follows, setFollows] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  const fetchFollows = useCallback(async () => {
+  const fetchFollows = useCallback(async (user_id) => {
     setIsLoading(true);
     try {
-      const res = await axiosConfig({
+      const res = await api({
         method: 'GET',
         url: `users/${user_id}/follows`,
         headers: config.headers(getToken())
@@ -27,7 +26,7 @@ const useFollows = (user_id) => {
       setIsError(true);
       setIsLoading(false);
     }
-  }, [getToken, user_id]);
+  }, []);
 
   return { follows, isLoading, isError, fetchFollows };
 }

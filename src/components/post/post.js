@@ -1,30 +1,32 @@
-import { usePostComments } from '../../services/comment.service'
-import CommentCompose from '../comment-composer/comment-composer';
-import Comment from '../comment/comment'
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import './post.css'
-import Loader from '../loader/loader';
-import { useAuth } from '../../providers/auth.provider';
-import axios from 'axios';
-import config from '../../config';
+
+import { usePostComments } from '../../services/comment.service'
+import CommentCompose from '../comment-composer/comment-composer';
 import { getToken } from '../../services/storage.service';
+import { useAuth } from '../../providers/auth.provider';
+import api from '../../services/axios.service';
+import Comment from '../comment/comment'
+import Loader from '../loader/loader';
+import config from '../../config';
+import './post.css'
+
 
 function Post(props) {
 
     const { user } = useAuth();
 
-    const { comments, isLoading, isError, fetchComments } = usePostComments(props._id);
+    const { comments, isLoading, isError, fetchComments } = usePostComments();
 
     useEffect(() => {
-        fetchComments();
-    }, [fetchComments]);
+        fetchComments(props._id);
+    }, [fetchComments, props]);
 
     const deletePost = async () => {
         try {
-            const res = await axios({
+            await api({
                 method: "DELETE",
-                url: config.api_url + 'posts/delete',
+                url: 'posts/delete',
                 headers: config.headers(getToken()),
                 data: {
                     _id: props._id

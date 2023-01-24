@@ -1,19 +1,19 @@
-import { useAuth } from '../../providers/auth.provider';
-import axios from 'axios';
-import config from '../../config';
-
-import './comment.css'
 import { getToken } from '../../services/storage.service';
+import { useAuth } from '../../providers/auth.provider';
+import api from '../../services/axios.service';
+import config from '../../config';
+import './comment.css'
+
 
 function Comment(props) {
 
-    const { user } = useAuth();
+    const { user } = useAuth()
 
     const deleteComment = async () => {
         try {
-            const res = await axios({
+            await api({
                 method: "DELETE",
-                url: config.api_url + 'comments/delete',
+                url: 'comments/delete',
                 headers: config.headers(getToken()),
                 data: {
                     _id: props._id

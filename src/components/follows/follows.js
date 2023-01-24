@@ -1,25 +1,24 @@
-import { useFollows } from '../../services/follows.service';
 import { useEffect } from 'react';
-import Loader from '../loader/loader';
 
-import './follows.css'
-import axios from 'axios';
-import config from '../../config';
-import { useAuth } from '../../providers/auth.provider';
+import { useFollows } from '../../services/follows.service';
 import { getToken } from '../../services/storage.service';
+import api from '../../services/axios.service';
+import Loader from '../loader/loader';
+import config from '../../config';
+import './follows.css'
+
 
 function Follows(props) {
 
-    const { follows, isLoading, isError, fetchFollows } = useFollows(props._id);
-    // const { token } = useAuth();
+    const { follows, fetchFollows } = useFollows();
 
     useEffect(() => {
-        fetchFollows();
-    }, [fetchFollows])
+        fetchFollows(props._id);
+    }, [fetchFollows, props])
 
     const follow = async () => {
         try {
-            const res = await axios({
+            await api({
                 method: 'POST',
                 url: config.api_url + 'follows/follow',
                 headers: config.headers(getToken()),
@@ -39,7 +38,7 @@ function Follows(props) {
 
     const unfollow = async () => {
         try {
-            const res = await axios({
+            await api({
                 method: 'POST',
                 url: config.api_url + 'follows/unfollow',
                 headers: config.headers(getToken()),

@@ -20,7 +20,7 @@ const tokenIntercept = async (err) => {
 
             if (res.data.refreshed_token){
                 setToken(res.data.refreshed_token);
-                req.headers = { 'authorization' : res.data.refreshed_token };
+                req.headers['Authorization'] = res.data.refreshed_token;
             }
 
             return await axios(req);

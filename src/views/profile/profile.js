@@ -16,12 +16,12 @@ function Profile() {
     const { id: viewed_user_id } = useParams();
 
     const { profile: viewed_user, isLoading: userLoading, isError: userError, fetchProfile } = useProfile(viewed_user_id);
-    const { posts: posts, isLoading: postsLoading, isError: postsError, fetchUserPosts } = useUserPosts(viewed_user_id);
+    const { posts, isLoading: postsLoading, isError: postsError, fetchUserPosts } = useUserPosts(viewed_user_id);
 
     const populateProfileData = useCallback(async () => {
-        await fetchProfile();
-        await fetchUserPosts();
-    }, [fetchProfile, fetchUserPosts]);
+        await fetchProfile(user._id);
+        await fetchUserPosts(user._id);
+    }, [fetchProfile, fetchUserPosts, user]);
 
     useEffect(() => {
         populateProfileData();
@@ -30,13 +30,13 @@ function Profile() {
     return (
         <div className='profile-container'>
 
-            {viewed_user && !userError  && !userLoading &&
+            {viewed_user && !userError && !userLoading &&
                 <>
                     <div className='profile-cover'>
                         {/* <img>  */}
                     </div>
                     <div className='profile-avatar'>
-                        <img src={avatar} />
+                        <img alt='' src={avatar} />
                     </div>
                     <div className='profile-details'>
                         <div className='profile-details-header'>
@@ -58,7 +58,7 @@ function Profile() {
                         <div className='profile-posts-list'>
 
                             {
-                                viewed_user._id == user._id && <PostCompose refresh={fetchUserPosts} />
+                                viewed_user._id === user._id && <PostCompose refresh={fetchUserPosts} />
                             }
 
                             {posts && posts.map((item, index) =>

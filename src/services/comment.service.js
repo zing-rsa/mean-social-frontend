@@ -1,23 +1,21 @@
 import { useState, useCallback } from 'react';
 
-
-import { useAuth } from '../providers/auth.provider';
-import axiosConfig from '../services/axios.service';
 import { getToken } from './storage.service';
+import api from '../services/axios.service';
 import config from '../config'
 
 
-const usePostComments = (parent) => { 
+const usePostComments = () => { 
 
   const [comments, setComments] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  const fetchComments = useCallback(async () => {
+  const fetchComments = useCallback(async (parent) => {
     setIsLoading(true);
     
     try {
-      const res = await axiosConfig({
+      const res = await api({
         method: 'GET',
         url: `posts/${parent}/comments`,
         headers: config.headers(getToken())
@@ -29,7 +27,7 @@ const usePostComments = (parent) => {
       setIsError(true);
       setIsLoading(false);
     }
-  }, [getToken]);
+  }, []);
 
   return { comments, isLoading, isError, fetchComments };
 }
