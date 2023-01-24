@@ -3,17 +3,18 @@ import axios from 'axios';
 import config from '../../config';
 
 import './comment.css'
+import { getToken } from '../../services/storage.service';
 
 function Comment(props) {
 
-    const { token, user } = useAuth();
+    const { user } = useAuth();
 
     const deleteComment = async () => {
         try {
             const res = await axios({
                 method: "DELETE",
                 url: config.api_url + 'comments/delete',
-                headers: config.headers(token),
+                headers: config.headers(getToken()),
                 data: {
                     _id: props._id
                 }

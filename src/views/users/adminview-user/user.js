@@ -4,17 +4,18 @@ import axios from 'axios'
 import config from '../../../config';
 import { useAuth } from '../../../providers/auth.provider'
 import { Link } from 'react-router-dom'
+import { getToken } from '../../../services/storage.service';
 
 function AdminView_User(props) {
 
-    const { token } = useAuth();
+    // const { token } = useAuth();
 
     const deleteUser = async () => {
         try {
             const res = await axios({
                 method: "DELETE",
                 url: config.api_url + 'users/delete',
-                headers: config.headers(token),
+                headers: config.headers(getToken()),
                 data: {
                     _id: props._id
                 }

@@ -6,11 +6,12 @@ import './follows.css'
 import axios from 'axios';
 import config from '../../config';
 import { useAuth } from '../../providers/auth.provider';
+import { getToken } from '../../services/storage.service';
 
 function Follows(props) {
 
     const { follows, isLoading, isError, fetchFollows } = useFollows(props._id);
-    const { token } = useAuth();
+    // const { token } = useAuth();
 
     useEffect(() => {
         fetchFollows();
@@ -21,7 +22,7 @@ function Follows(props) {
             const res = await axios({
                 method: 'POST',
                 url: config.api_url + 'follows/follow',
-                headers: config.headers(token),
+                headers: config.headers(getToken()),
                 data: {
                     user_id: props._id
                 }
@@ -41,7 +42,7 @@ function Follows(props) {
             const res = await axios({
                 method: 'POST',
                 url: config.api_url + 'follows/unfollow',
-                headers: config.headers(token),
+                headers: config.headers(getToken()),
                 data: {
                     user_id: props._id
                 }

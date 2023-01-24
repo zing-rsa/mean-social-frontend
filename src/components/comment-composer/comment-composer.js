@@ -3,17 +3,17 @@ import { useState } from 'react';
 import axios from 'axios'
 import config from '../../config'
 import './comment-composer.css'
+import { getToken } from '../../services/storage.service';
 
 function CommentCompose({ parent, refresh }) {
 
-    const { token } = useAuth();
 
     const createComment = async (text) => {
         try {
             await axios({
                 method: "POST",
                 url: config.api_url + 'comments/create',
-                headers: config.headers(token),
+                headers: config.headers(getToken()),
                 data: {
                     text: text,
                     parent: parent

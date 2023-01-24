@@ -8,10 +8,11 @@ import Loader from '../loader/loader';
 import { useAuth } from '../../providers/auth.provider';
 import axios from 'axios';
 import config from '../../config';
+import { getToken } from '../../services/storage.service';
 
 function Post(props) {
 
-    const { user, token } = useAuth();
+    const { user } = useAuth();
 
     const { comments, isLoading, isError, fetchComments } = usePostComments(props._id);
 
@@ -24,7 +25,7 @@ function Post(props) {
             const res = await axios({
                 method: "DELETE",
                 url: config.api_url + 'posts/delete',
-                headers: config.headers(token),
+                headers: config.headers(getToken()),
                 data: {
                     _id: props._id
                 }

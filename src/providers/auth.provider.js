@@ -1,8 +1,10 @@
 import { useState, createContext, useContext, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from 'axios'
+
+import { getToken, setToken } from "../services/storage.service";
 import api from '../services/axios.service';
 import config from '../config'
-import axios from 'axios'
 
 
 const AuthContext = createContext(null);
@@ -12,14 +14,12 @@ const AuthProvider = ({ children }) => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const [token, setToken] = useState(null);
-
     const [user, setUser] = useState(null);
 
     const [authLoading, setAuthLoading] = useState(true);
     const [authenticated, setAuthenticated] = useState(false);
 
-    const fetchUser = useCallback(async (new_token = null) => {
+    const fetchUser = useCallback(async () => {
         try {
 
             setAuthLoading(true);
@@ -27,14 +27,8 @@ const AuthProvider = ({ children }) => {
             const res = await api({
                 method: "GET",
                 url: 'users/self',
-                headers: config.headers(new_token ? new_token : token)
+                headers: config.headers(getToken())
             });
-
-            if (res.refreshed_token) {
-                setToken(res.refreshed_token)
-            } else if (new_token) {
-                setToken(new_token);
-            }
 
             setUser({
                 ...res.data,
@@ -69,7 +63,9 @@ const AuthProvider = ({ children }) => {
                 }
             });
 
-            fetchUser(res.data.access_token);
+            setToken(res.data.access_token);
+
+            fetchUser();
 
             const origin = location.state?.from?.pathname || '/feed';
             navigate(origin);
@@ -89,8 +85,6 @@ const AuthProvider = ({ children }) => {
     };
 
     const value = {
-        token,
-        setToken,
         user,
         authLoading,
         authenticated,

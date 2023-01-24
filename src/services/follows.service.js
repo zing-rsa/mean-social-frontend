@@ -1,10 +1,12 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
+
 import { useAuth } from '../providers/auth.provider';
-import config from '../config'
 import axiosConfig from '../services/axios.service';
+import { getToken } from './storage.service';
+import config from '../config'
 
 const useFollows = (user_id) => {
-  const { token, setToken } = useAuth();
+  // const { token, setToken } = useAuth();
 
   const [follows, setFollows] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -16,10 +18,8 @@ const useFollows = (user_id) => {
       const res = await axiosConfig({
         method: 'GET',
         url: `users/${user_id}/follows`,
-        headers: config.headers(token)
+        headers: config.headers(getToken())
       })
-
-      if (res.refreshed_token) setToken(res.refreshed_token)
 
       setFollows(res.data);
       setIsLoading(false);
@@ -27,7 +27,7 @@ const useFollows = (user_id) => {
       setIsError(true);
       setIsLoading(false);
     }
-  }, [token, user_id]);
+  }, [getToken, user_id]);
 
   return { follows, isLoading, isError, fetchFollows };
 }

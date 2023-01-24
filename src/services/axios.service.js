@@ -1,6 +1,7 @@
-
-import config from '../config';
 import axios from 'axios';
+
+import { setToken } from './storage.service';
+import config from '../config';
 
 const api = axios.create({
     baseURL: config.api_url
@@ -17,15 +18,12 @@ const tokenIntercept = async (err) => {
                 withCredentials: true
             });
 
-            const refreshed_token = res.data.refreshed_token;
+            if (res.data.refreshed_token){
+                setToken(res.data.refreshed_token);
+                req.headers = { 'authorization' : res.data.refreshed_token };
+            }
 
-            req.headers = { 'authorization' : refreshed_token };
-
-            return axios(req).then((res) => {
-                return {
-                ...res,
-                refreshed_token 
-            }});
+            return await axios(req);
 
         } catch (e) {
             return Promise.reject(err);
