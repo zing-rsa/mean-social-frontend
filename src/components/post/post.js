@@ -16,11 +16,13 @@ function Post(props) {
 
     const { user } = useAuth();
 
-    const { comments, isLoading, isError, fetchComments } = usePostComments();
+    const { comments, setComments, isLoading, isError, fetchComments } = usePostComments();
 
     useEffect(() => {
-        fetchComments(props._id);
-    }, [fetchComments, props]);
+        if (props.comments){
+            setComments(props.comments);
+        }
+    }, []);
 
     const deletePost = async () => {
         try {

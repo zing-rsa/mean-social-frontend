@@ -8,7 +8,7 @@ import config from '../config'
 const usePostComments = () => { 
 
   const [comments, setComments] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
   const fetchComments = useCallback(async (parent) => {
@@ -29,7 +29,7 @@ const usePostComments = () => {
     }
   }, []);
 
-  return { comments, isLoading, isError, fetchComments };
+  return { comments, setComments, isLoading, isError, fetchComments };
 }
 
 export { usePostComments };
