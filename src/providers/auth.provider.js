@@ -16,8 +16,8 @@ const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
 
-    const [authLoading, setAuthLoading] = useState(true);
-    const [authenticated, setAuthenticated] = useState(false);
+    const [authLoading, setAuthLoading] = useState(null);
+    const [authenticated, setAuthenticated] = useState(null);
 
     const fetchUser = useCallback(async () => {
         try {
@@ -46,7 +46,9 @@ const AuthProvider = ({ children }) => {
     })
 
     useEffect(() => {
-        fetchUser();
+        if (!config.unauthedRoutes.includes(location.pathname)){
+            fetchUser();
+        }
     }, [])
 
     const handleLogin = async (email, pass) => {

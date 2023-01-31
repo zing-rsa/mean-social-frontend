@@ -1,3 +1,4 @@
+import AxiosResponseInterceptor from './components/axios-response/axios-response';
 import { AuthProvider } from './providers/auth.provider'
 import { Navbar, Footer } from './components'
 import RouteHandler from "./routes";
@@ -8,6 +9,7 @@ function App() {
 
   return (
       <AuthProvider>
+        <AxiosResponseInterceptor />
 
         <Navbar />
 

@@ -45,7 +45,7 @@ const ProtectedRoute = ({ component, ...rest }) => {
         return <Loader />
     }
 
-    if (!authenticated) {
+    if (authenticated === false) {
         let remark = 'Please log in to continue...'
         return <Navigate to="/login" replace state={{ remark }} />;
     }
@@ -60,7 +60,7 @@ const AdminRoute = ({ component, ...rest }) => {
         return <Loader />
     }
 
-    if (!authenticated) {
+    if (authenticated === false) {
         let remark = 'Please log in to continue...'
         return <Navigate to="/login" replace state={{ remark }} />;
     }
