@@ -14,15 +14,17 @@ function Signup() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const user = {
-            'name': e.target.name.value,
-            'surname': e.target.surname.value,
-            'email': e.target.email.value,
-            'pass': e.target.pass.value,
-            'bio': e.target.bio.value
-        }
+        const data = new FormData();
+        console.log(e.target)
+        data.append('avatar', e.target.avatar.files[0]);
+        data.append('banner', e.target.banner.files[0]);
+        data.append('name', e.target.name.value);
+        data.append('surname', e.target.surname.value);
+        data.append('email', e.target.email.value);
+        data.append('pass', e.target.pass.value);
+        data.append('bio', e.target.bio.value);
 
-        postUser(user);
+        postUser(data);
 
     }
 
@@ -40,7 +42,8 @@ function Signup() {
             
             if (res.status === 201) {
                 console.log('trying to log in')
-                login(user.email, user.pass);
+
+                await login(user.get('email'), user.get('pass'));
             }
         } catch (e) {
             setIsError(true);
@@ -64,6 +67,8 @@ function Signup() {
                         <input type='text' name='bio' placeholder='bio'></input>
                         <input type='text' name='email' placeholder='email'></input>
                         <input type='password' name='pass' placeholder='pass'></input>
+                        <input type='file' name='avatar' />
+                        <input type='file' name='banner' />
                         <button type='submit'>Sign up</button>
                     </form>
                 </>
