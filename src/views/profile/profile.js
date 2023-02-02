@@ -9,6 +9,7 @@ import Post from '../../components/post/post';
 import { useEffect, useCallback } from "react";
 import { useParams } from 'react-router-dom'
 import Error from '../../components/error/error';
+import config from '../../config';
 import './profile.css'
 
 function Profile() {
@@ -33,10 +34,10 @@ function Profile() {
             {viewed_user && !userError && !userLoading &&
                 <>
                     <div className='profile-cover'>
-                        {/* <img>  */}
+                        { viewed_user.banner && <img alt='' src={config.media_url + 'banner/' + viewed_user.banner} /> }
                     </div>
                     <div className='profile-avatar'>
-                        <img alt='' src={avatar} />
+                        <img alt='' src={viewed_user.avatar ? config.media_url + 'avatar/' + viewed_user.avatar : avatar} />
                     </div>
                     <div className='profile-details'>
                         <div className='profile-details-header'>

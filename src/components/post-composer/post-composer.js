@@ -6,15 +6,13 @@ import './post-composer.css'
 
 function PostCompose({ refresh, user_id}) {
 
-    const createPost = async (text) => {
+    const createPost = async (post) => {
         try {
             await api({
                 method: "POST",
                 url: 'posts/create',
                 headers: config.headers(getToken()),
-                data: { 
-                    text: text
-                }
+                data: post
             })
 
             if (refresh) {
@@ -29,7 +27,14 @@ function PostCompose({ refresh, user_id}) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        createPost(e.target.post.value);
+        const post = new FormData();
+
+        if (e.target.image.files[0])
+            post.append('image', e.target.image.files[0]);
+
+        post.append('text', e.target.text.value);
+
+        createPost(post);
 
         e.target.reset();
     }
@@ -37,7 +42,8 @@ function PostCompose({ refresh, user_id}) {
     return (
         <div className='post-compose'>
             <form onSubmit={handleSubmit}>
-                <input type='text' name='post' className='compose-body' placeholder='Post something...' />
+                <input type='text' name='text' className='compose-body' placeholder='Post something...' />
+                <input type='file' name='image' />
                 <div className='compose-operations'>
                     <button className='submit-post'>Post</button>
                 </div>

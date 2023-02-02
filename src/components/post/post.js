@@ -46,6 +46,11 @@ function Post(props) {
     return (
         <div className='post-container'>
             <div className='post'>
+                { props.image &&
+                   <div className='post-image'>
+                    <img src={config.media_url + 'posts/' + props.image}/>
+                   </div>
+                }
                 <div className='post-details'>
                     <div className='post-author'>
                         <Link to={`/profile/${props.owner._id}`}>{props.owner.name}&nbsp;{props.owner.surname}</Link>

@@ -15,9 +15,12 @@ function Signup() {
         e.preventDefault();
 
         const data = new FormData();
-        console.log(e.target)
-        data.append('avatar', e.target.avatar.files[0]);
-        data.append('banner', e.target.banner.files[0]);
+        
+        if (e.target.avatar.files[0])
+            data.append('avatar', e.target.avatar.files[0]);
+        if (e.target.banner.files[0])
+            data.append('banner', e.target.banner.files[0]);
+        
         data.append('name', e.target.name.value);
         data.append('surname', e.target.surname.value);
         data.append('email', e.target.email.value);

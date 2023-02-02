@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 
 import profilePlaceholder from '../../assets/profile-placeholder.png'
 import { useAuth } from "../../providers/auth.provider";
+import config from '../../config';
 import './navbar.css'
 
 function Navbar() {
@@ -35,7 +36,7 @@ function Navbar() {
                                         {user.name}
                                     </Link>
                                 </div>
-                                <img height="50px" width="50px" alt='' src={profilePlaceholder} />
+                                <img height="50px" width="50px" alt='' src={user.avatar ? config.media_url + '/avatar/' + user.avatar : profilePlaceholder} />
                             </li>
                             <button type="button" onClick={logout}>
                                 Sign Out
