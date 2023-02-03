@@ -1,5 +1,5 @@
 import PostCompose from '../../components/post-composer/post-composer';
-import { useUserPosts } from '../../services/post.service'
+import { usePosts } from '../../services/post.service'
 import { useProfile } from '../../services/user.service'
 import avatar from '../../assets/profile-placeholder.png'
 import { useAuth } from "../../providers/auth.provider"
@@ -17,12 +17,12 @@ function Profile() {
     const { id: viewed_user_id } = useParams();
 
     const { profile: viewed_user, isLoading: userLoading, isError: userError, fetchProfile } = useProfile(viewed_user_id);
-    const { posts, isLoading: postsLoading, isError: postsError, fetchUserPosts } = useUserPosts(viewed_user_id);
+    const { posts, isLoading: postsLoading, isError: postsError, fetchProfilePosts, createPost, deleteProfilePost } = usePosts();
 
     const populateProfileData = useCallback(async () => {
-        await fetchProfile(user._id);
-        await fetchUserPosts(user._id);
-    }, [fetchProfile, fetchUserPosts, user]);
+        await fetchProfile(viewed_user_id);
+        await fetchProfilePosts(viewed_user_id);
+    }, [fetchProfile, fetchProfilePosts, user]);
 
     useEffect(() => {
         populateProfileData();
@@ -58,12 +58,14 @@ function Profile() {
                     {posts &&
                         <div className='profile-posts-list'>
 
-                            {
-                                viewed_user._id === user._id && <PostCompose refresh={fetchUserPosts} user_id={user._id} />
+                            { viewed_user._id === user._id && 
+                                <PostCompose create={createPost} />
                             }
 
-                            {posts && posts.map((item, index) =>
-                                <Post key={item._id} {...item} />)}
+                            {posts && 
+                                posts.map((item, index) =>
+                                    <Post key={item._id} delete={(post_id) => deleteProfilePost(post_id, user._id)} {...item} />)
+                            }
                         </div>
                     }
 

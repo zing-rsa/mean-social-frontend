@@ -4,76 +4,38 @@ import { useFollows } from '../../services/follows.service';
 import { getToken } from '../../services/storage.service';
 import api from '../../services/axios.service';
 import Loader from '../loader/loader';
+import Error from '../error/error'
 import config from '../../config';
 import './follows.css'
 
 
 function Follows(props) {
 
-    const { follows, fetchFollows } = useFollows();
+    const { isLoading, isError, follows, follow, unfollow, fetchFollows } = useFollows();
 
     useEffect(() => {
         fetchFollows(props._id);
     }, [fetchFollows, props])
 
-    const follow = async () => {
-        try {
-            await api({
-                method: 'POST',
-                url: config.api_url + 'follows/follow',
-                headers: config.headers(getToken()),
-                data: {
-                    user_id: props._id
-                }
-            })
-
-            if (fetchFollows) {
-                fetchFollows();
-            }
-
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    const unfollow = async () => {
-        try {
-            await api({
-                method: 'POST',
-                url: config.api_url + 'follows/unfollow',
-                headers: config.headers(getToken()),
-                data: {
-                    user_id: props._id
-                }
-            })
-
-            if (fetchFollows) {
-                fetchFollows();
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
     return (
         <>
             {
-                follows ?
+                follows && !isLoading &&
                     <div className='follows'>
                         <div className='follow-display'>{follows.followerCount + ' Followers'}</div>
                         <div className='follow-display'>{follows.followingCount + ' Following'}</div>
                         <div className='follow-button'>
                             {
                                 follows.isFollowed ?
-                                    <button onClick={unfollow}>Unfollow</button>
+                                    <button onClick={() => {unfollow(props._id)}}>Unfollow</button>
                                     :
-                                    <button onClick={follow}>Follow</button>
+                                    <button onClick={() => {follow(props._id)}}>Follow</button>
                             }
                         </div>
                     </div>
-                    :
-                    <Loader />
             }
+            { isLoading && <Loader />}
+            { isError && !isLoading && <Error/>}
         </>
 
 

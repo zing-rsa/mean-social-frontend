@@ -23,25 +23,6 @@ function Post(props) {
             setComments(props.comments);
         }
     }, []);
-
-    const deletePost = async () => {
-        try {
-            await api({
-                method: "DELETE",
-                url: 'posts/delete',
-                headers: config.headers(getToken()),
-                data: {
-                    _id: props._id
-                }
-            });
-
-            if (props.refresh) {
-                props.refresh();
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    }
     
     return (
         <div className='post-container'>
@@ -58,8 +39,8 @@ function Post(props) {
                     <div className='post-meta'>
                         <span>{props.timestamp}</span>
                     </div>
-                    {user.isAdmin &&
-                        <button onClick={deletePost}>Delete</button>
+                    {(user.isAdmin || user._id === props.owner._id ) &&
+                        <button onClick={() => props.delete(props._id)}>Delete</button>
                     }
                 </div>
                 <div className='post-body'>

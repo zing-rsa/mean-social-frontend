@@ -1,5 +1,5 @@
 import PostCompose from "../../components/post-composer/post-composer";
-import { useFeedPosts } from "../../services/post.service";
+import { usePosts } from "../../services/post.service";
 import Loader from "../../components/loader/loader";
 import { useEffect } from "react";
 import Post from '../../components/post/post'
@@ -8,7 +8,7 @@ import './feed.css'
 
 function Feed() {
 
-    const { posts, isLoading, isError, fetchPosts } = useFeedPosts();
+    const { posts, isLoading, isError, fetchPosts, createPost, deletePost } = usePosts();
 
     useEffect(() => {
         fetchPosts();
@@ -19,10 +19,10 @@ function Feed() {
 
             {posts &&
                 <div className='posts-list'>
-                    <PostCompose refresh={fetchPosts} />
+                    <PostCompose create={createPost} />
                     {posts && 
                         posts.map((item, index) =>
-                            <Post key={item._id} refresh={fetchPosts} {...item}  /> 
+                            <Post key={item._id} delete={deletePost} {...item}  /> 
                         )
                     }
                 </div>

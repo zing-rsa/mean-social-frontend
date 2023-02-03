@@ -1,5 +1,5 @@
 import './dashboard.css'
-import { useFeedPosts } from '../../services/post.service';
+import { usePosts } from '../../services/post.service';
 import { useEffect } from 'react';
 import Post from '../../components/post/post';
 import Loader from '../../components/loader/loader';
@@ -7,12 +7,11 @@ import Error from '../../components/error/error';
 
 function Dashboard() {
 
-    const { posts, postsLoading, postsError, fetchPosts } = useFeedPosts();
+    const { posts, postsLoading, postsError, fetchPosts, deletePost } = usePosts();
 
     useEffect(() => {
         fetchPosts();
     }, [fetchPosts]);
-
 
     return (
         <div className='dash-container'>
@@ -35,7 +34,7 @@ function Dashboard() {
                         }
 
                         {posts && posts.map((item, index) =>
-                            <Post key={item._id} refresh={fetchPosts} {...item} />)}
+                            <Post key={item._id} delete={deletePost} {...item} />)}
 
                     </div>
                 }

@@ -5,7 +5,7 @@ import api from '../services/axios.service';
 import config from '../config'
 
 
-const useFeedPosts = () => {
+const usePosts = () => {
 
   const [posts, setPosts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -20,25 +20,15 @@ const useFeedPosts = () => {
         url: 'posts',
         headers: config.headers(getToken())
       })
-      
+
       setPosts(res.data);
-      setIsLoading(false);
     } catch (e) {
       setIsError(true);
-      setIsLoading(false);
     }
+    setIsLoading(false);
   }, []);
 
-  return { posts, isLoading, isError, fetchPosts };
-}
-
-const useUserPosts = () => {
-
-  const [posts, setPosts] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-
-  const fetchUserPosts = useCallback(async (user_id) => {
+  const fetchProfilePosts = useCallback(async (user_id) => {
     setIsError(false);
     setIsLoading(true);
     try {
@@ -49,14 +39,95 @@ const useUserPosts = () => {
       })
 
       setPosts(res.data);
-      setIsLoading(false);
     } catch (e) {
       setIsError(true);
-      setIsLoading(false);
     }
+    setIsLoading(false);
   }, []);
 
-  return { posts, isLoading, isError, fetchUserPosts };
+  const createPost = useCallback(async (post) => {
+    try {
+      await api({
+          method: "POST",
+          url: 'posts/create',
+          headers: config.headers(getToken()),
+          data: post
+      })
+
+      const res = await api({
+        method: 'GET',
+        url: 'posts',
+        headers: config.headers(getToken())
+      })
+
+      setPosts(res.data);
+
+  } catch (e) {
+      console.log(e);
+  }
+  }, []);
+
+  const deletePost = useCallback(async (post_id) => {
+    try {
+      setIsError(false);
+      setIsLoading(true);
+
+      await api({
+        method: "DELETE",
+        url: 'posts/delete',
+        headers: config.headers(getToken()),
+        data: {
+          _id: post_id
+        }
+      });
+
+      const res = await api({
+        method: 'GET',
+        url: 'posts',
+        headers: config.headers(getToken())
+      })
+
+      setPosts(res.data);
+
+    } catch (e) {
+      console.log(e);
+      setIsError(true)
+    }
+    setIsLoading(false);
+
+  }, [])
+
+  const deleteProfilePost = useCallback(async (post_id, user_id) => {
+    try {
+      setIsError(false);
+      setIsLoading(true);
+
+      await api({
+        method: "DELETE",
+        url: 'posts/delete',
+        headers: config.headers(getToken()),
+        data: {
+          _id: post_id
+        }
+      });
+
+      const res = await api({
+        method: 'GET',
+        url: `users/${user_id}/posts`,
+        headers: config.headers(getToken())
+      })
+
+      setPosts(res.data);
+
+    } catch (e) {
+      console.log(e);
+      setIsError(true)
+    }
+    setIsLoading(false);
+
+  }, [])
+
+  return { posts, isLoading, isError, fetchPosts, fetchProfilePosts, createPost, deletePost, deleteProfilePost };
 }
 
-export { useFeedPosts, useUserPosts };
+export { usePosts };

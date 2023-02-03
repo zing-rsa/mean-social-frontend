@@ -4,26 +4,8 @@ import config from '../../config'
 import './post-composer.css'
 
 
-function PostCompose({ refresh, user_id}) {
-
-    const createPost = async (post) => {
-        try {
-            await api({
-                method: "POST",
-                url: 'posts/create',
-                headers: config.headers(getToken()),
-                data: post
-            })
-
-            if (refresh) {
-                refresh(user_id);
-            }
-
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
+function PostCompose({ create }) {
+    
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -34,7 +16,7 @@ function PostCompose({ refresh, user_id}) {
 
         post.append('text', e.target.text.value);
 
-        createPost(post);
+        create(post);
 
         e.target.reset();
     }

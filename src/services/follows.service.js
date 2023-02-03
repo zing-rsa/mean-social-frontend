@@ -12,7 +12,9 @@ const useFollows = () => {
   const [isError, setIsError] = useState(false);
 
   const fetchFollows = useCallback(async (user_id) => {
+    setIsError(false);
     setIsLoading(true);
+
     try {
       const res = await api({
         method: 'GET',
@@ -21,14 +23,72 @@ const useFollows = () => {
       })
 
       setFollows(res.data);
-      setIsLoading(false);
+
     } catch (e) {
       setIsError(true);
-      setIsLoading(false);
     }
+    setIsLoading(false);
   }, []);
 
-  return { follows, isLoading, isError, fetchFollows };
+  const follow = useCallback(async (user_id) => {
+    try {
+      setIsError(false);
+      setIsLoading(true);
+
+      await api({
+        method: 'POST',
+        url: config.api_url + 'follows/follow',
+        headers: config.headers(getToken()),
+        data: {
+          user_id: user_id
+        }
+      })
+
+      const res = await api({
+        method: 'GET',
+        url: `users/${user_id}/follows`,
+        headers: config.headers(getToken())
+      })
+
+      setFollows(res.data);
+
+    } catch (e) {
+      console.error(e);
+      setIsError(true);
+    }
+    setIsLoading(false);
+  }, [fetchFollows]);
+
+  const unfollow = useCallback(async (user_id) => {
+    try {
+      setIsError(false);
+      setIsLoading(true);
+      
+      await api({
+        method: 'POST',
+        url: config.api_url + 'follows/unfollow',
+        headers: config.headers(getToken()),
+        data: {
+          user_id: user_id
+        }
+      })
+
+      const res = await api({
+        method: 'GET',
+        url: `users/${user_id}/follows`,
+        headers: config.headers(getToken())
+      })
+
+      setFollows(res.data);
+
+    } catch (e) {
+      console.error(e);
+      setIsError(true);
+    }
+    setIsLoading(false);
+  }, [fetchFollows])
+
+  return { follows, isLoading, isError, fetchFollows, follow, unfollow };
 }
 
 export { useFollows };
