@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 
-import { usePostComments } from '../../services/comment.service'
 import CommentCompose from '../comment-composer/comment-composer';
-import { getToken } from '../../services/storage.service';
+import { usePostComments } from '../../services/comment.service';
 import { useAuth } from '../../providers/auth.provider';
-import api from '../../services/axios.service';
 import Comment from '../comment/comment'
 import Loader from '../loader/loader';
 import config from '../../config';
@@ -16,7 +14,7 @@ function Post(props) {
 
     const { user } = useAuth();
 
-    const { comments, setComments, isLoading, isError, fetchComments } = usePostComments();
+    const { comments, setComments, isLoading, isError, fetchComments, deleteComment } = usePostComments();
 
     useEffect(() => {
         if (props.comments){
@@ -48,9 +46,9 @@ function Post(props) {
                 </div>
             </div>
             <CommentCompose parent={props._id} refresh={fetchComments} />
-            {comments && !isError &&
+            {comments && !isError && !isLoading &&
                 comments.map((item, index) =>
-                    <Comment key={item._id} refresh={fetchComments} {...item} />)
+                    <Comment key={item._id} delete={() => deleteComment(item._id, props._id)} {...item} />)
             }
             {isLoading && !isError &&
                 <Loader />

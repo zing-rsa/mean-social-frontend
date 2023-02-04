@@ -5,9 +5,10 @@ import api from '../services/axios.service';
 import config from "../config";
 
 
-const useProfile = () => {
+const useProfiles = () => {
 
   const [profile, setProfile ] = useState(null);
+  const [profiles, setProfiles] = useState(null);
   const [isLoading, setIsLoading ] = useState(true);
   const [isError, setIsError ] = useState(false);
 
@@ -22,22 +23,12 @@ const useProfile = () => {
       });
 
       setProfile(res.data);
-      setIsLoading(false);
     } catch (e) {
       setIsError(true);
-      setIsLoading(false);
     }
+    setIsLoading(false);
   }, []);
-  
-  return { profile, isLoading, isError, fetchProfile };
-}
 
-const useProfiles = () => {
-  
-  const [profiles, setProfiles ] = useState(null);
-  const [isLoading, setIsLoading ] = useState(true);
-  const [isError, setIsError ] = useState(false);
-  
   const fetchProfiles = useCallback(async () => {
     setIsError(false);
     setIsLoading(true);
@@ -50,14 +41,12 @@ const useProfiles = () => {
       });
       
       setProfiles(res.data);
-      setIsLoading(false);
     } catch (e) {
       setIsError(true);
-      setIsLoading(false);
     }
+    setIsLoading(false);
   }, []);
-
-  return { profiles, isLoading, isError, fetchProfiles };
+  
+  return { profile, isLoading, isError, fetchProfile, fetchProfiles };
 }
-
-export { useProfile, useProfiles };
+export { useProfiles };

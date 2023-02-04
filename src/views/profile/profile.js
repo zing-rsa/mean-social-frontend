@@ -1,13 +1,14 @@
+import { useEffect, useCallback } from "react";
+import { useParams } from 'react-router-dom'
+
 import PostCompose from '../../components/post-composer/post-composer';
 import { usePosts } from '../../services/post.service'
-import { useProfile } from '../../services/user.service'
+import { useProfiles } from '../../services/user.service'
 import avatar from '../../assets/profile-placeholder.png'
 import { useAuth } from "../../providers/auth.provider"
 import Follows from '../../components/follows/follows'
 import Loader from '../../components/loader/loader';
 import Post from '../../components/post/post';
-import { useEffect, useCallback } from "react";
-import { useParams } from 'react-router-dom'
 import Error from '../../components/error/error';
 import config from '../../config';
 import './profile.css'
@@ -16,8 +17,8 @@ function Profile() {
     const { user } = useAuth();
     const { id: viewed_user_id } = useParams();
 
-    const { profile: viewed_user, isLoading: userLoading, isError: userError, fetchProfile } = useProfile(viewed_user_id);
     const { posts, isLoading: postsLoading, isError: postsError, fetchProfilePosts, createPost, deleteProfilePost } = usePosts();
+    const { profile: viewed_user, isLoading: userLoading, isError: userError, fetchProfile } = useProfiles();
 
     const populateProfileData = useCallback(async () => {
         await fetchProfile(viewed_user_id);

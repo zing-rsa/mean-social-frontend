@@ -1,17 +1,13 @@
 import { useEffect } from 'react';
 
 import { useFollows } from '../../services/follows.service';
-import { getToken } from '../../services/storage.service';
-import api from '../../services/axios.service';
 import Loader from '../loader/loader';
-import Error from '../error/error'
-import config from '../../config';
 import './follows.css'
 
 
 function Follows(props) {
 
-    const { isLoading, isError, follows, follow, unfollow, fetchFollows } = useFollows();
+    const { isLoading, follows, follow, unfollow, fetchFollows } = useFollows();
 
     useEffect(() => {
         fetchFollows(props._id);
@@ -35,7 +31,6 @@ function Follows(props) {
                     </div>
             }
             { isLoading && <Loader />}
-            { isError && !isLoading && <Error/>}
         </>
 
 

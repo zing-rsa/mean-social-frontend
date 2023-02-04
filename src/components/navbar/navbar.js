@@ -16,7 +16,7 @@ function Navbar() {
                     <Link to="/feed">Feed</Link>
                 </li>
 
-                {user && user.isAdmin &&
+                {authenticated && user.isAdmin &&
                     <>
                         <li className='nav-item'>
                             <Link to="/admin/dashboard">Dash</Link>

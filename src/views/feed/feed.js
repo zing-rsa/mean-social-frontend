@@ -2,8 +2,9 @@ import PostCompose from "../../components/post-composer/post-composer";
 import { usePosts } from "../../services/post.service";
 import Loader from "../../components/loader/loader";
 import { useEffect } from "react";
-import Post from '../../components/post/post'
+
 import Error from "../../components/error/error";
+import Post from '../../components/post/post'
 import './feed.css'
 
 function Feed() {
@@ -21,7 +22,7 @@ function Feed() {
                 <div className='posts-list'>
                     <PostCompose create={createPost} />
                     {posts && 
-                        posts.map((item, index) =>
+                        posts.map((item) =>
                             <Post key={item._id} delete={deletePost} {...item}  /> 
                         )
                     }

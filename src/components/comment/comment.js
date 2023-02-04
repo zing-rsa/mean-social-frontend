@@ -1,32 +1,10 @@
-import { getToken } from '../../services/storage.service';
 import { useAuth } from '../../providers/auth.provider';
-import api from '../../services/axios.service';
-import config from '../../config';
 import './comment.css'
 
 
 function Comment(props) {
 
     const { user } = useAuth()
-
-    const deleteComment = async () => {
-        try {
-            await api({
-                method: "DELETE",
-                url: 'comments/delete',
-                headers: config.headers(getToken()),
-                data: {
-                    _id: props._id
-                }
-            });
-
-            if (props.refresh) {
-                props.refresh(props.parent);
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    }
 
     return (
         <div className='comment'>
@@ -37,8 +15,8 @@ function Comment(props) {
             </div>
             <div className='comment-body'>
                 <span>{props.text}</span>
-                {user.isAdmin &&
-                    <button onClick={deleteComment} >Delete</button>
+                {(user.isAdmin || user._id === props.owner._id) &&
+                    <button onClick={props.delete} >Delete</button>
                 }
             </div>
         </div>

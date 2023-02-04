@@ -1,6 +1,3 @@
-import { getToken } from '../../services/storage.service';
-import api from '../../services/axios.service';
-import config from '../../config'
 import './post-composer.css'
 
 

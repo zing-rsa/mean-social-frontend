@@ -1,8 +1,9 @@
 import { Routes, Route, Navigate, useParams } from 'react-router-dom';
-import { Feed, Login, Signup, Profile, Dashboard, Users } from './views'
-import NotFound from './views/notfound/notfound';
-import { useAuth } from './providers/auth.provider'
+
+import { Feed, Login, Signup, Profile, Dashboard, Users } from './views';
 import NoAuth from './views/unauthorized/unauthorized';
+import { useAuth } from './providers/auth.provider';
+import NotFound from './views/notfound/notfound';
 import Loader from './components/loader/loader';
 
 function RouteHandler() {

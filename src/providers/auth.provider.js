@@ -15,7 +15,6 @@ const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
 
     const [user, setUser] = useState(null);
-
     const [authLoading, setAuthLoading] = useState(null);
     const [authenticated, setAuthenticated] = useState(null);
 
@@ -51,7 +50,7 @@ const AuthProvider = ({ children }) => {
         }
     }, [])
 
-    const handleLogin = async (email, pass) => {
+    const handleLogin = useCallback(async (email, pass) => {
         try {
             setAuthLoading(true);
 
@@ -78,7 +77,7 @@ const AuthProvider = ({ children }) => {
             setUser(null);
             setToken(null);
         }
-    };
+    }, []);
 
     const handleLogout = () => {
         setAuthenticated(false);
