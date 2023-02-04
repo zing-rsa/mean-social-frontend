@@ -18,36 +18,30 @@ const AuthProvider = ({ children }) => {
     const [authLoading, setAuthLoading] = useState(null);
     const [authenticated, setAuthenticated] = useState(null);
 
-    const fetchUser = useCallback(async () => {
+    useEffect(() => {
+        if (!config.unauthedRoutes.includes(location.pathname))
+            fetchSelf();
+    }, []);
+
+    const fetchSelf = useCallback(async () => {
+        setAuthLoading(true);
+
         try {
-
-            setAuthLoading(true);
-
             const res = await api({
                 method: "GET",
                 url: 'users/self',
                 headers: config.headers(getToken())
             });
 
-            setUser({
-                ...res.data,
-                isAdmin: false} // hardcode for now
-                );
-
+            setUser(res.data);
             setAuthenticated(true);
 
         } catch (e) {
+            setAuthenticated(false);
             setUser(null);
             setToken(null);
-            setAuthenticated(false);
         }
         setAuthLoading(false);
-    })
-
-    useEffect(() => {
-        if (!config.unauthedRoutes.includes(location.pathname)){
-            fetchUser();
-        }
     }, [])
 
     const handleLogin = useCallback(async (email, pass) => {
@@ -64,26 +58,56 @@ const AuthProvider = ({ children }) => {
                 }
             });
 
-            setToken(res.data.access_token);
+            const { access_token, ...stripped } = res.data;
 
-            fetchUser();
+            setUser(stripped);
+            setToken(access_token);
+            setAuthenticated(true);
 
             const origin = location.state?.from?.pathname || '/feed';
             navigate(origin);
 
         } catch (e) {
-            console.log(e); 
             setAuthenticated(false);
             setUser(null);
             setToken(null);
         }
+
+        setAuthLoading(false);
     }, []);
 
-    const handleLogout = () => {
+    const handleSignup = useCallback(async (user) => {
+        setAuthLoading(true);
+
+        try {
+            const res = await axios({
+                method: "POST",
+                url: config.api_url + 'auth/signup',
+                data: user
+            });
+
+            const { access_token, ...stripped } = res.data;
+
+            setUser(stripped);
+            setToken(access_token);
+            setAuthenticated(true);
+
+            const origin = location.state?.from?.pathname || '/feed';
+            navigate(origin);
+
+        } catch (e) {
+            setUser(null);
+            setToken(null);
+            setAuthenticated(false);
+        }
+        setAuthLoading(false);
+    }, []);
+
+    const handleLogout = useCallback(() => {
         setAuthenticated(false);
         setToken(null);
         setUser(null);
-    };
+    }, [])
 
     const value = {
         user,
@@ -91,6 +115,7 @@ const AuthProvider = ({ children }) => {
         authenticated,
         login: handleLogin,
         logout: handleLogout,
+        signup: handleSignup
     };
 
     return (
