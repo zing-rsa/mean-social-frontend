@@ -7,10 +7,10 @@ import config from "../config";
 
 const useProfiles = () => {
 
-  const [profile, setProfile ] = useState(null);
+  const [profile, setProfile] = useState(null);
   const [profiles, setProfiles] = useState(null);
-  const [isLoading, setIsLoading ] = useState(true);
-  const [isError, setIsError ] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   const fetchProfile = useCallback(async (user_id) => {
     setIsError(false);
@@ -32,21 +32,48 @@ const useProfiles = () => {
   const fetchProfiles = useCallback(async () => {
     setIsError(false);
     setIsLoading(true);
-    
+
     try {
       const res = await api({
         method: "GET",
         url: 'users',
         headers: config.headers(getToken())
       });
-      
+
       setProfiles(res.data);
     } catch (e) {
       setIsError(true);
     }
     setIsLoading(false);
   }, []);
-  
-  return { profile, isLoading, isError, fetchProfile, fetchProfiles };
+
+
+  const deleteProfile = useCallback(async (id) => {
+    try {
+      await api({
+        method: "DELETE",
+        url: config.api_url + 'users/delete',
+        headers: config.headers(getToken()),
+        data: {
+          _id: id
+        }
+      });
+
+      const res = await api({
+        method: "GET",
+        url: 'users',
+        headers: config.headers(getToken())
+      });
+
+      setProfiles(res.data);
+
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+
+  return { profile, profiles, isLoading, isError, fetchProfile, fetchProfiles, deleteProfile };
 }
+
+
 export { useProfiles };

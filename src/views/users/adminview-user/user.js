@@ -1,42 +1,21 @@
-import './user.css'
-import avatar from '../../../assets/profile-placeholder.png'
-import axios from 'axios'
-import config from '../../../config';
-import { useAuth } from '../../../providers/auth.provider'
 import { Link } from 'react-router-dom'
-import { getToken } from '../../../services/storage.service';
+
+import avatar from '../../../assets/profile-placeholder.png'
+import config from '../../../config'
+import './user.css'
 
 function AdminView_User(props) {
-
-    const deleteUser = async () => {
-        try {
-            const res = await axios({
-                method: "DELETE",
-                url: config.api_url + 'users/delete',
-                headers: config.headers(getToken()),
-                data: {
-                    _id: props._id
-                }
-            });
-
-            if (props.refresh) {
-                props.refresh();
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    }
 
     return (
         <div className='user-row'>
             <div className='user-img'>
-                <img className='user-avatar' src={avatar} />
+                <img className='user-avatar' src={props.avatar ? config.media_url + 'avatar/' + props.avatar : avatar } />
             </div>
             <div className='user-name'>
                 <Link to={'/profile/' + props._id}>{props.name} {props.surname}</Link>
             </div>
             <div className='user-del'>
-                <button onClick={deleteUser}>Delete</button>
+                <button onClick={props.delete}>Delete</button>
             </div>
         </div>
     )

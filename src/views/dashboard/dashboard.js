@@ -7,6 +7,7 @@ import Error from '../../components/error/error';
 
 function Dashboard() {
 
+
     const { posts, postsLoading, postsError, fetchPosts, deletePost } = usePosts();
 
     useEffect(() => {

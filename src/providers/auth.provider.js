@@ -15,12 +15,11 @@ const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
 
     const [user, setUser] = useState(null);
-    const [authLoading, setAuthLoading] = useState(null);
+    const [authLoading, setAuthLoading] = useState(true);
     const [authenticated, setAuthenticated] = useState(null);
 
     useEffect(() => {
-        if (!config.unauthedRoutes.includes(location.pathname))
-            fetchSelf();
+        fetchSelf();
     }, []);
 
     const fetchSelf = useCallback(async () => {
@@ -35,7 +34,7 @@ const AuthProvider = ({ children }) => {
 
             setUser(res.data);
             setAuthenticated(true);
-
+            
         } catch (e) {
             setAuthenticated(false);
             setUser(null);

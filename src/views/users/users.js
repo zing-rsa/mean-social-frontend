@@ -8,7 +8,7 @@ import AdminView_User from './adminview-user/user';
 
 function Users() {
 
-    const { profiles, isLoading, isError, fetchProfiles } = useProfiles();
+    const { profiles, isLoading, isError, fetchProfiles, deleteProfile } = useProfiles();
 
     useEffect(() => {
         fetchProfiles();
@@ -20,7 +20,7 @@ function Users() {
             <div className='users-list'>
                 {profiles &&
                     profiles.map((profile) =>
-                        <AdminView_User key={profile._id} refresh={fetchProfiles} {...profile} />)
+                        <AdminView_User key={profile._id} delete={() => deleteProfile(profile._id)} {...profile} />)
                 }
                 
                 {isLoading &&
