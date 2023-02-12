@@ -18,7 +18,7 @@ function Feed() {
     return (
         <div className='feed-container'>
 
-            {posts &&
+            {posts && !isLoading &&
                 <div className='posts-list'>
                     <PostCompose create={createPost} />
                     {posts && 

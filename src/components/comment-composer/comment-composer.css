@@ -1,7 +1,7 @@
 .comment-composer {
     width: 95%;
+    margin: 10px 0px;
     margin-left:5%;
-    background-color:brown;
 }
 
 .comment-composer form {
@@ -25,4 +25,8 @@
     height:25px;
     width: 80px;
     margin:auto;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.5s;
 }
+

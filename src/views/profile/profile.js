@@ -17,7 +17,7 @@ function Profile() {
     const { user } = useAuth();
     const { id: viewed_user_id } = useParams();
 
-    const { posts, isLoading: postsLoading, isError: postsError, fetchProfilePosts, createPost, deleteProfilePost } = usePosts();
+    const { posts, isLoading: postsLoading, isError: postsError, fetchProfilePosts, createPost, createProfilePost, deleteProfilePost } = usePosts();
     const { profile: viewed_user, isLoading: userLoading, isError: userError, fetchProfile } = useProfiles();
 
     const populateProfileData = useCallback(async () => {
@@ -34,6 +34,7 @@ function Profile() {
 
             {viewed_user && !userError && !userLoading &&
                 <>
+                <div className='profile-header'>
                     <div className='profile-cover'>
                         { viewed_user.banner && <img alt='' src={config.media_url + 'banner/' + viewed_user.banner} /> }
                     </div>
@@ -55,12 +56,13 @@ function Profile() {
                             </div>
                         </div>
                     </div>
+                </div>
 
                     {posts &&
                         <div className='profile-posts-list'>
 
                             { viewed_user._id === user._id && 
-                                <PostCompose create={createPost} />
+                                <PostCompose create={createProfilePost} profile_id={viewed_user._id} />
                             }
 
                             {posts && 

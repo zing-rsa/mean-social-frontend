@@ -2,13 +2,31 @@
     width: 80vw;
     height: calc(100vh - 100px);
     margin: auto;
-    background-color: red;
+}
+
+.profile-header {
+    width: 100%;
+    height: auto;
+    margin: 20px 0px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .profile-cover {
     height: 300px;
     width: 100%;
     background-color:grey;
+
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 0;
+}
+
+.profile-cover img {
+    width: 100%;
+    height: auto;
 }
 
 .profile-avatar {
@@ -22,22 +40,26 @@
     height: inherit;
     width: inherit;
     margin-top: -75px;
+    border-radius: 75px;
+    z-index: 2;
+    position: relative;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .profile-details {
+    background-color: white;
     width: 100%;
     height: 100px;
     display: flex;
     flex-direction: column;
-    background-color:yellow;
-    
+    z-index: 1;
+    position: relative;
 }
 
 .profile-details-header {
     height: 50px;
     display: flex;
     align-items: center;
-    background-color: aquamarine
 }
 
 .profile-details-name {
@@ -52,20 +74,18 @@
 .profile-details-footer {
     height: 50px; 
     width: 100%;
-    background-color: orange;
 }
 
 .profile-details-bio {
     height: 100%;
     margin: 0px 200px;  
-    background-color: blue;   
 }
 
 .profile-posts-list {
     width: 600px;
     margin:auto;
     height: calc(100% - 400px);
-    background-color: yellow;
+    padding: 0px 40px;
     overflow-y: scroll;
     overflow-x: hidden;
 }

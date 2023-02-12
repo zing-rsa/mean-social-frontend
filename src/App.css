@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
 html, body, ul, p {    
   margin: 0;
   padding: 0;
@@ -5,12 +8,20 @@ html, body, ul, p {
 
 body {
   font-family: Arial, sans-serif;
+  background-color: white;
+  font-family: 'Roboto', sans-serif;
 }
 
 .router {
   height:calc(100vh - 100px);
   width:100vw;
-  background-color:green;
+  overflow: hidden; 
+  background-color:white;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 0px;
 }
 
 a, a:link, a:visited, a:hover {
@@ -18,18 +29,25 @@ a, a:link, a:visited, a:hover {
   color:black;
 }
 
-/* width */
-::-webkit-scrollbar {
-  width: 8px;
+input {
+  background-color: white;
+  border: none !important;
+  outline: none !important;
+} 
+
+input:active {
+  border: none !important;
+  outline: none !important;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-background:none;
+textarea {
+  /* overflow-y:auto; */
+  resize: none;
+  border: none !important;
+  outline: none !important;
 }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-background: rgba(0,0,0,0.3);
-border-radius: 10px;
+textarea:active {
+  border: none !important;
+  outline: none !important;
 }

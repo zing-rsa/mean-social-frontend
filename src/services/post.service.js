@@ -67,6 +67,28 @@ const usePosts = () => {
   }
   }, []);
 
+  const createProfilePost = useCallback(async (post, profile_id) => {
+    try {
+      await api({
+          method: "POST",
+          url: 'posts/create',
+          headers: config.headers(getToken()),
+          data: post
+      })
+
+      const res = await api({
+        method: 'GET',
+        url: `users/${profile_id}/posts`,
+        headers: config.headers(getToken())
+      })
+
+      setPosts(res.data);
+
+  } catch (e) {
+      console.log(e);
+  }
+  }, []);
+
   const deletePost = useCallback(async (post_id) => {
     try {
       setIsError(false);
@@ -127,7 +149,7 @@ const usePosts = () => {
 
   }, [])
 
-  return { posts, isLoading, isError, fetchPosts, fetchProfilePosts, createPost, deletePost, deleteProfilePost };
+  return { posts, isLoading, isError, fetchPosts, fetchProfilePosts, createPost, createProfilePost, deletePost, deleteProfilePost };
 }
 
 export { usePosts };

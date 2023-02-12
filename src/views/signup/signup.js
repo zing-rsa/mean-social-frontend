@@ -34,8 +34,6 @@ function Signup() {
     const postUser = async (user) => {
         setIsLoading(true);
 
-        console.log('signup user:', user);
-
         try {
             const res = await axios({
                 method: "POST",
@@ -44,7 +42,6 @@ function Signup() {
             });
             
             if (res.status === 201) {
-                console.log('trying to log in')
 
                 await login(user.get('email'), user.get('pass'));
             }
@@ -54,7 +51,6 @@ function Signup() {
             console.log(e);
         }
 
-        console.log('complete post user');
     }
 
     return (

@@ -3,14 +3,13 @@
     width: 80vw;
     height: calc(100vh - 100px);
     margin: auto;
-    background-color: red;
 }
 
 .posts-list {
     width: 600px;
     margin:auto;
     height:100%;
-    background-color: yellow;
+    padding: 0px 40px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
