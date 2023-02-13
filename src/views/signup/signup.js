@@ -7,17 +7,18 @@ import { useState } from 'react';
 import config from '../../config'
 import axios from 'axios';
 import './signup.css';
+import PrimaryButton from '../../components/button-primary/button-primary';
 
 function Signup() {
 
     const { login, authLoading, authenticated } = useAuth();
-    const [ isLoading, setIsLoading ] = useState(false);
-    const [ isError, setIsError ] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(authenticated)
+        if (authenticated)
             navigate('/feed');
     }, [authenticated]);
 
@@ -25,12 +26,12 @@ function Signup() {
         e.preventDefault();
 
         const data = new FormData();
-        
+
         if (e.target.avatar.files[0])
             data.append('avatar', e.target.avatar.files[0]);
         if (e.target.banner.files[0])
             data.append('banner', e.target.banner.files[0]);
-        
+
         data.append('name', e.target.name.value);
         data.append('surname', e.target.surname.value);
         data.append('email', e.target.email.value);
@@ -50,7 +51,7 @@ function Signup() {
                 url: config.api_url + 'auth/signup',
                 data: user
             });
-            
+
             if (res.status === 201) {
 
                 await login(user.get('email'), user.get('pass'));
@@ -64,30 +65,32 @@ function Signup() {
     }
 
     return (
-        <div className='signup-container'>
-
-            {
-                !authLoading && !isLoading &&
-                <>
-                    Sign up
-                    <form onSubmit={handleSubmit}>
-                        <input type='text' name='name' placeholder='name'></input>
-                        <input type='text' name='surname' placeholder='surname'></input>
-                        <input type='text' name='bio' placeholder='bio'></input>
-                        <input type='text' name='email' placeholder='email'></input>
-                        <input type='password' name='pass' placeholder='pass'></input>
-                        <input type='file' name='avatar' />
-                        <input type='file' name='banner' />
-                        <button type='submit'>Sign up</button>
+        <>
+            {!authLoading && !isLoading &&
+                <div className='signup-container'>
+                    <form className='signup-form' onSubmit={handleSubmit}>
+                        <div className='signup-header'>Sign up</div>
+                        <div className='signup-form-top'>
+                            <div className='grid-item signup-upload'><label><input type='file' name='avatar' />Upload avatar</label></div>
+                            <div className='grid-item signup-upload'><label><input type='file' name='banner' />Upload banner</label></div>
+                            <input className='grid-item signup-text' type='text' name='name' placeholder='name'></input>
+                            <input className='grid-item signup-text' type='text' name='surname' placeholder='surname'></input>
+                            <textarea className='bio-compose' type='text' name='bio' placeholder='bio'></textarea>
+                        </div>
+                        <div className='signup-form-bottom'>
+                            <input className='grid-item signup-text' type='text' name='email' placeholder='email'></input>
+                            <input className='grid-item signup-text' type='password' name='pass' placeholder='pass'></input>
+                        </div>
+                        
+                        <PrimaryButton classes={'signup-button'} type='submit' text={'Sign up'}/>
                     </form>
-                </>
+                </div>
             }
             {
                 (authLoading || isLoading) &&
                 <Loader />
             }
-
-        </div>
+        </>
 
     )
 }
