@@ -34,43 +34,43 @@ function Profile() {
 
             {viewed_user && !userError && !userLoading &&
                 <>
-                <div className='profile-header'>
-                    <div className='profile-cover'>
-                        { viewed_user.banner && <img alt='' src={config.media_url + 'banner/' + viewed_user.banner} /> }
-                    </div>
-                    <div className='profile-avatar'>
-                        <img alt='' src={viewed_user.avatar ? config.media_url + 'avatar/' + viewed_user.avatar : avatar} />
-                    </div>
-                    <div className='profile-details'>
-                        <div className='profile-details-header'>
-                            <div className='profile-details-name'>
-                                <span>{`${viewed_user.name} ${viewed_user.surname}`}</span>
+                    <div className='profile-scroller'>
+
+                        <div className='profile-header'>
+                            <div className='profile-cover'>
+                                {viewed_user.banner && <img alt='' src={config.media_url + 'banner/' + viewed_user.banner} />}
                             </div>
-                            <div className='follower-container'>
-                                <Follows _id={viewed_user._id} />
+                            <div className='profile-avatar'>
+                                <img alt='' src={viewed_user.avatar ? config.media_url + 'avatar/' + viewed_user.avatar : avatar} />
+                            </div>
+                            <div className='profile-details'>
+                                <div className='profile-details-header'>
+                                    <div className='profile-details-name'>
+                                        <span>{`${viewed_user.name} ${viewed_user.surname}`}</span>
+                                    </div>
+                                    <div className='follower-container'>
+                                        <Follows _id={viewed_user._id} />
+                                    </div>
+                                </div>
+                                <div className='profile-details-footer'>
+                                    <div className='profile-details-bio'>
+                                        <span>{viewed_user.bio}</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className='profile-details-footer'>
-                            <div className='profile-details-bio'>
-                                <span>{viewed_user.bio}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                    {posts &&
-                        <div className='profile-posts-list'>
-
-                            { viewed_user._id === user._id && 
+                        <div className='profile-post-container'>
+                            {viewed_user._id === user._id &&
                                 <PostCompose create={createProfilePost} profile_id={viewed_user._id} />
                             }
 
-                            {posts && 
+                            {posts &&
                                 posts.map((item, index) =>
                                     <Post key={item._id} delete={(post_id) => deleteProfilePost(post_id, user._id)} {...item} />)
                             }
                         </div>
-                    }
+                    </div>
 
                     {postsLoading &&
                         <Loader />

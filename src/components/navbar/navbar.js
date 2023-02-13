@@ -54,7 +54,6 @@ function Navbar() {
                     :
                     <li className='nav-login'>
                         <SecondaryButton text={'Log in'} onClick={routeToLogin} classes={'nav-login-button'} />
-                        <Link to="/login">login</Link>
                     </li>}
             </ul>
         </div>

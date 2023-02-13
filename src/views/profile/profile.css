@@ -2,16 +2,24 @@
     width: 80vw;
     height: 100vh;
     margin: auto;
-    padding-top: 50px;
+    padding-top:50px;
+}
+
+.profile-scroller {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100vh;
+    width: 100%;
 }
 
 .profile-header {
     width: 100%;
     height: auto;
-    margin: 0px 0px 10px 0px;
+    margin: 0px 0px 20px 0px;
     overflow: hidden;
     border-radius: 15px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    position: relative;
 }
 
 .profile-cover {
@@ -82,13 +90,10 @@
     margin: 0px 200px;
 }
 
-.profile-posts-list {
+.profile-post-container {
     width: 600px;
     margin:auto;
-    height: calc(100% - 400px);
     padding: 0px 40px;
-    overflow-y: scroll;
-    overflow-x: hidden;
 }
 
 

@@ -2,8 +2,6 @@
     height: 50px;
     width: 100vw;
     position: fixed;
-    background: rgb(255,255,255);
-    background: linear-gradient(180deg, rgba(255,255,255,1) 35%, rgba(255,255,255,0.5018382352941176) 79%, rgba(255,255,255,0) 100%);    z-index: 2;
 }
 
 .nav-list {
@@ -57,7 +55,8 @@ ul {
 }
 
 .nav-login-button {
-
+    height: 40px;
+    width: 80px;
 }
 
 .nav-sign-out {
