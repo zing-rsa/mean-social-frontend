@@ -1,7 +1,9 @@
 .navbar {
     height: 50px;
     width: 100vw;
-    background-color: red;
+    position: fixed;
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,1) 35%, rgba(255,255,255,0.5018382352941176) 79%, rgba(255,255,255,0) 100%);    z-index: 2;
 }
 
 .nav-list {
@@ -11,8 +13,6 @@
     list-style: none;
     display: flex;
     flex-direction: row;
-    background-color: purple;
-
 }
 
 ul {
@@ -24,7 +24,6 @@ ul {
     width: 50px;
     margin: 0px 5px;
     line-height: 50px;
-    background-color: aqua;
     text-align: center;
 }
 
@@ -33,7 +32,6 @@ ul {
 }
 
 .profile {
-    background-color: brown;
     width:auto;
     display:flex;
     flex-direction: row;
@@ -43,7 +41,29 @@ ul {
     margin: 0px 10px;
 }
 
-.login {
+.nav-avatar {
+    height: 40px;
+    width: 40px;
+    margin: 5px 0px;
+}
+
+.nav-login {
+    height:50px;
+    width: 50px;
+    margin: 0px 5px;
+    line-height: 50px;
+    text-align: center;
     margin-left: auto;
+}
+
+.nav-login-button {
+
+}
+
+.nav-sign-out {
+    font-size: 12px;
+    height: 35px;
+    width: 80px;
+    margin: 7.5px 5px;
 }
 

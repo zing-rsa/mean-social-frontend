@@ -13,10 +13,9 @@ body {
 }
 
 .router {
-  height:calc(100vh - 100px);
+  height:100vh;
   width:100vw;
   overflow: hidden; 
-  background-color:white;
 }
 
 /* width */

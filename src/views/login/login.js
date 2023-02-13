@@ -1,5 +1,5 @@
+import { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useCallback } from 'react'
 
 import SecondaryButton from '../../components/button-secondary/button-secondary'
 import PrimaryButton from '../../components/button-primary/button-primary'
@@ -10,13 +10,18 @@ import './login.css'
 
 function Login(props) {
 
-    const { login } = useAuth();
+    const { login, authenticated } = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
         login(e.target.email.value, e.target.pass.value);
     }, []);
+
+    useEffect(() => {
+        if(authenticated)
+            navigate('/feed');
+    }, [authenticated]);
 
     return (
         <div className='login-container'>

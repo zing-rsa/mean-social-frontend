@@ -17,7 +17,7 @@ function App() {
           <RouteHandler />
         </div>
 
-        <Footer />
+        {/* <Footer /> */}
 
       </AuthProvider>
   );

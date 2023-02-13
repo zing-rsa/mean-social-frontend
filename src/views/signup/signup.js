@@ -1,3 +1,6 @@
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+
 import { useAuth } from '../../providers/auth.provider'
 import Loader from '../../components/loader/loader';
 import { useState } from 'react';
@@ -7,9 +10,16 @@ import './signup.css';
 
 function Signup() {
 
-    const { login, authLoading } = useAuth();
+    const { login, authLoading, authenticated } = useAuth();
     const [ isLoading, setIsLoading ] = useState(false);
     const [ isError, setIsError ] = useState(false);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(authenticated)
+            navigate('/feed');
+    }, [authenticated]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
