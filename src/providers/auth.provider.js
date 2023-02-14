@@ -34,7 +34,7 @@ const AuthProvider = ({ children }) => {
 
             setUser(res.data);
             setAuthenticated(true);
-            
+
         } catch (e) {
             setAuthenticated(false);
             setUser(null);
@@ -102,10 +102,24 @@ const AuthProvider = ({ children }) => {
         setAuthLoading(false);
     }, []);
 
-    const handleLogout = useCallback(() => {
-        setAuthenticated(false);
-        setToken(null);
-        setUser(null);
+    const handleLogout = useCallback(async () => {
+        setAuthLoading(true);
+
+        try {
+            await api({
+                method: "GET",
+                url: config.api_url + 'auth/logout',
+                headers: config.headers(getToken()),
+                withCredentials: true
+            });
+
+            setAuthenticated(false);
+            setToken(null);
+            setUser(null);
+        } catch {
+            console.log()
+        }
+        setAuthLoading(false);
     }, [])
 
     const value = {
