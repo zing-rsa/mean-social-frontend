@@ -2,8 +2,6 @@
 - admin tools ui
 - banner and avatar update
 - delete buttons on posts/comments
-- auth issue, if you sign out the refresh
-  token stays in cookies and refreshes you if you go back
 
 - clean comment ui
 - clean profile header ui
@@ -13,3 +11,4 @@
 
 - red error popup
 - notifications
+- prioritized content

@@ -1,35 +1,47 @@
 .dash-container {
-    width: 80vw;
-    height: calc(100vh - 100px);
-    margin:auto;
-    background-color:orange;
+    width: 40vw;
+    height: 100vh;
+    margin: 0px auto;
+    padding-top:50px;
 }
 
 .dash-header {
-    height:200px;
     width:100%;
-    margin: auto;
-    margin-top:50px;
-    display: inline-block;
-    background-color: red;
+    height:200px;
+    margin: 0px auto;
+    padding: 20px;
+    
+    border-radius: 15px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    
+    box-sizing: border-box;
+}
+
+.dash-header-header {
+    font-size: 25px;
 }
 
 .dash-body {
-    height: calc(100% - 50px - 40px - 200px);
     width:100%;
+    height: calc(100vh - 250px);
     margin: 20px auto;
-    background-color: red;
+    padding: 20px;
+    
+    border-radius: 15px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    
+    box-sizing: border-box;
 }
 
 .dash-body-header {
     height:30px;
+    font-size: 20px;
 }
 
 .dash-posts-list {
     width: 600px;
     margin:auto;
-    height: calc(100% - 30px);   
-    background-color: yellow;
+    height: calc(100% - 30px);
     overflow-y: scroll;
     overflow-x: hidden;
 }

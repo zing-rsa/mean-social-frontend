@@ -17,7 +17,7 @@ function Dashboard() {
     return (
         <div className='dash-container'>
             <div className='dash-header'>
-                <div><h1>Dashboard</h1></div>
+                <div className='dash-header-header'><span>Dashboard</span></div>
                 <div><span>Num users: 3</span></div>
                 <div><span>Daily active users: 2</span></div>
                 <div><span>New users: 1</span></div>
@@ -25,7 +25,7 @@ function Dashboard() {
             </div>
             <div className='dash-body'>
                 <div className='dash-body-header'>
-                    <h2>Latest activity:</h2>
+                    <span>Latest activity:</span>
                 </div>
 
                 {posts &&

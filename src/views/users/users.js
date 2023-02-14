@@ -16,21 +16,22 @@ function Users() {
 
     return (
         <div className='users-container'>
-            <h2 className='header'>Manage users</h2>
+            <div className='users-header'>Manage users</div>
             <div className='users-list'>
                 {profiles &&
                     profiles.map((profile) =>
                         <AdminView_User key={profile._id} delete={() => deleteProfile(profile._id)} {...profile} />)
                 }
-                
+
                 {isLoading &&
                     <Loader />
                 }
 
-                {isError && 
+                {isError &&
                     <Error />
                 }
             </div>
+
         </div>
     )
 }

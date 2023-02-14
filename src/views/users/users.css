@@ -1,19 +1,25 @@
 .users-container {
-    width: 80vw;
-    height: calc(100vh - 100px);
-    margin: auto;
-    background-color: red;
+    height: calc(100vh - 50px);
+    width: 40vw;
+    margin: 50px auto 0px auto;
+    /* background-color: green; */
+
+    border-radius: 15px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    
+    box-sizing: border-box;
+    padding: 10px;
 }
 
 .users-list {
     width: 600px;
     margin: auto;
     height: 100%;
-    background-color: yellow;
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
-.header {
-    margin: 0px;
+.users-header {
+    margin: 10px;
+    font-size: 25px;
 }
