@@ -102,11 +102,19 @@ const AuthProvider = ({ children }) => {
         setAuthLoading(false);
     }, []);
 
-    const handleLogout = useCallback(async () => {
+    const handleLogout = useCallback(async (voluntary) => {
         setAuthLoading(true);
 
+        if(!voluntary){
+            setAuthenticated(false);
+            setToken(null);
+            setUser(null);
+            setAuthLoading(false);
+            return
+        }
+
         try {
-            await api({
+            await axios({
                 method: "GET",
                 url: config.api_url + 'auth/logout',
                 headers: config.headers(getToken()),
@@ -116,9 +124,35 @@ const AuthProvider = ({ children }) => {
             setAuthenticated(false);
             setToken(null);
             setUser(null);
-        } catch {
-            console.log()
+        } catch(e) {
+            if (e.response.status == 401){
+                const res = await axios({
+                    method: "GET",
+                    url: config.api_url + 'auth/refresh',
+                    withCredentials: true
+                });
+
+                if (res.data.refreshed_token) {
+                    setToken(res.data.refreshed_token);
+                }
+
+                try {
+                    await axios({
+                        method: "GET",
+                        url: config.api_url + 'auth/logout',
+                        headers: config.headers(getToken()),
+                        withCredentials: true
+                    });
+        
+                    setAuthenticated(false);
+                    setToken(null);
+                    setUser(null);
+                } catch (e){
+                    console.error(e);
+                }
+            }
         }
+
         setAuthLoading(false);
     }, [])
 

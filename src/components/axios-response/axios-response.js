@@ -34,7 +34,7 @@ const AxiosResponseInterceptor = () => {
 
                     } catch (e) {
                         if(err.response.status === 401){
-                            logout();
+                            logout(false);
                         } else {
                             return Promise.reject(err);
                         }

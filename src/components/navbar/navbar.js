@@ -48,7 +48,7 @@ function Navbar() {
                                 <img className='nav-avatar' alt='' src={user.avatar ? config.media_url + '/avatar/' + user.avatar : profilePlaceholder} />
                             </li>
 
-                            <SecondaryButton onClick={logout} text={'Sign out'} classes={'nav-sign-out'}/>
+                            <SecondaryButton onClick={() => logout(true)} text={'Sign out'} classes={'nav-sign-out'}/>
                         </>
                     )
                     :
