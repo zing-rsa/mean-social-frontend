@@ -89,10 +89,21 @@
     display: flex;
 }
 
+.cancel-button {
+    font-size: 12px;
+    font-size: 12px;
+    height: 34px;
+    width: 70px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s;
+    transition: visibility 0.5s;
+}
+
 .submit-post {
     height:36px;
     width: 80px;
-    font-size: 12px;
+    
 }
 
 input[type="file"] {

@@ -82,7 +82,7 @@ function Signup() {
                             <input className='grid-item signup-text' type='password' name='pass' placeholder='pass'></input>
                         </div>
                         
-                        <PrimaryButton classes={'signup-button'} type='submit' text={'Sign up'}/>
+                        <PrimaryButton classes={'signup-button'} text={'Sign up'}/>
                     </form>
                 </div>
             }
