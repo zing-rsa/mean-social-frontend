@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 
+import PostInteractions from '../post-interactions/post-interactions';
 import CommentCompose from '../comment-composer/comment-composer';
 import { usePostComments } from '../../services/comment.service';
 import DeleteButton from '../delete-button/delete-button';
@@ -60,7 +61,6 @@ function Post(props) {
                         <div className='post-details-img'>
                             <Avatar classes={'author-avatar'} src={props.owner.avatar} link={`/profile/${props.owner._id}`}/> 
                         </div>
-
                     </div>
 
                     <div className='post-text-body'>
@@ -68,7 +68,7 @@ function Post(props) {
                     </div>
 
                     <div className='post-interactions'>
-
+                        <PostInteractions post_id={props._id} likes={props.likes} />
                     </div>
 
                     <CommentCompose parent={props._id} refresh={fetchComments} />
