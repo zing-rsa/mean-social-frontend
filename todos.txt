@@ -1,9 +1,6 @@
 
-- likes
-- post stats(comment count, likes)
-- post button is still clickable when hidden
-- make semi responsive
 - cancel post(comment?) create
+- make semi responsive
 
 - clean comment ui
 - clean profile header ui

@@ -42,6 +42,7 @@ function CommentCompose({ parent, refresh }) {
 
     const updateButton = (show) => {
         postButton.current.style.opacity = show ? '1' : '0'; 
+        postButton.current.style.visibility = show ? 'visible' : 'hidden';
     }
 
     return (
