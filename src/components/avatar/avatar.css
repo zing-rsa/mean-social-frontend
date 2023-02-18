@@ -1,0 +1,18 @@
+.avatar-container {
+    border-radius: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.avatar-container img {
+    object-fit: cover;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.avatar-container:hover {
+    cursor: pointer;
+}

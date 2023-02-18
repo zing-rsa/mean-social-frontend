@@ -1,15 +1,13 @@
 
-- banner and avatar update
 - likes
 - post stats(comment count, likes)
 - post button is still clickable when hidden
 - make semi responsive
+- cancel post(comment?) create
 
 - clean comment ui
 - clean profile header ui
     - follow button
-- avatars are stretching
-  - generic profile component, takes h+w, has link, etc. 
 - signup show pictures
 
 - red error popup

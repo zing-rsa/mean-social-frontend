@@ -4,10 +4,10 @@ import { useParams } from 'react-router-dom'
 import PostCompose from '../../components/post-composer/post-composer';
 import { usePosts } from '../../services/post.service'
 import { useProfiles } from '../../services/user.service'
-import avatar from '../../assets/profile-placeholder.png'
 import { useAuth } from "../../providers/auth.provider"
 import Follows from '../../components/follows/follows'
 import Loader from '../../components/loader/loader';
+import Avatar from "../../components/avatar/avatar";
 import Post from '../../components/post/post';
 import Error from '../../components/error/error';
 import config from '../../config';
@@ -82,7 +82,7 @@ function Profile() {
                                     </label>
                                 </div>
                                 <div className='profile-avatar'>
-                                    <img alt='' src={viewed_user.avatar ? config.media_url + 'avatar/' + viewed_user.avatar : avatar} />
+                                    <Avatar classes={'profile-avatar-img'} src={viewed_user.avatar} />
                                 </div>
                             </form>
                             <div className='profile-details'>

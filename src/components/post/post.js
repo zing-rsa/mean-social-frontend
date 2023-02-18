@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 
-import profilePlaceholder from '../../assets/profile-placeholder.png'
 import CommentCompose from '../comment-composer/comment-composer';
 import { usePostComments } from '../../services/comment.service';
 import DeleteButton from '../delete-button/delete-button';
 import { useAuth } from '../../providers/auth.provider';
 import Comment from '../comment/comment'
 import Loader from '../loader/loader';
+import Avatar from '../avatar/avatar';
 import config from '../../config';
 import './post.css'
 
@@ -58,7 +58,7 @@ function Post(props) {
                             </div>
                         }
                         <div className='post-details-img'>
-                            <img className='author-avatar' src={props.owner.avatar ? config.media_url + 'avatar/' + props.owner.avatar : profilePlaceholder} />
+                            <Avatar classes={'author-avatar'} src={props.owner.avatar} link={`/profile/${props.owner._id}`}/> 
                         </div>
 
                     </div>

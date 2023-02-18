@@ -2,9 +2,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useCallback } from 'react';
 
 import SecondaryButton from '../button-secondary/button-secondary';
-import profilePlaceholder from '../../assets/profile-placeholder.png'
 import { useAuth } from "../../providers/auth.provider";
-import config from '../../config';
+import Avatar from '../avatar/avatar';
 import './navbar.css'
 
 function Navbar() {
@@ -45,7 +44,7 @@ function Navbar() {
                                         {user.name}
                                     </Link>
                                 </div>
-                                <img className='nav-avatar' alt='' src={user.avatar ? config.media_url + '/avatar/' + user.avatar : profilePlaceholder} />
+                                <Avatar classes={'nav-avatar'} src={user.avatar} link={`/profile/${user._id}`} />
                             </li>
 
                             <SecondaryButton onClick={() => logout(true)} text={'Sign out'} classes={'nav-sign-out'}/>

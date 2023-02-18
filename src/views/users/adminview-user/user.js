@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom'
 
-import avatar from '../../../assets/profile-placeholder.png'
 import DeleteButton from '../../../components/delete-button/delete-button'
-import config from '../../../config'
+import Avatar from '../../../components/avatar/avatar'
 import './user.css'
 
 function AdminViewUser(props) {
 
     return (
         <div className='user-row'>
-            <img className='user-avatar' src={props.avatar ? config.media_url + 'avatar/' + props.avatar : avatar } />
+            <Avatar classes={'user-avatar'} src={props.avatar} />
             <div className='user-name'>
                 <Link to={'/profile/' + props._id}>{props.name} {props.surname}</Link>
             </div>
