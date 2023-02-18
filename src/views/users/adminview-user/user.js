@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
 
 import avatar from '../../../assets/profile-placeholder.png'
+import DeleteButton from '../../../components/delete-button/delete-button'
 import config from '../../../config'
 import './user.css'
 
-function AdminView_User(props) {
+function AdminViewUser(props) {
 
     return (
         <div className='user-row'>
@@ -15,10 +16,10 @@ function AdminView_User(props) {
             <div className='user-username'>{'@' + props.username}</div>
 
             <div className='user-del'>
-                <button onClick={props.delete}>Delete</button>
+                <DeleteButton cb={props.delete} title={'Delete user'} />
             </div>
         </div>
     )
 }
 
-export default AdminView_User;
+export default AdminViewUser;

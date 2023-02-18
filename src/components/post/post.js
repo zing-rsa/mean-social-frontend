@@ -4,11 +4,12 @@ import { useEffect } from 'react';
 import profilePlaceholder from '../../assets/profile-placeholder.png'
 import CommentCompose from '../comment-composer/comment-composer';
 import { usePostComments } from '../../services/comment.service';
+import DeleteButton from '../delete-button/delete-button';
+import { useAuth } from '../../providers/auth.provider';
 import Comment from '../comment/comment'
 import Loader from '../loader/loader';
 import config from '../../config';
 import './post.css'
-import { useAuth } from '../../providers/auth.provider';
 
 const timestamp = (input) => {
     let date = input.split('T')[0]
@@ -51,9 +52,15 @@ function Post(props) {
                             </div>
 
                         </div>
+                        {(user.isAdmin || user._id === props.owner._id) &&
+                            <div className='post-details-delete'>
+                                <DeleteButton classes={'post-details-delete-button'} title={'Delete post'} cb={props.delete}/>
+                            </div>
+                        }
                         <div className='post-details-img'>
                             <img className='author-avatar' src={props.owner.avatar ? config.media_url + 'avatar/' + props.owner.avatar : profilePlaceholder} />
                         </div>
+
                     </div>
 
                     <div className='post-text-body'>

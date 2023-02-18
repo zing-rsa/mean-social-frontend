@@ -3,12 +3,16 @@ import { AuthProvider } from './providers/auth.provider'
 import { Navbar, Footer } from './components'
 import RouteHandler from "./routes";
 import './App.css';
+import useScript from './hooks/useScript';
 
 
 function App() {
 
+  useScript('https://kit.fontawesome.com/e0795630b8.js');
+
   return (
       <AuthProvider>
+
         <AxiosResponseInterceptor />
 
         <Navbar />
@@ -22,7 +26,5 @@ function App() {
       </AuthProvider>
   );
 }
-
-
 
 export default App;

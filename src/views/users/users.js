@@ -4,7 +4,7 @@ import { useProfiles } from '../../services/user.service';
 import './users.css'
 import Loader from '../../components/loader/loader'
 import Error from '../../components/error/error'
-import AdminView_User from './adminview-user/user';
+import AdminViewUser from './adminview-user/user';
 
 function Users() {
 
@@ -20,7 +20,7 @@ function Users() {
             <div className='users-list'>
                 {profiles &&
                     profiles.map((profile) =>
-                        <AdminView_User key={profile._id} delete={() => deleteProfile(profile._id)} {...profile} />)
+                        <AdminViewUser key={profile._id} delete={() => deleteProfile(profile._id)} {...profile} />)
                 }
 
                 {isLoading &&

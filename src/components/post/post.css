@@ -40,13 +40,12 @@
     flex-direction: column;
     padding:20px;
     z-index: 1;
-
     background-color: white;
-
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .post-details {
+    height: 50px;
     display: flex;
     flex-direction: row;
 }
@@ -56,7 +55,19 @@
     flex-direction: column;
     justify-content: space-evenly;
     width: 100%;
-    
+}
+
+.post-details-delete {
+    height: 50px;
+    width: 50px;
+    margin: 0px 10px;
+}
+
+.post-details-delete-button {
+    width: 100%;
+    font-size: 20px;
+    text-align: center;
+    line-height: 50px;
 }
 
 .post-details-img {
@@ -88,10 +99,6 @@
 .post-text-body {
     margin: 20px 0px;
     word-wrap: break-word;
-}
-
-.delete {
-    /* position: absolute; */
 }
 
 .comments {

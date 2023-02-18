@@ -66,8 +66,8 @@ function Profile() {
                             }
 
                             {posts &&
-                                posts.map((item, index) =>
-                                    <Post key={item._id} delete={(post_id) => deleteProfilePost(post_id, user._id)} {...item} />)
+                                posts.map((item) =>
+                                    <Post key={item._id} delete={() => deleteProfilePost(item._id, user._id)} {...item} />)
                             }
                         </div>
                     </div>

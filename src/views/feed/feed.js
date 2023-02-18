@@ -23,7 +23,7 @@ function Feed() {
                     <PostCompose create={createPost} />
                     {posts && 
                         posts.map((item) =>
-                            <Post key={item._id} delete={deletePost} {...item}  /> 
+                            <Post key={item._id} delete={() => deletePost(item._id)} {...item}  /> 
                         )
                     }
                 </div>

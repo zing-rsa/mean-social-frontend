@@ -35,7 +35,7 @@ function Dashboard() {
                         }
 
                         {posts && posts.map((item, index) =>
-                            <Post key={item._id} delete={deletePost} {...item} />)}
+                            <Post key={item._id} delete={() => deletePost(item._id)} {...item} />)}
 
                     </div>
                 }
