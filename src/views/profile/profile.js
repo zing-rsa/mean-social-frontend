@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import { useParams } from 'react-router-dom'
 
 import PostCompose from '../../components/post-composer/post-composer';
@@ -18,7 +18,9 @@ function Profile() {
     const { id: viewed_user_id } = useParams();
 
     const { posts, isLoading: postsLoading, isError: postsError, fetchProfilePosts, createPost, createProfilePost, deleteProfilePost } = usePosts();
-    const { profile: viewed_user, isLoading: userLoading, isError: userError, fetchProfile } = useProfiles();
+    const { profile: viewed_user, isLoading: userLoading, isError: userError, fetchProfile, updateProfile } = useProfiles();
+
+    const form = useRef(null);
 
     const populateProfileData = useCallback(async () => {
         await fetchProfile(viewed_user_id);
@@ -29,6 +31,30 @@ function Profile() {
         populateProfileData();
     }, [populateProfileData]);
 
+    const handleProfileUpdate = () => {
+        form.current.dispatchEvent(
+            new Event("submit", { cancelable: true, bubbles: true })
+        )
+    };
+
+    const handleSubmit = useCallback(async (e) => {
+        e.preventDefault();
+
+        const data = new FormData();
+
+        data.append('_id', user._id);
+
+        if (e.target.avatar?.files[0])
+            data.append('avatar', e.target.avatar.files[0]);
+        if (e.target.banner?.files[0])
+            data.append('banner', e.target.banner.files[0]);
+
+        await updateProfile(data);
+
+        if (e.target.avatar?.files[0])
+            window.location.reload();
+    }, []);
+
     return (
         <div className='profile-container'>
 
@@ -37,12 +63,28 @@ function Profile() {
                     <div className='profile-scroller'>
 
                         <div className='profile-header'>
-                            <div className='profile-cover'>
-                                {viewed_user.banner && <img alt='' src={config.media_url + 'banner/' + viewed_user.banner} />}
-                            </div>
-                            <div className='profile-avatar'>
-                                <img alt='' src={viewed_user.avatar ? config.media_url + 'avatar/' + viewed_user.avatar : avatar} />
-                            </div>
+                            <form ref={form} onSubmit={handleSubmit} onChange={handleProfileUpdate}>
+
+                                <div className='update-cover'>
+                                    <label>
+                                        <input type='file' name='banner' />
+                                        <i className="fa-regular fa-pen-to-square"></i>
+                                    </label>
+                                </div>
+                                <div className='profile-cover'>
+                                    {viewed_user.banner && <img alt='' src={config.media_url + 'banner/' + viewed_user.banner} />}
+                                </div>
+
+                                <div className='update-avatar'>
+                                    <label>
+                                        <input type='file' name='avatar' />
+                                        <i className="fa-regular fa-pen-to-square"></i>
+                                    </label>
+                                </div>
+                                <div className='profile-avatar'>
+                                    <img alt='' src={viewed_user.avatar ? config.media_url + 'avatar/' + viewed_user.avatar : avatar} />
+                                </div>
+                            </form>
                             <div className='profile-details'>
                                 <div className='profile-details-header'>
                                     <div className='profile-details-name'>

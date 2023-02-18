@@ -47,7 +47,6 @@ const useProfiles = () => {
     setIsLoading(false);
   }, []);
 
-
   const deleteProfile = useCallback(async (id) => {
     try {
       await api({
@@ -72,7 +71,23 @@ const useProfiles = () => {
     }
   }, []);
 
-  return { profile, profiles, isLoading, isError, fetchProfile, fetchProfiles, deleteProfile };
+  const updateProfile = useCallback(async (profile) => {
+    try {
+      const res = await api({
+        method: "PUT",
+        url: config.api_url + 'users/edit',
+        headers: config.headers(getToken()),
+        data: profile
+      });
+
+      setProfile(res.data);
+
+    } catch (e) {
+      console.log(e);
+    }
+  }, [])
+
+  return { profile, profiles, isLoading, isError, fetchProfile, fetchProfiles, deleteProfile, updateProfile };
 }
 
 

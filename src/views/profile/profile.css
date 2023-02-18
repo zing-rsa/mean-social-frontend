@@ -38,6 +38,32 @@
     height: auto;
 }
 
+.update-cover {
+    position: absolute;
+    height: 300px;
+    width: 100%;
+
+    z-index: 1;
+    background-color: rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    
+    line-height: 300px;
+    text-align: center;
+
+    font-size: 20px;
+    color: white;
+}
+
+.update-cover:hover {
+    opacity: 1;
+}
+
+.update-cover label {
+    cursor: pointer;
+
+}
+
 .profile-avatar {
     position: absolute;
     height: 150px;
@@ -95,5 +121,31 @@
     margin:auto;
     padding: 0px 40px;
 }
+
+.update-avatar {
+    background-color: rgba(0,0,0,0.2);
+    position: absolute;
+    height: 150px;
+    width: 150px;
+    margin-left: 50px;
+    margin-top: -75px;
+    border-radius: 100px;
+    z-index: 5;
+    opacity: 0;
+    line-height: 150px;
+    text-align: center;
+    transition: opacity 0.5s ease;
+    font-size: 20px;
+    color: white;
+}
+
+.update-avatar:hover {
+    opacity: 1;
+}
+
+.update-avatar label {
+    cursor: pointer;
+}
+
 
 
