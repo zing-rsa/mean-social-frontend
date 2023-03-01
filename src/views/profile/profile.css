@@ -1,5 +1,5 @@
 .profile-container {
-    width: 80vw;
+    width: 95vw;
     height: 100vh;
     margin: auto;
     padding-top:50px;
@@ -13,9 +13,9 @@
 }
 
 .profile-header {
-    width: 100%;
+    max-width: 80%;
     height: auto;
-    margin: 0px 0px 20px 0px;
+    margin: 0px auto 20px auto;
     overflow: hidden;
     border-radius: 15px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -34,8 +34,9 @@
 }
 
 .profile-cover img {
-    width: 100%;
-    height: auto;
+    object-fit: cover;
+    min-width: 100%;
+    min-height: 100%;
 }
 
 .update-cover {
@@ -92,6 +93,10 @@
     position: relative;
 }
 
+.profile-details-text {
+    width: 80%;
+}
+
 .profile-details-header {
     height: 50px;
     display: flex;
@@ -104,10 +109,8 @@
 }
 
 .follower-container {
-    margin-left: auto;
-    margin-right: 100px;
+    margin-left: 10px;
 }
-
 
 .profile-details-footer {
     height: 50px; 
@@ -120,9 +123,8 @@
 }
 
 .profile-post-container {
-    width: 600px;
+    max-width: 700px;
     margin:auto;
-    padding: 0px 40px;
 }
 
 .update-avatar {
@@ -148,6 +150,43 @@
 
 .update-avatar label {
     cursor: pointer;
+}
+
+@media only screen and (max-width: 850px){
+    .profile-header {
+        max-width: 100%;
+    }
+    .profile-avatar {
+        height: 100px;
+        width: 100px;
+        margin-left: 20px;
+    }
+    .profile-avatar-img {
+        margin-top: -90px;
+        border-radius: 50px;
+    }
+    .profile-details-name {
+        font-size: 16px;
+        font-weight: 700;
+        margin-left: 25px;
+    }
+    .profile-details-bio {
+        height: 100%;
+        margin-left: 25px;
+        font-size: 12px;
+    }
+    .update-avatar {
+        height: 100px;
+        width: 100px;
+        margin-left: 20px;
+        margin-top: -90px;
+        line-height: 100px;
+    }
+    .follower-container {
+        margin-left: auto;
+        margin-right: 10px;
+    }
+    
 }
 
 

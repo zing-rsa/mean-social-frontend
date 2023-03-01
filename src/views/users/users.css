@@ -1,9 +1,7 @@
 .users-container {
     height: calc(100vh - 50px);
-    width: 40vw;
+    width: 95vw;
     margin: 50px auto 0px auto;
-    /* background-color: green; */
-
     border-radius: 15px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     
@@ -12,7 +10,7 @@
 }
 
 .users-list {
-    width: 600px;
+    max-width: 700px;
     margin: auto;
     height: 100%;
     overflow-y: scroll;

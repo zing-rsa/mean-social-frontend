@@ -4,8 +4,8 @@ import Loader from "../../components/loader/loader";
 import { useEffect } from "react";
 
 import Error from "../../components/error/error";
-import Post from '../../components/post/post'
-import './feed.css'
+import Post from '../../components/post/post';
+import './feed.css';
 
 function Feed() {
 

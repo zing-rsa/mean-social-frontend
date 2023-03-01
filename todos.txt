@@ -1,5 +1,6 @@
 
 - make semi responsive
+  - navbar
 
 - clean comment ui
 

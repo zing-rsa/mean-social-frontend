@@ -19,14 +19,24 @@ function Follows(props) {
             {
                 follows && !isLoading &&
                 <div className='follows'>
-                    <div className='follow-display'>{follows.followerCount + ' Followers'}</div>
-                    <div className='follow-display'>{follows.followingCount + ' Following'}</div>
+
                     {
                         follows.isFollowed ?
                             <SecondaryButton classes={'follow-button'} onClick={() => { unfollow(props._id) }} text={'Unfollow'} />
                             :
                             <SecondaryButton classes={'follow-button'} onClick={() => { follow(props._id) }} text={'Follow'} />
                     }
+                    
+                    <div className='follow-display'>
+                        <div className='follow-display-count'>{follows.followerCount}</div>
+                        <div className='follow-display-label'>Followers</div>
+                    </div>
+
+                    <div className='follow-display'>
+                        <div className='follow-display-count'>{follows.followingCount}</div>
+                        <div className='follow-display-label'>Following</div>
+                        </div>
+
                 </div>
             }
             {isLoading && <Loader />}
