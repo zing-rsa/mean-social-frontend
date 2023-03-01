@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+import SecondaryButton from '../button-secondary/button-secondary';
 import { useFollows } from '../../services/follows.service';
 import Loader from '../loader/loader';
 import './follows.css'
@@ -17,20 +18,18 @@ function Follows(props) {
         <>
             {
                 follows && !isLoading &&
-                    <div className='follows'>
-                        <div className='follow-display'>{follows.followerCount + ' Followers'}</div>
-                        <div className='follow-display'>{follows.followingCount + ' Following'}</div>
-                        <div className='follow-button'>
-                            {
-                                follows.isFollowed ?
-                                    <button onClick={() => {unfollow(props._id)}}>Unfollow</button>
-                                    :
-                                    <button onClick={() => {follow(props._id)}}>Follow</button>
-                            }
-                        </div>
-                    </div>
+                <div className='follows'>
+                    <div className='follow-display'>{follows.followerCount + ' Followers'}</div>
+                    <div className='follow-display'>{follows.followingCount + ' Following'}</div>
+                    {
+                        follows.isFollowed ?
+                            <SecondaryButton classes={'follow-button'} onClick={() => { unfollow(props._id) }} text={'Unfollow'} />
+                            :
+                            <SecondaryButton classes={'follow-button'} onClick={() => { follow(props._id) }} text={'Follow'} />
+                    }
+                </div>
             }
-            { isLoading && <Loader />}
+            {isLoading && <Loader />}
         </>
 
 

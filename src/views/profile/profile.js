@@ -65,22 +65,27 @@ function Profile() {
                         <div className='profile-header'>
                             <form ref={form} onSubmit={handleSubmit} onChange={handleProfileUpdate}>
 
-                                <div className='update-cover'>
-                                    <label>
-                                        <input type='file' name='banner' />
-                                        <i className="fa-regular fa-pen-to-square"></i>
-                                    </label>
-                                </div>
+                                {viewed_user._id === user._id &&
+                                    <div className='update-cover'>
+                                        <label>
+                                            <input type='file' name='banner' />
+                                            <i className="fa-regular fa-pen-to-square"></i>
+                                        </label>
+                                    </div>
+                                }
                                 <div className='profile-cover'>
                                     {viewed_user.banner && <img alt='' src={config.media_url + 'banner/' + viewed_user.banner} />}
                                 </div>
 
-                                <div className='update-avatar'>
-                                    <label>
-                                        <input type='file' name='avatar' />
-                                        <i className="fa-regular fa-pen-to-square"></i>
-                                    </label>
-                                </div>
+                                {viewed_user._id === user._id &&
+                                    <div className='update-avatar'>
+                                        <label>
+                                            <input type='file' name='avatar' />
+                                            <i className="fa-regular fa-pen-to-square"></i>
+                                        </label>
+                                    </div>
+                                }
+
                                 <div className='profile-avatar'>
                                     <Avatar classes={'profile-avatar-img'} src={viewed_user.avatar} />
                                 </div>

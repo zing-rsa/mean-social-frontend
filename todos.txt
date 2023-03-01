@@ -1,12 +1,9 @@
 
-- cancel post(comment?) create
 - make semi responsive
 
 - clean comment ui
-- clean profile header ui
-    - follow button
-- signup show pictures
 
 - red error popup
 - notifications
 - prioritized content
+- signup show pictures

@@ -79,6 +79,7 @@
     z-index: 2;
     position: relative;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: white;
 }
 
 .profile-details {
@@ -103,8 +104,10 @@
 }
 
 .follower-container {
-    margin-left: 5px;
+    margin-left: auto;
+    margin-right: 100px;
 }
+
 
 .profile-details-footer {
     height: 50px; 
