@@ -36,7 +36,7 @@ function Post(props) {
 
                 {props.image &&
                     <div className='post-image'>
-                        <img src={config.media_url + 'posts/' + props.image} />
+                        <img src={config.media_url(props.image)} />
                     </div>
                 }
                 <div className='post-body'>
