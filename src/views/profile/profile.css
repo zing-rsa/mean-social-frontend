@@ -104,8 +104,8 @@
 }
 
 .profile-details-name {
-    font-size: 30px;
-    margin-left: 220px;
+    font-size: 25px;
+    margin-left: 210px;
 }
 
 .follower-container {
@@ -119,7 +119,8 @@
 
 .profile-details-bio {
     height: 100%;
-    margin: 0px 200px;
+    font-size: 14px;
+    margin-left: 200px;
 }
 
 .profile-post-container {
@@ -168,11 +169,11 @@
     .profile-details-name {
         font-size: 16px;
         font-weight: 700;
-        margin-left: 25px;
+        margin-left: 3%;
     }
     .profile-details-bio {
         height: 100%;
-        margin-left: 25px;
+        margin-left: 3%;
         font-size: 12px;
     }
     .update-avatar {

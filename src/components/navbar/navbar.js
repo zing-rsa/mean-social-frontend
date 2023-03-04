@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 
 import SecondaryButton from '../button-secondary/button-secondary';
 import { useAuth } from "../../providers/auth.provider";
+import Hamburger from './hamburger/hamburger';
 import Avatar from '../avatar/avatar';
 import './navbar.css'
 
@@ -18,10 +19,35 @@ function Navbar() {
 
     return (
         <div className='navbar'>
+
+
             <ul className='nav-list'>
 
-                {authenticated ?
-                    (
+                <div className="nav-narrow-screen">
+
+                    <Hamburger></Hamburger>
+
+                    { authenticated ? 
+                        <li className='nav-item end profile'>
+                            <div className='username'>
+                                <Link to={`/profile/${user._id}`}>
+                                    {user.name}
+                                </Link>
+                            </div>
+                            <Avatar classes={'nav-avatar'} src={user.avatar} link={`/profile/${user._id}`} />
+                        </li>
+                        :
+                        <li className='nav-login'>
+                            <SecondaryButton text={'Log in'} onClick={routeToLogin} classes={'nav-login-button'} />
+                        </li>
+                    }
+
+                </div>
+
+                <div className="nav-wide-screen">
+
+                    { authenticated ?
+                        
                         <>
                             <li className='nav-item'>
                                 <Link to="/feed">Feed</Link>
@@ -46,14 +72,16 @@ function Navbar() {
                                 </div>
                                 <Avatar classes={'nav-avatar'} src={user.avatar} link={`/profile/${user._id}`} />
                             </li>
-
-                            <SecondaryButton onClick={() => logout(true)} text={'Sign out'} classes={'nav-sign-out'}/>
+                            <SecondaryButton onClick={() => logout(true)} text={'Sign out'} classes={'nav-sign-out'} />
                         </>
-                    )
-                    :
-                    <li className='nav-login'>
-                        <SecondaryButton text={'Log in'} onClick={routeToLogin} classes={'nav-login-button'} />
-                    </li>}
+                        :
+                        <li className='nav-login'>
+                            <SecondaryButton text={'Log in'} onClick={routeToLogin} classes={'nav-login-button'} />
+                        </li>
+                    }
+
+                </div>
+
             </ul>
         </div>
     )

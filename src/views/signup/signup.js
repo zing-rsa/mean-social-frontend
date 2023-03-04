@@ -75,7 +75,7 @@ function Signup() {
                             <div className='grid-item signup-upload'><label><input type='file' name='banner' />Upload banner</label></div>
                             <input className='grid-item signup-text' type='text' name='name' placeholder='name'></input>
                             <input className='grid-item signup-text' type='text' name='surname' placeholder='surname'></input>
-                            <textarea className='bio-compose' type='text' name='bio' placeholder='bio'></textarea>
+                            <textarea className='grid-item bio-compose' type='text' name='bio' placeholder='bio'></textarea>
                         </div>
                         <div className='signup-form-bottom'>
                             <input className='grid-item signup-text' type='text' name='email' placeholder='email'></input>

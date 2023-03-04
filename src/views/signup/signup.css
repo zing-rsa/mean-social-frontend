@@ -1,7 +1,8 @@
 .signup-container {
     background-color: white;
-    height: 400px;
-    width: 500px;
+    min-height: 400px; 
+    width:90vw;
+    max-width: 500px;
     margin: 15vh auto 0px auto;
     
     display: flex;
@@ -24,12 +25,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-
 }
 
 .signup-form-top {
     width: 90%;
-    height: 180px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -38,17 +37,19 @@
 
 .signup-form-bottom {
     width: 90%;
-    height: 60px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+
+    margin: 10px 0px;
 }
 
 .grid-item {
-    width: 200px;
+    max-width: 50%;
+    min-width: 200px;
     height: 40px;
-    margin: 0px 10px;
+    margin: 5px 10px;
 }
 
 .signup-button {
@@ -82,7 +83,7 @@
     text-align: center;
     line-height: 32px;
 
-    margin: auto;
+    margin: 5px auto;
 }
 
 .signup-upload label:hover {
@@ -91,7 +92,6 @@
 
 .bio-compose {
     font-family: 'Roboto', sans-serif;
-    width: 420px;
     word-wrap: break-word;
     border: 0;
     

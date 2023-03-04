@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-
 html, body, ul, p {    
   margin: 0;
   padding: 0;
@@ -10,17 +9,6 @@ body {
   font-family: Arial, sans-serif;
   background-color: white;
   font-family: 'Roboto', sans-serif;
-}
-
-.router {
-  height:100vh;
-  width:100vw;
-  overflow: hidden; 
-}
-
-/* width */
-::-webkit-scrollbar {
-  width: 0px;
 }
 
 a, a:link, a:visited, a:hover {
@@ -49,4 +37,15 @@ textarea {
 textarea:active {
   border: none !important;
   outline: none !important;
+}
+
+.router {
+  height:100vh;
+  width:100vw;
+  overflow: hidden; 
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 0px;
 }
