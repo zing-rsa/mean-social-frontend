@@ -9,7 +9,7 @@ import './feed.css';
 
 function Feed() {
 
-    const { posts, isLoading, isError, fetchPosts, createPost, deletePost } = usePosts();
+    const { posts, isLoading, fetchPosts, createPost, deletePost } = usePosts();
 
     useEffect(() => {
         fetchPosts();
@@ -18,24 +18,25 @@ function Feed() {
     return (
         <div className='feed-container'>
 
-            {posts && !isLoading &&
-                <div className='posts-list'>
-                    <PostCompose create={createPost} />
-                    {posts && 
-                        posts.map((item) =>
-                            <Post key={item._id} delete={() => deletePost(item._id)} {...item}  /> 
-                        )
-                    }
-                </div>
-            }
+            <div className='posts-list'>
+                <PostCompose create={createPost} />
 
-            {isLoading &&
-                <Loader />
-            }
+                {isLoading &&
+                    <Loader classes={'feed-loader'} />
+                }
 
-            {isError && !isLoading &&
-                <Error />
-            }
+                {!isLoading && posts &&
+                    <>
+                        {posts.map((item) =>
+                            <Post key={item._id} delete={() => deletePost(item._id)} {...item} />
+                        )}
+                        <div className='feed-end'>
+                            {posts.length === 0 ? "Nothing to see here..." : "Thats all for now..."}
+                        </div>
+                    </>
+                }
+
+            </div>
         </div>
     )
 }

@@ -9,22 +9,21 @@ import Follows from '../../components/follows/follows'
 import Loader from '../../components/loader/loader';
 import Avatar from "../../components/avatar/avatar";
 import Post from '../../components/post/post';
-import Error from '../../components/error/error';
 import config from '../../config';
 import './profile.css'
 
 function Profile() {
     const { user } = useAuth();
-    const { id: viewed_user_id } = useParams();
+    const { id: profile_id } = useParams();
 
-    const { posts, isLoading: postsLoading, isError: postsError, fetchProfilePosts, createPost, createProfilePost, deleteProfilePost } = usePosts();
-    const { profile: viewed_user, isLoading: userLoading, isError: userError, fetchProfile, updateProfile } = useProfiles();
+    const { posts,   isLoading: postsLoading, isError: postsError, fetchProfilePosts, createProfilePost, deleteProfilePost } = usePosts();
+    const { profile, isLoading: userLoading,  isError: userError,  fetchProfile, updateProfile } = useProfiles();
 
     const form = useRef(null);
 
     const populateProfileData = useCallback(async () => {
-        await fetchProfile(viewed_user_id);
-        await fetchProfilePosts(viewed_user_id);
+        await fetchProfile(profile_id);
+        await fetchProfilePosts(profile_id);
     }, [fetchProfile, fetchProfilePosts, user]);
 
     useEffect(() => {
@@ -58,14 +57,17 @@ function Profile() {
     return (
         <div className='profile-container'>
 
-            {viewed_user && !userError && !userLoading &&
+            {userLoading &&
+                <Loader classes={'profile-loader'} />
+            }
+
+            {!userLoading && profile &&
                 <>
                     <div className='profile-scroller'>
-
                         <div className='profile-header'>
                             <form ref={form} onSubmit={handleSubmit} onChange={handleProfileUpdate}>
 
-                                {viewed_user._id === user._id &&
+                                {profile._id === user._id &&
                                     <div className='update-cover'>
                                         <label>
                                             <input type='file' name='banner' />
@@ -74,10 +76,10 @@ function Profile() {
                                     </div>
                                 }
                                 <div className='profile-cover'>
-                                    {viewed_user.banner && <img alt='' src={config.media_url(viewed_user.banner)} />}
+                                    {profile.banner && <img alt='' src={config.media_url(profile.banner)} />}
                                 </div>
 
-                                {viewed_user._id === user._id &&
+                                {profile._id === user._id &&
                                     <div className='update-avatar'>
                                         <label>
                                             <input type='file' name='avatar' />
@@ -87,56 +89,50 @@ function Profile() {
                                 }
 
                                 <div className='profile-avatar'>
-                                    <Avatar classes={'profile-avatar-img'} src={viewed_user.avatar} />
+                                    <Avatar classes={'profile-avatar-img'} src={profile.avatar} />
                                 </div>
                             </form>
                             <div className='profile-details'>
                                 <div className='profile-details-header'>
                                     <div className='profile-details-name'>
-                                        <span>{`${viewed_user.name} ${viewed_user.surname}`}</span>
+                                        <span>{`${profile.name} ${profile.surname}`}</span>
                                     </div>
                                     <div className='follower-container'>
-                                        <Follows _id={viewed_user._id} />
+                                        <Follows _id={profile._id} />
                                     </div>
                                 </div>
                                 <div className='profile-details-footer'>
                                     <div className='profile-details-bio'>
-                                        <span>{viewed_user.bio}</span>
+                                        <span>{profile.bio}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div className='profile-post-container'>
-                            {viewed_user._id === user._id &&
-                                <PostCompose create={createProfilePost} profile_id={viewed_user._id} />
+
+                            {profile._id === user._id &&
+                                <PostCompose create={createProfilePost} profile_id={profile._id} />
                             }
 
-                            {posts &&
-                                posts.map((item) =>
-                                    <Post key={item._id} delete={() => deleteProfilePost(item._id, user._id)} {...item} />)
+                            { postsLoading &&
+                                <Loader classes={'profile-posts-loader'}/>
                             }
+
+                            {!postsLoading && posts &&
+                                <>
+                                    {posts.map((item) =>
+                                        <Post key={item._id} delete={() => deleteProfilePost(item._id, user._id)} {...item} />
+                                    )}
+                                    <div className='feed-end'>
+                                        {posts.length === 0 ? "Nothing to see here..." : "Thats all for now..."}
+                                    </div>
+                                </>
+                            }
+
                         </div>
                     </div>
-
-                    {postsLoading &&
-                        <Loader />
-                    }
-
-                    {postsError &&
-                        <Error />
-                    }
                 </>
-            }
-
-            {userLoading &&
-                <Loader />
-            }
-
-            {userError && !userLoading &&
-                <div>
-                    Oops
-                </div>
             }
         </div>
     )

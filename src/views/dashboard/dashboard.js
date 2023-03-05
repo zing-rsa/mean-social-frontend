@@ -1,21 +1,23 @@
-import './dashboard.css'
-import { usePosts } from '../../services/post.service';
 import { useEffect } from 'react';
-import Post from '../../components/post/post';
+
+import { usePosts } from '../../services/post.service';
 import Loader from '../../components/loader/loader';
-import Error from '../../components/error/error';
+import Post from '../../components/post/post';
+import './dashboard.css'
 
 function Dashboard() {
 
-
-    const { posts, postsLoading, postsError, fetchPosts, deletePost } = usePosts();
+    const { posts, postsLoading, fetchPosts, deletePost } = usePosts();
 
     useEffect(() => {
         fetchPosts();
     }, [fetchPosts]);
 
     return (
+
         <div className='dash-container'>
+
+
             <div className='dash-header'>
                 <div className='dash-header-header'><span>Dashboard</span></div>
                 <div><span>Num users: 3</span></div>
@@ -28,27 +30,21 @@ function Dashboard() {
                     <span>Latest activity:</span>
                 </div>
 
-                {posts &&
-                    <div className='dash-posts-list'>
-                        {(posts.length === 0) &&
-                            <div>--- No posts ---</div>
-                        }
+                <div className='dash-posts-list'>
 
-                        {posts && posts.map((item, index) =>
-                            <Post key={item._id} delete={() => deletePost(item._id)} {...item} />)}
+                    {postsLoading &&
+                        <Loader classes={'dash-loader'} />
+                    }
 
-                    </div>
-                }
+                    {!postsLoading && posts && (posts.length === 0) &&
+                        <div>--- No posts ---</div>
+                    }
 
-                {postsLoading &&
-                    <Loader />
-                }
-
-                {postsError &&
-                    <Error />
-                }
-
-
+                    {!postsLoading && posts && 
+                        posts.map((item) =>
+                            <Post key={item._id} delete={() => deletePost(item._id)} {...item} />)
+                    }
+                </div>
             </div>
         </div>
     )

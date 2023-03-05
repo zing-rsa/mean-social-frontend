@@ -153,6 +153,18 @@
     cursor: pointer;
 }
 
+.profile-loader {
+    margin: 100px auto
+}
+
+.profile-posts-loader {
+    margin-top: 50px;
+}
+
+.profile-posts-loader div {
+    background-color: grey;
+}
+
 @media only screen and (max-width: 850px){
     .profile-header {
         max-width: 100%;

@@ -12,9 +12,10 @@ const usePosts = () => {
   const [isError, setIsError] = useState(false);
 
   const fetchPosts = useCallback(async () => {
-    setIsError(false);
-    setIsLoading(true);
     try {
+      setIsError(false);
+      setIsLoading(true);
+      
       const res = await api({
         method: 'GET',
         url: 'posts',
@@ -26,6 +27,7 @@ const usePosts = () => {
       setIsError(true);
     }
     setIsLoading(false);
+
   }, []);
 
   const fetchProfilePosts = useCallback(async (user_id) => {
@@ -47,33 +49,41 @@ const usePosts = () => {
 
   const createPost = useCallback(async (post) => {
     try {
+      setIsLoading(true);
+      setIsError(false);
+      
       await api({
-          method: "POST",
-          url: 'posts/create',
-          headers: config.headers(getToken()),
-          data: post
+        method: "POST",
+        url: 'posts/create',
+        headers: config.headers(getToken()),
+        data: post
       })
-
+      
       const res = await api({
         method: 'GET',
         url: 'posts',
         headers: config.headers(getToken())
       })
-
+      
       setPosts(res.data);
-
-  } catch (e) {
+      
+    } catch (e) {
       console.log(e);
-  }
+      setIsError(true);
+    }
+    setIsLoading(false);
   }, []);
 
   const createProfilePost = useCallback(async (post, profile_id) => {
     try {
+      setIsError(false);
+      setIsLoading(true);
+
       await api({
-          method: "POST",
-          url: 'posts/create',
-          headers: config.headers(getToken()),
-          data: post
+        method: "POST",
+        url: 'posts/create',
+        headers: config.headers(getToken()),
+        data: post
       })
 
       const res = await api({
@@ -84,9 +94,11 @@ const usePosts = () => {
 
       setPosts(res.data);
 
-  } catch (e) {
+    } catch (e) {
       console.log(e);
-  }
+      setIsError(true);
+    }
+    setIsLoading(false);
   }, []);
 
   const deletePost = useCallback(async (post_id) => {

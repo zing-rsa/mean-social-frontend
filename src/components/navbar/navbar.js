@@ -19,10 +19,7 @@ function Navbar() {
 
     return (
         <div className='navbar'>
-
-
             <ul className='nav-list'>
-
                 <div className="nav-narrow-screen">
 
                     <Hamburger></Hamburger>
@@ -43,11 +40,9 @@ function Navbar() {
                     }
 
                 </div>
-
                 <div className="nav-wide-screen">
 
                     { authenticated ?
-                        
                         <>
                             <li className='nav-item'>
                                 <Link to="/feed">Feed</Link>
@@ -63,7 +58,6 @@ function Navbar() {
                                     </li>
                                 </>
                             }
-
                             <li className='nav-item end profile'>
                                 <div className='username'>
                                     <Link to={`/profile/${user._id}`}>
@@ -79,9 +73,7 @@ function Navbar() {
                             <SecondaryButton text={'Log in'} onClick={routeToLogin} classes={'nav-login-button'} />
                         </li>
                     }
-
                 </div>
-
             </ul>
         </div>
     )

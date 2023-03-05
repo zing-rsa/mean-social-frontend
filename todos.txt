@@ -1,4 +1,14 @@
-- red error popup
 - notifications
+  - mentions
+  - likes
+  - follows
+
+- make loaders cleaner
+  - comment
+  - feed post
+
+- bug, comments in profile posts undefined
+
+- red error popup
 - prioritized content
 - signup show pictures

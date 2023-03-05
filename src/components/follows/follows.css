@@ -18,6 +18,8 @@
 
 .follow-display-count {
     font-weight:600;
+    height: 20px;
+    line-height: 20px;
 }
 
 .follow-display-label {
@@ -29,6 +31,12 @@
     width: 80px;
     margin: 8px;
     font-size: 12px;
+}
+
+.follow-loader {
+    height: 3px;
+    width: 3px;
+    margin-top: 9px;
 }
 
 @media only screen and (max-width: 850px){

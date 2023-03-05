@@ -1,11 +1,12 @@
 
 import { useEffect } from 'react';
 import { useLikes } from '../../services/likes.service';
+import Loader from '../loader/loader';
 import './post-interactions.css'
 
 function PostInteractions(props) {
 
-    const { likes, setLikes, like, unlike, isLoading, isError } = useLikes();
+    const { likes, setLikes, like, unlike, isLoading: likeLoading } = useLikes();
 
     useEffect(() => {
         if (props.likes) {
@@ -15,15 +16,23 @@ function PostInteractions(props) {
 
     return (
         <>
-            { likes &&
+            {likes &&
                 <div className='interactions-container'>
                     <div className='likes'>
-                        <span>{likes.likeCount}</span>
-                        {likes.isLiked ?
-                            <i className="fa-solid fa-heart like" onClick={() => unlike(props.post_id)}></i>
+
+                        {likeLoading ?
+                            <Loader classes={'like-loader'}/>
                             :
-                            <i className="fa-regular fa-heart like" onClick={() => like(props.post_id)}></i>
+                            <>
+                                <span>{likes.likeCount}</span>
+                                {likes.isLiked ?
+                                    <i className="fa-solid fa-heart like" onClick={() => unlike(props.post_id)}></i>
+                                    :
+                                    <i className="fa-regular fa-heart like" onClick={() => like(props.post_id)}></i>
+                                }
+                            </>
                         }
+
                     </div>
                 </div>
             }

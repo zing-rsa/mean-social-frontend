@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
+import PrimaryButton from '../../components/button-primary/button-primary';
+import AuthLoader from '../../components/auth-loader/auth-loader';
 import { useAuth } from '../../providers/auth.provider'
-import Loader from '../../components/loader/loader';
 import { useState } from 'react';
 import config from '../../config'
 import axios from 'axios';
 import './signup.css';
-import PrimaryButton from '../../components/button-primary/button-primary';
 
 function Signup() {
 
@@ -66,7 +66,11 @@ function Signup() {
 
     return (
         <>
-            {!authLoading && !isLoading &&
+            {isLoading &&
+                <AuthLoader />
+            }
+            
+            {!isLoading &&
                 <div className='signup-container'>
                     <form className='signup-form' onSubmit={handleSubmit}>
                         <div className='signup-header'>Sign up</div>
@@ -86,12 +90,7 @@ function Signup() {
                     </form>
                 </div>
             }
-            {
-                (authLoading || isLoading) &&
-                <Loader />
-            }
         </>
-
     )
 }
 

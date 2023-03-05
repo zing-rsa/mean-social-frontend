@@ -8,7 +8,7 @@ import config from '../config'
 const useLikes = () => {
 
   const [likes, setLikes] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
   const like = useCallback(async (post_id) => {

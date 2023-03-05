@@ -9,8 +9,7 @@
 .likes {
     margin-left:auto;
     margin-right: 10px;
-
-    width: auto;
+    width: 35px;
 }
 
 .likes i {
@@ -19,4 +18,14 @@
 
 .like {
     cursor: pointer;
+}
+
+.like-loader {
+    height: 5px;
+    width: 5px;
+    margin-top: 12px;
+}
+
+.like-loader div {
+    background-color: black;
 }

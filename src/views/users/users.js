@@ -1,14 +1,14 @@
 
 import { useEffect } from 'react';
+
 import { useProfiles } from '../../services/user.service';
-import './users.css'
-import Loader from '../../components/loader/loader'
-import Error from '../../components/error/error'
+import Loader from '../../components/loader/loader';
 import AdminViewUser from './adminview-user/user';
+import './users.css'
 
 function Users() {
 
-    const { profiles, isLoading, isError, fetchProfiles, deleteProfile } = useProfiles();
+    const { profiles, isLoading, fetchProfiles, deleteProfile } = useProfiles();
 
     useEffect(() => {
         fetchProfiles();
@@ -18,20 +18,17 @@ function Users() {
         <div className='users-container'>
             <div className='users-header'>Manage users</div>
             <div className='users-list'>
-                {profiles &&
+
+                {isLoading &&
+                    <Loader classes={'users-loader'} />
+                }
+
+                {!isLoading && profiles &&
                     profiles.map((profile) =>
                         <AdminViewUser key={profile._id} delete={() => deleteProfile(profile._id)} {...profile} />)
                 }
 
-                {isLoading &&
-                    <Loader />
-                }
-
-                {isError &&
-                    <Error />
-                }
             </div>
-
         </div>
     )
 }

@@ -1,7 +1,12 @@
 import './loader.css'
 
-function Loader() {
-    return <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+function Loader(props) {
+    return <div className={`meetup ${props.classes}`}>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
     
 }
 

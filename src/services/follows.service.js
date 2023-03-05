@@ -8,7 +8,7 @@ import config from '../config'
 const useFollows = () => {
 
   const [follows, setFollows] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
   const fetchFollows = useCallback(async (user_id) => {
