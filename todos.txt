@@ -5,9 +5,11 @@
 
 - make loaders cleaner
   - comment
-  - feed post
 
 - bug, comments in profile posts undefined
+
+- refreshes on deploy
+  - reproduce with avatar update
 
 - red error popup
 - prioritized content
