@@ -1,8 +1,6 @@
 - notifications
-  - mentions
-  - likes
-  - follows
-  - set username in signup, usernames unique, force add @ in db
+  - comments
+  - tidy, check bugs
 
 - red error popup
 - prioritized content
