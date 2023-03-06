@@ -105,3 +105,8 @@
 .comments {
     width:100%;
 }
+
+.comments-loader {
+    height: 5px;
+    width: 5px;
+}

@@ -1,41 +1,17 @@
 import { useCallback, useRef } from 'react';
 
 import SecondaryButton from '../button-secondary/button-secondary'
-import { getToken } from '../../services/storage.service';
-import api from '../../services/axios.service'
-import config from '../../config'
 import './comment-composer.css'
 
 
-function CommentCompose({ parent, refresh }) {
+function CommentCompose({ parent, create }) {
 
     const postButton = useRef(null);
-
-    const createComment = async (text) => {
-        try {
-            await api({
-                method: "POST",
-                url: 'comments/create',
-                headers: config.headers(getToken()),
-                data: {
-                    text: text,
-                    parent: parent
-                }
-            })
-
-            if (refresh) {
-                refresh(parent);
-            }
-
-        } catch (e) {
-            console.log(e);
-        }
-    }
 
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
 
-        createComment(e.target.comment.value);
+        create(e.target.comment.value, parent);
 
         e.target.reset();
     }, []);

@@ -29,9 +29,10 @@ const usePostComments = () => {
   }, []);
 
   const deleteComment = useCallback(async (comment_id, parent) => {
-    setIsLoading(true);
-    setIsError(false);
     try {
+      setIsLoading(true);
+      setIsError(false);
+
       await api({
         method: "DELETE",
         url: 'comments/delete',
@@ -56,9 +57,37 @@ const usePostComments = () => {
     setIsLoading(false);
   }, []);
 
+  const createComment = useCallback(async (text, parent) => {
+    try {
+      setIsLoading(true);
+      setIsError(false);
 
+      await api({
+        method: "POST",
+        url: 'comments/create',
+        headers: config.headers(getToken()),
+        data: {
+          text: text,
+          parent: parent
+        }
+      })
 
-  return { comments, setComments, isLoading, isError, fetchComments, deleteComment };
+      const res = await api({
+        method: 'GET',
+        url: `posts/${parent}/comments`,
+        headers: config.headers(getToken())
+      })
+
+      setComments(res.data);
+
+    } catch (e) {
+      console.log(e);
+      setIsError(true);
+    }
+    setIsLoading(false);
+  }, []);
+
+  return { comments, setComments, isLoading, isError, fetchComments, deleteComment, createComment };
 }
 
 export { usePostComments };

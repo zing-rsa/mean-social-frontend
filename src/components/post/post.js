@@ -22,7 +22,7 @@ function Post(props) {
 
     const { user } = useAuth();
 
-    const { comments, setComments, isLoading, isError, fetchComments, deleteComment } = usePostComments();
+    const { comments, setComments, isLoading, isError, createComment, deleteComment } = usePostComments();
 
     useEffect(() => {
         if (props.comments) {
@@ -71,13 +71,14 @@ function Post(props) {
                         <PostInteractions post_id={props._id} likes={props.likes} />
                     </div>
 
-                    <CommentCompose parent={props._id} refresh={fetchComments} />
+                    <CommentCompose parent={props._id} create={createComment} />
+
                     {comments && !isError && !isLoading &&
                         comments.map((item, index) =>
                             <Comment key={item._id} delete={() => deleteComment(item._id, props._id)} {...item} />)
                     }
                     {isLoading && !isError &&
-                        <Loader />
+                        <Loader classes={'comments-loader'}/>
                     }
                     {isError &&
                         <div>

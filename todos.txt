@@ -3,8 +3,6 @@
   - likes
   - follows
 
-- make loaders cleaner
-  - comment
 
 - bug, comments in profile posts undefined
 
