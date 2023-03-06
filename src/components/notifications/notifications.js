@@ -3,7 +3,6 @@ import { useEffect, useState, useCallback } from 'react';
 
 
 import { useNotifications } from '../../services/notifications.service';
-import Loader from '../loader/loader'
 import './notifications.css'
 import { useAuth } from '../../providers/auth.provider';
 import Avatar from '../avatar/avatar';
@@ -21,7 +20,8 @@ const Notifications = () => {
         return {
             'like': 'liked your post:',
             'follow': 'followed you.',
-            'mention': 'mentioned you in a post:'
+            'mention': 'mentioned you in a post:',
+            'comment': 'commented on your post:'
         }[action]
     }, []);
 
@@ -41,7 +41,7 @@ const Notifications = () => {
     }, []);
 
     const clipNotificationText = useCallback((text) => {
-        return text.slice(0, 40) + (text.length > 40 ? '...' : '')
+        return text.slice(0, 33) + (text.length > 33 ? '...' : '')
     }, []);
 
     useEffect(() => {
@@ -68,7 +68,7 @@ const Notifications = () => {
 
                     <div className='notifications-popup'>
                         {notificationInfo &&
-                            notificationInfo.notifications.map((item, index) => 
+                            notificationInfo.notifications.map((item) => 
                                 <div key={item._id} className='notification-item' onClick={() => notificationNavigate(item)}>
                                     <Avatar src={item.action_owner.avatar} classes={'notification-item-avatar'}/>
                                     <div className='notification-details'>
