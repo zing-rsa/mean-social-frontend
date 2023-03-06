@@ -1,0 +1,102 @@
+.notifications {
+    height: 50px;
+    width: 50px;
+}
+
+.notifications-button {
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0,0,0,0);
+    border: none;
+    outline: none;
+    font-size: 20px;
+    cursor: pointer;
+
+    position: relative;
+}
+
+.unread {
+    background-color: rgb(192, 0, 0);
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    top: 12px;
+    left: 26px;
+    border-radius: 100%;
+}
+
+.notifications-background {    
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    z-index: 49;
+    left:0;
+    top:0;
+
+    background-color: rgba(0,0,0,0.05)
+}
+
+.notifications-popup {
+    position: relative;
+    height: 400px;
+    width: 300px;
+    margin-left: -160px;
+    z-index: 50;
+    
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 10px;
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow:scroll;
+}
+
+.notification-item {
+    display:flex;
+    flex-direction: row;
+    height: 50px;
+    width: 290px;
+    align-items: center;
+    border-bottom: 1px solid rgb(243, 243, 243);
+    
+}
+
+.notification-item-avatar {
+    width: 40px;
+    height: 40px;
+    margin:5px;
+}
+
+.notification-details {
+    height: 100%;
+    width: 210px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.notification-details-line {
+    font-size: 12px;
+    height: 18px;
+    line-height: 18px;
+    width: 100%;
+    text-align: left;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.notification-text {
+    color: rgb(150, 150, 150);
+}
+
+.notification-item-unread {
+    background-color: rgb(192, 0, 0);
+    height: 10px;
+    width: 10px;
+    margin: auto;
+    border-radius: 100%;
+}

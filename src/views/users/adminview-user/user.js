@@ -12,7 +12,7 @@ function AdminViewUser(props) {
             <div className='user-name'>
                 <Link to={'/profile/' + props._id}>{props.name} {props.surname}</Link>
             </div>
-            <div className='user-username'>{'@' + props.username}</div>
+            <div className='user-username'>{props.username}</div>
 
             <div className='user-del'>
                 <DeleteButton cb={props.delete} title={'Delete user'} />

@@ -48,7 +48,7 @@ function Post(props) {
                             </div>
 
                             <div className='post-meta'>
-                                <div>@{props.owner.username}</div>
+                                <div>{props.owner.username}</div>
                                 <div>{timestamp(props.timestamp)}</div>
                             </div>
 

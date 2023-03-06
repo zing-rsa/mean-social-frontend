@@ -2,6 +2,7 @@
   - mentions
   - likes
   - follows
+  - set username in signup, usernames unique, force add @ in db
 
 - red error popup
 - prioritized content

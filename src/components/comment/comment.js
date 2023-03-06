@@ -14,7 +14,7 @@ function Comment(props) {
             <div className='comment-text'>
 
                 <div className='author'>
-                    <span>{'@' + props.owner.username + " wrote:"}</span>
+                    <span>{props.owner.username + " wrote:"}</span>
                 </div>
                 <div className='comment-body'>
                     <span>{props.text}</span>
