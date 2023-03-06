@@ -1,5 +1,5 @@
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useCallback, useRef } from "react";
-import { useParams } from 'react-router-dom'
 
 import PostCompose from '../../components/post-composer/post-composer';
 import { usePosts } from '../../services/post.service'
@@ -18,6 +18,8 @@ function Profile() {
 
     const { posts,   isLoading: postsLoading, isError: postsError, fetchProfilePosts, createProfilePost, deleteProfilePost } = usePosts();
     const { profile, isLoading: userLoading,  isError: userError,  fetchProfile, updateProfile } = useProfiles();
+
+    const navigate = useNavigate();
 
     const form = useRef(null);
 
@@ -51,7 +53,7 @@ function Profile() {
         await updateProfile(data);
 
         if (e.target.avatar?.files[0])
-            window.location.reload();
+            navigate(0);
     }, []);
 
     return (

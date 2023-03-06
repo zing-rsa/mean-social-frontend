@@ -3,12 +3,6 @@
   - likes
   - follows
 
-
-- bug, comments in profile posts undefined
-
-- refreshes on deploy
-  - reproduce with avatar update
-
 - red error popup
 - prioritized content
 - signup show pictures
