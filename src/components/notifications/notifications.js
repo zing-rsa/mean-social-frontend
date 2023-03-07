@@ -27,16 +27,21 @@ const Notifications = () => {
 
     const notificationNavigate = useCallback(async (notification) => {
         let path;
+        let state;
 
-        if(notification.action === 'like' || notification.action === 'mention') {
-            path = '/feed' //create post view page
+        if (notification.action === 'like' || notification.action === 'mention') {
+            path = '/feed' 
+            state = { scrollTo: notification.action_item._id }
         } else if (notification.action === 'follow') {
             path = '/profile/' + notification.action_owner._id
+        } else if (notification.action === 'comment') {
+            path = '/feed'
+            state = { scrollTo: notification.action_item.parent }
         }
 
         await clearNotification(notification._id, user._id);
 
-        navigate(path);
+        state ? navigate(path, {'state': state}) : navigate(path);
 
     }, []);
 

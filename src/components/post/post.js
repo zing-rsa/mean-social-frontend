@@ -31,7 +31,7 @@ function Post(props) {
     }, []);
 
     return (
-        <div className='post-container'>
+        <div className='post-container' id={props._id}>
             <div className='post'>
 
                 {props.image &&
