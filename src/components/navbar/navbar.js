@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useCallback } from 'react';
 
 import SecondaryButton from '../button-secondary/button-secondary';
@@ -11,10 +11,11 @@ import './navbar.css'
 
 function Navbar() {
 
-    const { logout, authenticated, user } = useAuth();
+    const { logout, authenticated, authLoading, user } = useAuth();
     const { width } = useWindowDimensions();
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const routeToLogin = useCallback(() => {
         navigate('/login');
@@ -28,7 +29,7 @@ function Navbar() {
                     <div className="nav-narrow-screen">
                         <Hamburger />
                         
-                        {authenticated ?
+                        {authenticated &&
                             <li className='nav-item end profile'>
                                 <Notifications />
                                 <div className='username'>
@@ -38,7 +39,8 @@ function Navbar() {
                                 </div>
                                 <Avatar classes={'nav-avatar'} src={user.avatar} link={`/profile/${user._id}`} />
                             </li>
-                            :
+                        }
+                        {!authenticated && !authLoading && location.pathname !== '/login' &&
                             <li className='nav-login'>
                                 <SecondaryButton text={'Log in'} onClick={routeToLogin} classes={'nav-login-button'} />
                             </li>
@@ -49,7 +51,7 @@ function Navbar() {
                 {width >= 850 &&
                     <div className="nav-wide-screen">
 
-                        {authenticated ?
+                        {authenticated &&
                             <>
                                 <li className='nav-item'>
                                     <Link to="/feed">Feed</Link>
@@ -77,7 +79,9 @@ function Navbar() {
                                 </li>
                                 <SecondaryButton onClick={() => logout(true)} text={'Sign out'} classes={'nav-sign-out'} />
                             </>
-                            :
+                        }
+
+                        {!authenticated && !authLoading && location.pathname !== '/login' &&
                             <li className='nav-login'>
                                 <SecondaryButton text={'Log in'} onClick={routeToLogin} classes={'nav-login-button'} />
                             </li>

@@ -42,7 +42,7 @@ function Hamburger() {
                                         </li>
                                     </>
                                 }
-                                <SecondaryButton onClick={() => logout(true)} text={'Sign out'} classes={'hamburger-sign-out'} />
+                                <SecondaryButton onClick={() => {setVisible(false); logout(true)}} text={'Sign out'} classes={'hamburger-sign-out'} />
                             </>
                         }
                     </div>

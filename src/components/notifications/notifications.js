@@ -39,7 +39,7 @@ const Notifications = () => {
             state = { scrollTo: notification.action_item.parent }
         }
 
-        await clearNotification(notification._id, user._id);
+        clearNotification(notification._id, user._id); //background
 
         state ? navigate(path, {'state': state}) : navigate(path);
 
