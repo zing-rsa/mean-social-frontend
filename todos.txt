@@ -1,5 +1,4 @@
 - notifications
-  - comments
   - tidy, check bugs
 
 - red error popup
