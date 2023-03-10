@@ -1,11 +1,10 @@
 import { Routes, Route, Navigate, useParams } from 'react-router-dom';
 
-import { Feed, Login, Signup, Profile, Dashboard, Users } from './views';
+import { Feed, Login, Signup, Profile, Dashboard, Users, About } from './views';
+import AuthLoader from './components/auth-loader/auth-loader';
 import NoAuth from './views/unauthorized/unauthorized';
 import { useAuth } from './providers/auth.provider';
 import NotFound from './views/notfound/notfound';
-import AuthLoader from './components/auth-loader/auth-loader';
-import Loader from './components/loader/loader';
 
 function RouteHandler() {
 
@@ -20,6 +19,7 @@ function RouteHandler() {
                     <Route index element={<Navigate replace to="/feed" />} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/signup' element={<Signup />} />
+                    <Route path='/about' element={<About />} />
 
                     <Route path='/feed' element={
                         <ProtectedRoute component={(props) => <Feed {...props} />} />
@@ -29,7 +29,6 @@ function RouteHandler() {
                     } />
 
                     <Route path='/admin'>
-
                         <Route index element={
                             <Navigate to='dashboard' />}
                         />

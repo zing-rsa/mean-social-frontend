@@ -26,6 +26,11 @@ function Hamburger() {
                     <div className='hamburger-background' onClick={() => setVisible(false)}></div>
 
                     <div className='hamburger-menu'>
+                        
+                        <li className='hamburger-nav-item'>
+                            <Link to="/about">About</Link>
+                        </li>
+
                         {authenticated &&
                             <>
                                 <li className='hamburger-nav-item'>

@@ -50,6 +50,10 @@ function Navbar() {
 
                 {width >= 850 &&
                     <div className="nav-wide-screen">
+                        
+                        <li className='nav-item'>
+                            <Link to="/about">About</Link>
+                        </li>
 
                         {authenticated &&
                             <>
