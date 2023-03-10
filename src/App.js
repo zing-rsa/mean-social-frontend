@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet';
 
 import AxiosResponseInterceptor from './components/axios-response/axios-response';
+import { ErrorProvider } from './providers/error.provider';
 import { AuthProvider } from './providers/auth.provider'
 import useScript from './hooks/useScript';
 import { Navbar } from './components';
@@ -18,15 +19,16 @@ function App() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       </Helmet>
       <AuthProvider>
+        <ErrorProvider>
+          <AxiosResponseInterceptor />
 
-        <AxiosResponseInterceptor />
+          <Navbar />
 
-        <Navbar />
+          <div className="router">
+            <RouteHandler />
+          </div>
 
-        <div className="router">
-          <RouteHandler />
-        </div>
-
+        </ErrorProvider>
       </AuthProvider>
     </>
   );

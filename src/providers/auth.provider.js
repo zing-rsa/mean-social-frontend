@@ -56,7 +56,7 @@ const AuthProvider = ({ children }) => {
                     pass: pass
                 }
             });
-
+            
             const { access_token, ...stripped } = res.data;
 
             setUser(stripped);

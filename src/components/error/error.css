@@ -1,7 +1,8 @@
 .error {
-    position: relative;
-    width: 80px;
+    position: fixed;
+    width: 200px;
     height: 80px;
-    margin: auto;
-    color:red;
+    bottom: 10px;
+    left: 10px;
+    background-color:red;
 }
