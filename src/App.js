@@ -18,8 +18,8 @@ function App() {
       <Helmet>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       </Helmet>
-      <AuthProvider>
-        <ErrorProvider>
+      <ErrorProvider>
+        <AuthProvider>  
           <AxiosResponseInterceptor />
 
           <Navbar />
@@ -28,8 +28,8 @@ function App() {
             <RouteHandler />
           </div>
 
-        </ErrorProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </ErrorProvider>
     </>
   );
 }

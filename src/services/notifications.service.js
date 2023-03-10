@@ -25,15 +25,12 @@ const useNotifications = () => {
       setNotificationInfo(res.data);
 
     } catch (e) {
-      console.error(e);
-      setIsError(true);
     }
     setIsLoading(false);
   }, []);
 
   const clearNotification = useCallback(async (n_id, u_id) => {
     try {
-      
       await api({
         method: 'POST',
         url: config.api_url + `notifications/${n_id}/clear`,
@@ -49,7 +46,6 @@ const useNotifications = () => {
       setNotificationInfo(res.data);
 
     } catch (e) {
-      console.error(e);
     }
   }, [])
 

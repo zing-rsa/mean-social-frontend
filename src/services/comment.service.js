@@ -1,11 +1,14 @@
 import { useState, useCallback } from 'react';
 
+import { useError } from '../providers/error.provider';
 import { getToken } from './storage.service';
 import api from '../services/axios.service';
 import config from '../config'
 
 
 const usePostComments = () => {
+
+  const { setError } = useError();
 
   const [comments, setComments] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -51,7 +54,7 @@ const usePostComments = () => {
       setComments(res.data);
 
     } catch (e) {
-      console.log(e);
+      setError(e.response.data.message || 'Unknown error while deleting comment');
       setIsError(true);
     }
     setIsLoading(false);
@@ -81,7 +84,7 @@ const usePostComments = () => {
       setComments(res.data);
 
     } catch (e) {
-      console.log(e);
+      setError(e.response.data.message || 'Unknown error while creating comment');
       setIsError(true);
     }
     setIsLoading(false);

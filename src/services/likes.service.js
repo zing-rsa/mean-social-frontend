@@ -1,9 +1,9 @@
 import { useState, useCallback } from 'react';
 
+import { useError } from '../providers/error.provider';
 import { getToken } from './storage.service';
 import api from '../services/axios.service';
 import config from '../config'
-import { useError } from '../providers/error.provider';
 
 
 const useLikes = () => {
@@ -30,9 +30,8 @@ const useLikes = () => {
       setLikes(res.data);
 
     } catch (e) {
-      console.error(e);
+      setError(e.response.data.message || 'Unknown error liking this post');
       setIsError(true);
-      setError('ayo');
     }
     setIsLoading(false);
   }, []);
@@ -54,7 +53,7 @@ const useLikes = () => {
       setLikes(res.data);
 
     } catch (e) {
-      console.error(e);
+      setError(e.response.data.message || 'Unknown error unliking this post');
       setIsError(true);
     }
     setIsLoading(false);

@@ -1,11 +1,14 @@
 import { useCallback, useState } from "react";
 
+import { useError } from "../providers/error.provider";
 import { getToken } from "./storage.service";
 import api from '../services/axios.service';
 import config from "../config";
 
 
 const useProfiles = () => {
+
+  const { setError } = useError();
 
   const [profile, setProfile] = useState(null);
   const [profiles, setProfiles] = useState(null);
@@ -67,7 +70,7 @@ const useProfiles = () => {
       setProfiles(res.data);
 
     } catch (e) {
-      console.log(e);
+      setError(e.response.data.message || 'Unknown error deleting user');
     }
   }, []);
 
@@ -83,7 +86,7 @@ const useProfiles = () => {
       setProfile(res.data);
 
     } catch (e) {
-      console.log(e);
+      setError(e.response.data.message || 'Unknown error updating profile');
     }
   }, [])
 

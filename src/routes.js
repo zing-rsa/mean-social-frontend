@@ -2,7 +2,6 @@ import { Routes, Route, Navigate, useParams } from 'react-router-dom';
 
 import { Feed, Login, Signup, Profile, Dashboard, Users, About } from './views';
 import AuthLoader from './components/auth-loader/auth-loader';
-import Error from './components/error/error';
 import NoAuth from './views/unauthorized/unauthorized';
 import { useAuth } from './providers/auth.provider';
 import NotFound from './views/notfound/notfound';

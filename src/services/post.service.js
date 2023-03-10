@@ -1,11 +1,14 @@
 import { useState, useCallback } from 'react';
 
+import { useError } from "../providers/error.provider.js";
 import { getToken } from './storage.service';
 import api from '../services/axios.service';
 import config from '../config'
 
 
 const usePosts = () => {
+
+  const { setError } = useError();
 
   const [posts, setPosts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -68,7 +71,7 @@ const usePosts = () => {
       setPosts(res.data);
       
     } catch (e) {
-      console.log(e);
+      setError(e.response.data.message || 'Unknown error creating post');
       setIsError(true);
     }
     setIsLoading(false);
@@ -95,7 +98,7 @@ const usePosts = () => {
       setPosts(res.data);
 
     } catch (e) {
-      console.log(e);
+      setError(e.response.data.message || 'Unknown error creating post');
       setIsError(true);
     }
     setIsLoading(false);
@@ -124,7 +127,7 @@ const usePosts = () => {
       setPosts(res.data);
 
     } catch (e) {
-      console.log(e);
+      setError(e.response.data.message || 'Unknown error deleting post');
       setIsError(true)
     }
     setIsLoading(false);
@@ -154,7 +157,7 @@ const usePosts = () => {
       setPosts(res.data);
 
     } catch (e) {
-      console.log(e);
+      setError(e.response.data.message || 'Unknown error deleting post');
       setIsError(true)
     }
     setIsLoading(false);

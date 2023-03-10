@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 
+import { useError } from '../providers/error.provider';
 import { getToken } from './storage.service';
 import api from '../services/axios.service';
 import config from '../config'
@@ -10,6 +11,7 @@ const useFollows = () => {
   const [follows, setFollows] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const { setError } = useError();
 
   const fetchFollows = useCallback(async (user_id) => {
     setIsError(false);
@@ -29,7 +31,7 @@ const useFollows = () => {
     }
     setIsLoading(false);
   }, []);
-
+  
   const follow = useCallback(async (user_id) => {
     try {
       setIsError(false);
@@ -43,17 +45,17 @@ const useFollows = () => {
           user_id: user_id
         }
       })
-
+      
       const res = await api({
         method: 'GET',
         url: `users/${user_id}/follows`,
         headers: config.headers(getToken())
       })
-
+      
       setFollows(res.data);
-
+      
     } catch (e) {
-      console.error(e);
+      setError(e.response.data.message || 'Unknown error while trying to follow user');
       setIsError(true);
     }
     setIsLoading(false);
@@ -82,7 +84,7 @@ const useFollows = () => {
       setFollows(res.data);
 
     } catch (e) {
-      console.error(e);
+      setError(e.response.data.message || 'Unknown error while trying to unfollow user');
       setIsError(true);
     }
     setIsLoading(false);

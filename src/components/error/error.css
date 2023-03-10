@@ -1,8 +1,48 @@
 .error {
-    position: fixed;
-    width: 200px;
+    width: 250px;
     height: 80px;
-    bottom: 10px;
-    left: 10px;
-    background-color:red;
+
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+
+    border-radius: 10px;
+    background-color:rgba(255, 188, 188, 0.9);
+    color: rgb(122, 0, 0);
+    text-align: left;
+    display: flex;
+    align-items: center;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    z-index: 100;
+    
+    transition: opacity 0.5s;
+    opacity: 0;
+}
+
+.error-text {
+    margin: -5px 10px 0px 15px;
+    font-size: 14px;
+}
+
+.e-transition-enter {
+    opacity: 0;
+}
+
+.e-transition-enter-active, .e-transition-enter-done {
+    opacity: 1;
+}
+
+.e-transition-exit {
+    opacity: 1;
+}
+
+.e-transition-exit.active, .e-transition-exit-done {
+    opacity: 0;
+}
+
+@media only screen and (max-width: 850px){
+    .error {
+        bottom: 10px;
+        left: 10px;
+    }
 }

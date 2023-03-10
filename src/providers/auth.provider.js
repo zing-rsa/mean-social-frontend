@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios'
 
 import { getToken, setToken } from "../services/storage.service";
+import { useError } from "./error.provider";
 import api from '../services/axios.service';
 import config from '../config'
 
@@ -17,6 +18,8 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [authLoading, setAuthLoading] = useState(true);
     const [authenticated, setAuthenticated] = useState(null);
+
+    const { setError } = useError();
 
     useEffect(() => {
         fetchSelf();
@@ -70,6 +73,7 @@ const AuthProvider = ({ children }) => {
             setAuthenticated(false);
             setUser(null);
             setToken(null);
+            setError(e.response.data.message || 'Unknown error during login');
         }
 
         setAuthLoading(false);
@@ -79,6 +83,7 @@ const AuthProvider = ({ children }) => {
         setAuthLoading(true);
 
         try {
+            console.log('sending')
             const res = await axios({
                 method: "POST",
                 url: config.api_url + 'auth/signup',
@@ -98,6 +103,7 @@ const AuthProvider = ({ children }) => {
             setUser(null);
             setToken(null);
             setAuthenticated(false);
+            setError(e.response.data.message || 'Unknown error during signup');
         }
         setAuthLoading(false);
     }, []);
