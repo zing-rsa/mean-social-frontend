@@ -2,11 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 import PrimaryButton from '../../components/button-primary/button-primary';
-import AuthLoader from '../../components/auth-loader/auth-loader';
 import { useAuth } from '../../providers/auth.provider'
-import { useState } from 'react';
-import config from '../../config'
-import axios from 'axios';
 import './signup.css';
 
 function Signup() {
@@ -33,6 +29,7 @@ function Signup() {
         data.append('name', e.target.name.value);
         data.append('surname', e.target.surname.value);
         data.append('email', e.target.email.value);
+        data.append('username', e.target.username.value);
         data.append('pass', e.target.pass.value);
         data.append('bio', e.target.bio.value);
 
@@ -52,6 +49,7 @@ function Signup() {
                 </div>
                 <div className='signup-form-bottom'>
                     <input className='grid-item signup-text' type='text' name='email' placeholder='email'></input>
+                    <span className='grid-item signup-text'>@<input type='text' name='username' placeholder='username'></input></span>
                     <input className='grid-item signup-text' type='password' name='pass' placeholder='pass'></input>
                 </div>
 

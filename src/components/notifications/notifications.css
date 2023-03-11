@@ -91,6 +91,7 @@
 
 .notification-text {
     color: rgb(150, 150, 150);
+    font-size: 10px;
 }
 
 .notification-item-unread {
