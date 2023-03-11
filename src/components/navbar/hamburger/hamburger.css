@@ -29,8 +29,8 @@
 
 .hamburger-menu {
     position: relative;
-    height: 300px;
-    width: 250px;
+    height: 350px;
+    width: 300px;
     z-index: 50;
     
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -47,8 +47,12 @@
     width: 85%;
     margin: 0px auto;
     line-height: 50px;
-
     border-bottom: 1px solid rgb(243, 243, 243);
+}
+
+.hamburger-search {
+    height:60px;
+    margin: 10px auto 0px auto;
 }
 
 .hamburger-sign-out {

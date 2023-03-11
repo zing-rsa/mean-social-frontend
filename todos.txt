@@ -1,5 +1,2 @@
-
-- search users
-
 - prioritized content
 - signup show pictures

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 import SecondaryButton from '../../../components/button-secondary/button-secondary'
 import { useAuth } from "../../../providers/auth.provider";
+import Search from '../../search/search';
 import './hamburger.css'
 
 function Hamburger() {
@@ -26,7 +27,13 @@ function Hamburger() {
                     <div className='hamburger-background' onClick={() => setVisible(false)}></div>
 
                     <div className='hamburger-menu'>
-                        
+
+                        {authenticated && 
+                            <li className='hamburger-nav-item hamburger-search'>
+                                <Search />
+                            </li>
+                        }
+
                         <li className='hamburger-nav-item'>
                             <Link to="/about">About</Link>
                         </li>
