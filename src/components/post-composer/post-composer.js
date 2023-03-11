@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-import PrimaryButton from '../button-primary/button-primary';
-import SecondaryButton from '../button-secondary/button-secondary'
+import { PrimaryButton, SecondaryButton } from '../';
 import './post-composer.css'
 
 function submitOnEnter(event) {

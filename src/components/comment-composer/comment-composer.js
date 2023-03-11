@@ -1,6 +1,6 @@
 import { useCallback, useRef } from 'react';
 
-import SecondaryButton from '../button-secondary/button-secondary'
+import { SecondaryButton } from '../'
 import './comment-composer.css'
 
 

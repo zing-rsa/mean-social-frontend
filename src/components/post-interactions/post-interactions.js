@@ -1,9 +1,8 @@
-
 import { useEffect } from 'react';
+
 import { useLikes } from '../../services/likes.service';
-import Loader from '../loader/loader';
-import { Error } from '../'
-import './post-interactions.css'
+import { Loader } from '../';
+import './post-interactions.css';
 
 function PostInteractions(props) {
 

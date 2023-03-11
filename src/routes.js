@@ -1,10 +1,8 @@
 import { Routes, Route, Navigate, useParams } from 'react-router-dom';
 
-import { Feed, Login, Signup, Profile, Dashboard, Users, About } from './views';
-import AuthLoader from './components/auth-loader/auth-loader';
-import NoAuth from './views/unauthorized/unauthorized';
+import { Feed, Login, Signup, Profile, Dashboard, Users, About, NotFound } from './views';
 import { useAuth } from './providers/auth.provider';
-import NotFound from './views/notfound/notfound';
+import { AuthLoader } from './components';
 
 function RouteHandler() {
 
@@ -48,7 +46,7 @@ function RouteHandler() {
 }
 
 const ProtectedRoute = ({ component, ...rest }) => {
-    const { authenticated, authLoading } = useAuth();
+    const { authenticated } = useAuth();
     const { id } = useParams();
 
     if (authenticated === false) {
@@ -60,7 +58,7 @@ const ProtectedRoute = ({ component, ...rest }) => {
 };
 
 const AdminRoute = ({ component, ...rest }) => {
-    const { authenticated, authLoading, user } = useAuth();
+    const { authenticated, user } = useAuth();
 
     if (authenticated === false) {
         let remark = 'Please log in to continue...'
@@ -70,7 +68,7 @@ const AdminRoute = ({ component, ...rest }) => {
     if (user.isAdmin) {
         return component(rest);
     } else {
-        return <NoAuth />
+        return <NotFound />
     }
 
 };

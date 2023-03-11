@@ -1,11 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useCallback } from 'react';
 
-
 import { useNotifications } from '../../services/notifications.service';
-import './notifications.css'
 import { useAuth } from '../../providers/auth.provider';
-import Avatar from '../avatar/avatar';
+import { Avatar } from '..';
+import './notifications.css';
 
 const Notifications = () => {
 

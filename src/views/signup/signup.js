@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
-import PrimaryButton from '../../components/button-primary/button-primary';
 import { useAuth } from '../../providers/auth.provider'
+import { PrimaryButton } from '../../components';
 import './signup.css';
 
 function Signup() {

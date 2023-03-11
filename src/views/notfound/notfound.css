@@ -1,7 +1,17 @@
 .notfound-container {
     height:50px;
-    width:100%;
     line-height: 50px;
-    margin:auto;
+    margin: 40vh auto;
     text-align:center;
+    color: grey;
+}
+
+.notfound-header {
+    font-size: 30px;
+    color:black;
+}
+
+.notfound-body {
+    color:grey;
+    font-size: 14px;
 }

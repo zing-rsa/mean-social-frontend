@@ -1,6 +1,5 @@
-import DeleteButton from '../delete-button/delete-button'
 import { useAuth } from '../../providers/auth.provider';
-import Avatar from '../avatar/avatar';
+import { DeleteButton, Avatar} from '../'
 import './comment.css'
 
 

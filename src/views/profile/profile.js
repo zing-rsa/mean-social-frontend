@@ -1,14 +1,10 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useCallback, useRef } from "react";
 
-import PostCompose from '../../components/post-composer/post-composer';
-import { usePosts } from '../../services/post.service'
+import { PostComposer, Follows, Loader, Avatar, Post } from '../../components';
 import { useProfiles } from '../../services/user.service'
+import { usePosts } from '../../services/post.service'
 import { useAuth } from "../../providers/auth.provider"
-import Follows from '../../components/follows/follows'
-import Loader from '../../components/loader/loader';
-import Avatar from "../../components/avatar/avatar";
-import Post from '../../components/post/post';
 import config from '../../config';
 import './profile.css'
 
@@ -114,7 +110,7 @@ function Profile() {
                         <div className='profile-post-container'>
 
                             {profile._id === user._id &&
-                                <PostCompose create={createProfilePost} profile_id={profile._id} />
+                                <PostComposer create={createProfilePost} profile_id={profile._id} />
                             }
 
                             { postsLoading &&

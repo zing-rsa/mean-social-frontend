@@ -2,8 +2,10 @@
     height:50px;
     width:100%;
     line-height: 50px;
-    margin:auto;
+    margin: 40vh auto;
     text-align:center;
+    color:grey;
+    font-size: 14px;
 }
 
 

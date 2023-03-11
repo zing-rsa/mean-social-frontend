@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 
-import SecondaryButton from '../button-secondary/button-secondary';
 import { useFollows } from '../../services/follows.service';
-import Loader from '../loader/loader';
+import { SecondaryButton, Loader } from '../';
 import './follows.css'
 
 

@@ -1,10 +1,8 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useRef } from "react";
 
-import PostCompose from "../../components/post-composer/post-composer";
+import { PostComposer, Post, Loader } from "../../components";
 import { usePosts } from "../../services/post.service";
-import Loader from "../../components/loader/loader";
-import Post from '../../components/post/post';
 import './feed.css';
 
 function Feed() {
@@ -37,7 +35,7 @@ function Feed() {
         <div className='feed-container'>
 
             <div className='posts-list' ref={postList}>
-                <PostCompose create={createPost} />
+                <PostComposer create={createPost} />
 
                 {isLoading &&
                     <Loader classes={'feed-loader'} />

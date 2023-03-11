@@ -1,9 +1,8 @@
-
 import { useEffect } from 'react';
 
 import { useProfiles } from '../../services/user.service';
-import Loader from '../../components/loader/loader';
 import AdminViewUser from './adminview-user/user';
+import { Loader } from '../../components/';
 import './users.css'
 
 function Users() {

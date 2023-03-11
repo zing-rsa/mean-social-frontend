@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import DeleteButton from '../../../components/delete-button/delete-button'
-import Avatar from '../../../components/avatar/avatar'
+import { DeleteButton, Avatar } from '../../../components';
 import './user.css'
 
 function AdminViewUser(props) {

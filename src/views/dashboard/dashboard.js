@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 
 import { usePosts } from '../../services/post.service';
-import Loader from '../../components/loader/loader';
-import Post from '../../components/post/post';
+import { Loader, Post } from '../../components';
 import './dashboard.css'
 
 function Dashboard() {

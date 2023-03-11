@@ -1,14 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 
-import PostInteractions from '../post-interactions/post-interactions';
-import CommentCompose from '../comment-composer/comment-composer';
+import { PostInteractions, CommentCompose, DeleteButton, Comment, Loader, Avatar } from '../';
 import { usePostComments } from '../../services/comment.service';
-import DeleteButton from '../delete-button/delete-button';
 import { useAuth } from '../../providers/auth.provider';
-import Comment from '../comment/comment'
-import Loader from '../loader/loader';
-import Avatar from '../avatar/avatar';
 import config from '../../config';
 import './post.css'
 

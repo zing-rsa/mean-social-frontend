@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useProfiles } from '../../services/user.service';
-import Avatar from '../avatar/avatar';
+import { Avatar } from '../';
 import './search.css'
 
 const profileFilter = (p, s) => 

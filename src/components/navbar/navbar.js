@@ -1,13 +1,9 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useCallback } from 'react';
 
-import SecondaryButton from '../button-secondary/button-secondary';
+import { SecondaryButton, Notifications, Avatar, Hamburger, Search } from '../';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
-import Notifications from '../notifications/notifications';
 import { useAuth } from "../../providers/auth.provider";
-import Hamburger from './hamburger/hamburger';
-import Avatar from '../avatar/avatar';
-import Search from '../search/search';
 import './navbar.css'
 
 function Navbar() {

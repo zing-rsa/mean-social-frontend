@@ -1,8 +1,7 @@
 import { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import SecondaryButton from '../../components/button-secondary/button-secondary'
-import PrimaryButton from '../../components/button-primary/button-primary'
+import { SecondaryButton, PrimaryButton } from '../../components';
 import { useAuth } from "../../providers/auth.provider";
 import logo from '../../assets/logo.svg'
 import './login.css'

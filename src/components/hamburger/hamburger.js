@@ -1,18 +1,16 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 
-import SecondaryButton from '../../../components/button-secondary/button-secondary'
-import { useAuth } from "../../../providers/auth.provider";
-import Search from '../../search/search';
+import { useAuth } from "../../providers/auth.provider";
+import { SecondaryButton, Search } from '../'
 import './hamburger.css'
 
 function Hamburger() {
 
-    const [visible, setVisible] = useState(false);
-
     const { logout, authenticated, user } = useAuth();
-
     const location = useLocation();
+
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
         setVisible(false);
