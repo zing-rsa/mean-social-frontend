@@ -36,8 +36,11 @@
     text-align: center;
 }
 
-.end {
-    margin-left:auto;
+.center {
+    width: 250px;
+    height: 100%;
+    margin: auto;
+    position: relative;
 }
 
 .profile {
@@ -55,6 +58,7 @@
     width: 40px;
     margin: 5px 0px;
 }
+
 .nav-login {
     height:50px;
     margin: 0px 5px;
@@ -73,4 +77,10 @@
     height: 35px;
     width: 80px;
     margin: 7.5px 5px;
+}
+
+@media only screen and (max-width: 850px) {
+    .end {
+        margin-left: auto;
+    }
 }

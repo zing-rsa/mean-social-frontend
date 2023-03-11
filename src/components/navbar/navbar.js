@@ -7,6 +7,7 @@ import Notifications from '../notifications/notifications';
 import { useAuth } from "../../providers/auth.provider";
 import Hamburger from './hamburger/hamburger';
 import Avatar from '../avatar/avatar';
+import Search from '../search/search';
 import './navbar.css'
 
 function Navbar() {
@@ -25,10 +26,10 @@ function Navbar() {
         <div className='navbar'>
             <ul className='nav-list'>
 
-                {width < 850 &&
+                {width <= 850 &&
                     <div className="nav-narrow-screen">
                         <Hamburger />
-                        
+
                         {authenticated &&
                             <li className='nav-item end profile'>
                                 <Notifications />
@@ -48,9 +49,9 @@ function Navbar() {
                     </div>
                 }
 
-                {width >= 850 &&
+                {width > 850 &&
                     <div className="nav-wide-screen">
-                        
+
                         <li className='nav-item'>
                             <Link to="/about">About</Link>
                         </li>
@@ -71,6 +72,10 @@ function Navbar() {
                                         </li>
                                     </>
                                 }
+
+                                <li className='nav-item center' >
+                                    <Search />
+                                </li>
 
                                 <li className='nav-item end profile'>
                                     <Notifications />
