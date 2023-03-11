@@ -1,6 +1,4 @@
-- notifications
-  - tidy, check bugs
-
-- red error popup
+- set username
+- search users
 - prioritized content
 - signup show pictures
