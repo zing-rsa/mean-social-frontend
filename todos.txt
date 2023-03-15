@@ -1,2 +1,4 @@
-- prioritized content
-- signup show pictures
+- readme's
+- fix max file upload errors
+- remove weird users, posts
+- create actual account

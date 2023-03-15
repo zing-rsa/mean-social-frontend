@@ -1,15 +1,23 @@
+import { useEffect, useRef, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 
+import { PrimaryButton, Loader } from '../../components';
 import { useAuth } from '../../providers/auth.provider'
-import { PrimaryButton } from '../../components';
 import './signup.css';
 
 function Signup() {
 
     const { signup, authenticated } = useAuth();
-
     const navigate = useNavigate();
+
+    const [bannerLoading, setBannerLoading] = useState(false);
+    const [avatarLoading, setAvatarLoading] = useState(false);
+
+    const avatarPreview = useRef(null);
+    const avatarPreviewContainer = useRef(null);
+
+    const bannerPreview = useRef(null);
+    const bannerPreviewContainer = useRef(null);
 
     useEffect(() => {
         if (authenticated)
@@ -36,16 +44,65 @@ function Signup() {
         signup(data);
     }
 
+    const handleAvatarUpload = useCallback((e) => {
+        setAvatarLoading(true);
+        if (e.target.files) {
+            var reader = new FileReader();
+
+            reader.onload = (e) => {
+                setAvatarLoading(false);
+                avatarPreview.current.setAttribute('src', e.target.result);
+            }
+
+            avatarPreviewContainer.current.style.display = 'block';
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    }, []);
+
+    const handleBannerUpload = useCallback((e) => {
+        setBannerLoading(true);
+        if (e.target.files) {
+            var reader = new FileReader();
+
+            reader.onload = (e) => {
+                setBannerLoading(false);
+                bannerPreview.current.setAttribute('src', e.target.result);
+            }
+
+            bannerPreviewContainer.current.style.display = 'block';
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    }, []);
+
     return (
         <div className='signup-container' >
             <form className='signup-form' onSubmit={handleSubmit}>
                 <div className='signup-header'>Sign up</div>
                 <div className='signup-form-top'>
-                    <div className='grid-item signup-upload'><label><input type='file' name='avatar' />Upload avatar</label></div>
-                    <div className='grid-item signup-upload'><label><input type='file' name='banner' />Upload banner</label></div>
+                    <div className='grid-item signup-upload'>
+                        <label>
+                            <input type='file' name='avatar' onChange={(e) => handleAvatarUpload(e)} />
+                            Upload avatar
+                            <div ref={avatarPreviewContainer} className='upload-preview-container'>
+                                { avatarLoading && <Loader classes={'signup-upload-loader'} />}
+                                <img ref={avatarPreview} className='upload-preview' />
+                            </div>
+                        </label>
+                    </div>
+                    <div className='grid-item signup-upload'>
+                        <label>
+                            <input type='file' name='banner' onChange={(e) => handleBannerUpload(e)} />
+                            Upload banner
+
+                            <div ref={bannerPreviewContainer} className='upload-preview-container'>
+                                { bannerLoading && <Loader classes={'signup-upload-loader'} /> }
+                                <img ref={bannerPreview} className='upload-preview' />
+                            </div>
+                        </label>
+                    </div>
                     <input className='grid-item signup-text' type='text' name='name' placeholder='name'></input>
                     <input className='grid-item signup-text' type='text' name='surname' placeholder='surname'></input>
-                    <textarea className='grid-item bio-compose' type='text' name='bio' placeholder='bio'></textarea>
+                    <textarea className='grid-item bio-compose' type='text' name='bio' placeholder='tell us about yourself...'></textarea>
                 </div>
                 <div className='signup-form-bottom'>
                     <input className='grid-item signup-text' type='text' name='email' placeholder='email'></input>
