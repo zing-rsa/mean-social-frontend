@@ -1,3 +1,2 @@
-- readme's
 - create actual account
 - remove weird users, posts

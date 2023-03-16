@@ -3,8 +3,8 @@ import { Helmet } from 'react-helmet';
 import AxiosResponseInterceptor from './components/axios-response/axios-response';
 import { ErrorProvider } from './providers/error.provider';
 import { AuthProvider } from './providers/auth.provider'
+import { Navbar, Unsupported } from './components';
 import useScript from './hooks/useScript';
-import { Navbar } from './components';
 import RouteHandler from "./routes";
 import './App.css';
 
@@ -21,6 +21,7 @@ function App() {
       <ErrorProvider>
         <AuthProvider>  
           <AxiosResponseInterceptor />
+          <Unsupported />
 
           <Navbar />
 

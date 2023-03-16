@@ -5,6 +5,7 @@ import PrimaryButton from './button-primary/button-primary'
 import Notifications from './notifications/notifications'
 import DeleteButton from './delete-button/delete-button'
 import PostComposer from './post-composer/post-composer'
+import Unsupported from './unsupported/unsupported'
 import AuthLoader from './auth-loader/auth-loader'
 import Hamburger from "./hamburger/hamburger";
 import Comment from './comment/comment'
@@ -26,6 +27,7 @@ export {
     Notifications,
     DeleteButton,
     PostComposer,
+    Unsupported,
     AuthLoader,
     Hamburger,
     Follows,

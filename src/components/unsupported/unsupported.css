@@ -1,0 +1,26 @@
+.unsupported-container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background-color: rgb(37, 37, 37);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: grey;
+}
+
+.unsupported-main {
+    text-align: center;
+    width: 100px;
+    font-size: 14px;
+    margin: 5px 0px;
+}
+
+.unsupported-text {
+    width: 100px;
+    height: auto;
+    word-wrap: break-word;
+    text-align: center;
+}
