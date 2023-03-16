@@ -154,11 +154,11 @@
 }
 
 .profile-loader {
-    margin: 100px auto
+    margin: 100px auto !important;
 }
 
 .profile-posts-loader {
-    margin-top: 50px;
+    margin-top: 50px !important;
 }
 
 .profile-posts-loader div {

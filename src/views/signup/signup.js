@@ -13,6 +13,14 @@ function Signup() {
     const [bannerLoading, setBannerLoading] = useState(false);
     const [avatarLoading, setAvatarLoading] = useState(false);
 
+    const [avatarInvalid, setAvatarInvalid] = useState(false);
+    const [bannerInvalid, setBannerInvalid] = useState(false);
+    const [nameInvalid, setNameInvalid] = useState(false);
+    const [surnameInvalid, setSurnameInvalid] = useState(false);
+    const [emailInvalid, setEmailInvalid] = useState(false);
+    const [usernameInvalid, setUsernameInvalid] = useState(false);
+    const [passInvalid, setPassInvalid] = useState(false);
+
     const avatarPreview = useRef(null);
     const avatarPreviewContainer = useRef(null);
 
@@ -45,8 +53,19 @@ function Signup() {
     }
 
     const handleAvatarUpload = useCallback((e) => {
-        setAvatarLoading(true);
-        if (e.target.files) {
+        if (e.target.files[0]) {
+            avatarPreview.current.removeAttribute('src')
+            avatarPreviewContainer.current.style.display = 'none';
+
+            if (e.target.files[0].size > 2000000) {
+                setAvatarInvalid(true)
+                return;
+            } else {
+                setAvatarInvalid(false);
+            }
+
+            setAvatarLoading(true);
+
             var reader = new FileReader();
 
             reader.onload = (e) => {
@@ -60,8 +79,17 @@ function Signup() {
     }, []);
 
     const handleBannerUpload = useCallback((e) => {
-        setBannerLoading(true);
-        if (e.target.files) {
+        if (e.target.files[0]) {
+
+            if (e.target.files[0].size > 2000000) {
+                setBannerInvalid(true);
+                return;
+            } else {
+                setAvatarInvalid(false);
+            }
+
+            setBannerLoading(true);
+
             var reader = new FileReader();
 
             reader.onload = (e) => {
@@ -71,6 +99,27 @@ function Signup() {
 
             bannerPreviewContainer.current.style.display = 'block';
             reader.readAsDataURL(e.target.files[0]);
+        }
+    }, []);
+
+    const validateUserInput = useCallback((value, field) => {
+
+        switch (field) {
+            case 'name':
+                setNameInvalid(!/^[A-Za-z]{2,}$/.test(value));
+                break;
+            case 'surname':
+                setSurnameInvalid(!/^[A-Za-z]{2,}$/.test(value));
+                break;
+            case 'email':
+                setEmailInvalid(!/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/.test(value));
+                break;
+            case 'username':
+                setUsernameInvalid(!/^(?=.{3,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._-]+(?<![_.])$/.test(value));
+                break;
+            case 'pass':
+                setPassInvalid(!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/.test(value));
+                break;
         }
     }, []);
 
@@ -84,30 +133,72 @@ function Signup() {
                             <input type='file' name='avatar' onChange={(e) => handleAvatarUpload(e)} />
                             Upload avatar
                             <div ref={avatarPreviewContainer} className='upload-preview-container'>
-                                { avatarLoading && <Loader classes={'signup-upload-loader'} />}
+                                {avatarLoading && <Loader classes={'signup-upload-loader'} />}
                                 <img ref={avatarPreview} className='upload-preview' />
                             </div>
                         </label>
                     </div>
+                    {avatarInvalid &&
+                        <div className='validation-error-container'>
+                            <div className='validation-error'>Max 2MB</div>
+                        </div>
+                    }
                     <div className='grid-item signup-upload'>
                         <label>
                             <input type='file' name='banner' onChange={(e) => handleBannerUpload(e)} />
                             Upload banner
 
                             <div ref={bannerPreviewContainer} className='upload-preview-container'>
-                                { bannerLoading && <Loader classes={'signup-upload-loader'} /> }
+                                {bannerLoading && <Loader classes={'signup-upload-loader'} />}
                                 <img ref={bannerPreview} className='upload-preview' />
                             </div>
                         </label>
                     </div>
-                    <input className='grid-item signup-text' type='text' name='name' placeholder='name'></input>
-                    <input className='grid-item signup-text' type='text' name='surname' placeholder='surname'></input>
-                    <textarea className='grid-item bio-compose' type='text' name='bio' placeholder='tell us about yourself...'></textarea>
+                    {bannerInvalid &&
+                        <div className='validation-error-container'>
+                            <div className='validation-error'>Max 2MB</div>
+                        </div>
+                    }
+                    <input className='grid-item signup-text' type='text' name='name' placeholder='name'
+                        onBlur={(e) => validateUserInput(e.target.value, 'name')}></input>
+                    {nameInvalid &&
+                        <div className='validation-error-container'>
+                            <div className='validation-error'>Invalid name</div>
+                        </div>
+                    }
+                    <input className='grid-item signup-text' type='text' name='surname' placeholder='surname'
+                        onBlur={(e) => validateUserInput(e.target.value, 'surname')}></input>
+                    {surnameInvalid &&
+                        <div className='validation-error-container'>
+                            <div className='validation-error'>Invalid surname</div>
+                        </div>
+                    }
+                    <textarea className='grid-item bio-compose' type='text' name='bio' placeholder='write a bio...'></textarea>
                 </div>
                 <div className='signup-form-bottom'>
-                    <input className='grid-item signup-text' type='text' name='email' placeholder='email'></input>
-                    <span className='grid-item signup-text'>@<input type='text' name='username' placeholder='username'></input></span>
-                    <input className='grid-item signup-text' type='password' name='pass' placeholder='pass'></input>
+                    <input className='grid-item signup-text' type='text' name='email' placeholder='email'
+                        onBlur={(e) => validateUserInput(e.target.value, 'email')}></input>
+                    {emailInvalid &&
+                        <div className='validation-error-container'>
+                            <div className='validation-error'>Invalid email</div>
+                        </div>
+                    }
+                    <span className='grid-item signup-text'>
+                        @<input type='text' name='username' placeholder='username'
+                            onBlur={(e) => validateUserInput(e.target.value, 'username')}></input>
+                    </span>
+                    {usernameInvalid &&
+                        <div className='validation-error-container'>
+                            <div className='validation-error'>Min 3, allowed chars: <b>. _ -</b> </div>
+                        </div>
+                    }
+                    <input className='grid-item signup-text' type='password' name='pass' placeholder='pass'
+                        onBlur={(e) => validateUserInput(e.target.value, 'pass')}></input>
+                    {passInvalid &&
+                        <div className='validation-error-container'>
+                            <div className='validation-error'>Min 5, chars and numbers</div>
+                        </div>
+                    }
                 </div>
 
                 <PrimaryButton classes={'signup-button'} text={'Sign up'} />

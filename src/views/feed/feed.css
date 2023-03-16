@@ -26,5 +26,5 @@
 }
 
 .feed-loader {
-    margin: 100px auto
+    margin: 100px auto !important;
 }
