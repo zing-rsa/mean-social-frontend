@@ -29,7 +29,7 @@ const Notifications = () => {
         let state;
 
         if (notification.action === 'like' || notification.action === 'mention') {
-            path = '/feed' 
+            path = '/feed'
             state = { scrollTo: notification.action_item._id }
         } else if (notification.action === 'follow') {
             path = '/profile/' + notification.action_owner._id
@@ -40,7 +40,7 @@ const Notifications = () => {
 
         clearNotification(notification._id, user._id); //background
 
-        state ? navigate(path, {'state': state}) : navigate(path);
+        state ? navigate(path, { 'state': state }) : navigate(path);
 
     }, []);
 
@@ -54,7 +54,7 @@ const Notifications = () => {
 
     useEffect(() => {
         getUserNotifications(user._id);
-        var id = setInterval(() => {getUserNotifications(user._id)}, 30000);
+        var id = setInterval(() => { getUserNotifications(user._id) }, 30000);
 
         return () => clearInterval(id);
     }, []);
@@ -70,19 +70,25 @@ const Notifications = () => {
                 <>
                     <div className='notifications-background' onClick={() => setVisible(false)}></div>
 
-                    <div className='notifications-popup'>
-                        {notificationInfo &&
-                            notificationInfo.notifications.map((item) => 
-                                <div key={item._id} className='notification-item' onClick={() => notificationNavigate(item)}>
-                                    <Avatar src={item.action_owner.avatar} classes={'notification-item-avatar'}/>
-                                    <div className='notification-details'>
-                                        <div className='notification-details-line'>{`${item.action_owner.username} ${getNotificationText(item.action)}`}</div>
-                                        {item.action_item && <div className='notification-details-line notification-text'><i>{`"${clipNotificationText(item.action_item.text)}"`}</i></div>}
-                                    </div>
-                                    {item.unread &&<div className='notification-item-unread'></div>}
-                                </div>)
-                        }
-                    </div>
+                    {notificationInfo &&
+                        <div className='notifications-popup'>
+                            {notificationInfo.notifications.length > 0 &&
+                                notificationInfo.notifications.map((item) =>
+                                    <div key={item._id} className='notification-item' onClick={() => notificationNavigate(item)}>
+                                        <Avatar src={item.action_owner.avatar} classes={'notification-item-avatar'} />
+                                        <div className='notification-details'>
+                                            <div className='notification-details-line'>{`${item.action_owner.username} ${getNotificationText(item.action)}`}</div>
+                                            {item.action_item && <div className='notification-details-line notification-text'><i>{`"${clipNotificationText(item.action_item.text)}"`}</i></div>}
+                                        </div>
+                                        {item.unread && <div className='notification-item-unread'></div>}
+                                    </div>)
+                            }
+                            {notificationInfo.notifications.length === 0 && 
+                                <div className='notifications-empty'>a little quiet in here..</div>
+                            }
+
+                        </div>
+                    }
                 </>
             }
         </div>

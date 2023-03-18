@@ -1,5 +1,5 @@
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
 
 import { PostInteractions, CommentCompose, DeleteButton, Comment, Loader, Avatar } from '../';
 import { usePostComments } from '../../services/comment.service';
@@ -19,10 +19,23 @@ function Post(props) {
 
     const { comments, setComments, isLoading, isError, createComment, deleteComment } = usePostComments();
 
+    const placeholder = useRef();
+    const image = useRef();
+
     useEffect(() => {
         if (props.comments) {
             setComments(props.comments);
         }
+    }, []);
+
+    const swapPlaceholder = useCallback(() => {
+        setTimeout(() => {
+            // waits 500ms for image to be fully rendered to screen then swaps loader and image immediately.
+            // necessary because the onLoad event of <img> only fires when the img element is actually in 
+            // the dom, so you can't render the element conditionally
+            i.current.style.display = 'block';
+            p.current.style.display = 'none';
+        }, 500);
     }, []);
 
     return (
@@ -31,7 +44,11 @@ function Post(props) {
 
                 {props.image &&
                     <div className='post-image'>
-                        <img src={config.media_url(props.image)} />
+                        <div ref={placeholder} className='image-placeholder'>
+                            <div className='image-placeholder-animation'></div>
+                        </div>
+
+                        <img ref={image} onLoad={swapPlaceholder} src={config.media_url(props.image)} />
                     </div>
                 }
                 <div className='post-body'>
@@ -50,11 +67,11 @@ function Post(props) {
                         </div>
                         {(user.isAdmin || user._id === props.owner._id) &&
                             <div className='post-details-delete'>
-                                <DeleteButton classes={'post-details-delete-button'} title={'Delete post'} cb={props.delete}/>
+                                <DeleteButton classes={'post-details-delete-button'} title={'Delete post'} cb={props.delete} />
                             </div>
                         }
                         <div className='post-details-img'>
-                            <Avatar classes={'author-avatar'} src={props.owner.avatar} link={`/profile/${props.owner._id}`}/> 
+                            <Avatar classes={'author-avatar'} src={props.owner.avatar} link={`/profile/${props.owner._id}`} />
                         </div>
                     </div>
 
@@ -73,7 +90,7 @@ function Post(props) {
                             <Comment key={item._id} delete={() => deleteComment(item._id, props._id)} {...item} />)
                     }
                     {isLoading && !isError &&
-                        <Loader classes={'comments-loader'}/>
+                        <Loader classes={'comments-loader'} />
                     }
                     {isError &&
                         <div>

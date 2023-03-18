@@ -14,34 +14,68 @@
     width: 100%;
     max-height: 800px;
 
-    display: flex; 
+    display: flex;
     flex-direction: column;
 
-    position:relative;
+    position: relative;
 }
 
 .post-image {
     max-height: 420px;
     width: 100%;
-    margin-bottom:-20px;
     z-index: 0;
-    display:flex;
+    display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative;
 }
 
 .post-image img {
     height: auto;
     width: 100%;
     margin: auto;
+    margin-bottom: -20px;
+    position:relative;
 }
+
+.image-placeholder {
+    height: 420px;
+    width: 100%;
+}
+
+@keyframes placeHolderShimmer {
+    0% {
+        background-position: 0px 0;
+    }
+
+    100% {
+        background-position: 120em 0;
+
+    }
+}
+
+.image-placeholder-animation {
+    animation-duration: 4s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: fff;
+    background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+    height: 110%;
+    width: 100%;
+    z-index: 1;
+    position: absolute;
+    top:-20px;
+}
+
 
 .post-body {
     border-radius: 15px;
     display: flex;
     flex-direction: column;
-    padding:20px;
-    z-index: 1;
+    padding: 20px;
+    z-index: 2;
     background-color: white;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
@@ -82,8 +116,8 @@
 }
 
 .post-meta {
-    color:rgba(149, 157, 165, 0.6);
-    width:100%;
+    color: rgba(149, 157, 165, 0.6);
+    width: 100%;
     display: flex;
 }
 
@@ -104,10 +138,23 @@
 }
 
 .comments {
-    width:100%;
+    width: 100%;
 }
 
 .comments-loader {
     height: 5px !important;
     width: 5px !important;
+}
+
+@media only screen and (max-width: 850px) {
+    @keyframes placeHolderShimmer {
+        0% {
+            background-position: 0px 0;
+        }
+    
+        100% {
+            background-position: 58em 0;
+    
+        }
+    }
 }

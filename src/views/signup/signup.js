@@ -183,7 +183,7 @@ function Signup() {
                             <div className='validation-error'>Invalid email</div>
                         </div>
                     }
-                    <span className='grid-item signup-text'>
+                    <span className='grid-item signup-text username-container'>
                         @<input type='text' name='username' placeholder='username'
                             onBlur={(e) => validateUserInput(e.target.value, 'username')}></input>
                     </span>

@@ -1,3 +1,2 @@
-- auto log in after signing out
-- username field on signup
+
 
