@@ -5,7 +5,7 @@ Mern Social is a code project that aims to simulate a social media similar to Tw
 The primary purpose of this project is to explore the JavaScript(MERN) ecosystem and improve my skills in React and API design.
 Thanks for checking it out.
 
-Live on Render [here.](https://mern-social-frontend-mxim.onrender.com/) (slow, especially on cold boot)  
+Hosted [here.](https://mern-social-frontend-mxim.onrender.com/)  
 
 ### Debug
 
@@ -15,10 +15,8 @@ If running the backend locally:
 -  customize `REACT_APP_API_URL` in a `.env.development.local`  
 -  `npm run start`  
 
-If connecting to prod backend  
-- `npm run start:prod`
-
-Note: there is only a single cloud environment
+If connecting to dev backend  
+- `npm run start:dev`
 
 ### Build
 `npm run build:prod`
@@ -31,5 +29,3 @@ Note: there is only a single cloud environment
 
 ---
 Back-end at: [mern-social-backend](https://github.com/zing-rsa/mern-social-backend)
-
-
