@@ -19,7 +19,7 @@ function Post(props) {
 
     const { comments, setComments, isLoading, isError, createComment, deleteComment } = usePostComments();
 
-    const placeholder = useRef();
+    const imagePlaceholder = useRef();
     const image = useRef();
 
     useEffect(() => {
@@ -33,8 +33,8 @@ function Post(props) {
             // waits 500ms for image to be fully rendered to screen then swaps loader and image immediately.
             // necessary because the onLoad event of <img> only fires when the img element is actually in 
             // the dom, so you can't render the element conditionally
-            i.current.style.display = 'block';
-            p.current.style.display = 'none';
+            image.current.style.display = 'block';
+            imagePlaceholder.current.style.display = 'none';
         }, 500);
     }, []);
 
@@ -44,7 +44,7 @@ function Post(props) {
 
                 {props.image &&
                     <div className='post-image'>
-                        <div ref={placeholder} className='image-placeholder'>
+                        <div ref={imagePlaceholder} className='image-placeholder'>
                             <div className='image-placeholder-animation'></div>
                         </div>
 
@@ -86,7 +86,7 @@ function Post(props) {
                     <CommentCompose parent={props._id} create={createComment} />
 
                     {comments && !isError && !isLoading &&
-                        comments.map((item, index) =>
+                        comments.map((item) =>
                             <Comment key={item._id} delete={() => deleteComment(item._id, props._id)} {...item} />)
                     }
                     {isLoading && !isError &&
