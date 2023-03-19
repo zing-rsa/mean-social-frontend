@@ -14,7 +14,7 @@ function submitOnEnter(event) {
     }
 }
 
-function PostCompose({ create, profile_id }) {
+function PostCompose({ create, profile_id, isCreating }) {
 
     const textInput = useRef(null);
     const imagePreview = useRef(null);
@@ -36,7 +36,7 @@ function PostCompose({ create, profile_id }) {
 
         e.target.reset();
 
-        if(imagePreview.current) {
+        if (imagePreview.current) {
             imagePreview.current.removeAttribute('src');
             previewContainer.current.style.display = 'none';
         }
@@ -83,26 +83,34 @@ function PostCompose({ create, profile_id }) {
     }, [textInput]);
 
     return (
-        <div className='post-compose'>
-            <div ref={previewContainer} className='post-image-preview'>
-                <img ref={imagePreview} />
-            </div>
-            <form ref={postForm} onSubmit={handleSubmit}>
-                <textarea ref={textInput} type='text' name='text' className='compose-body' onInput={resizeTextArea} placeholder='Write something...' />
-
-                <div className='compose-operations'>
-                    <SecondaryButton refs={cancelButton} text={'Cancel'} classes={'cancel-button'} onClick={clearInput}/>
-
-                    <div className='file-upload'>
-                        <label>
-                            <input type="file" name='image' onChange={(e) => handleFileUpload(e)} />Upload image
-                        </label>
-                    </div>
-
-                    <PrimaryButton classes={'submit-post'} text={'Post'} />
+        <>
+            <div className='post-compose'>
+                <div ref={previewContainer} className='post-image-preview'>
+                    <img ref={imagePreview} />
                 </div>
-            </form>
-        </div>
+                <form ref={postForm} onSubmit={handleSubmit}>
+                    <textarea ref={textInput} type='text' name='text' className='compose-body' onInput={resizeTextArea} placeholder='Write something...' />
+
+                    <div className='compose-operations'>
+                        <SecondaryButton refs={cancelButton} text={'Cancel'} classes={'cancel-button'} onClick={clearInput} />
+
+                        <div className='file-upload'>
+                            <label>
+                                <input type="file" name='image' onChange={(e) => handleFileUpload(e)} />Upload image
+                            </label>
+                        </div>
+
+                        <PrimaryButton classes={'submit-post'} text={'Post'} />
+                    </div>
+                </form>
+            </div>
+
+            {isCreating &&
+                <div className='post-creating-loader'>
+                    <div className='post-creating-animation'></div>
+                </div>
+            }
+        </>
     )
 }
 

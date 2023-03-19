@@ -1,5 +1,5 @@
 import { useAuth } from '../../providers/auth.provider';
-import { DeleteButton, Avatar} from '../'
+import { DeleteButton, Avatar, Loader} from '../'
 import './comment.css'
 
 
@@ -20,8 +20,14 @@ function Comment(props) {
                 </div>
             </div>
 
-            {(user.isAdmin || user._id === props.owner._id) &&
+            {!props.isDeleting && (user.isAdmin || user._id === props.owner._id)  &&
                 <DeleteButton title={'Delete comment'} classes='comment-delete' cb={props.delete} />
+            }
+
+            {props.isDeleting &&
+                <div className='comment-deleting-loader-container'>
+                    <Loader classes={'comment-deleting-loader'}/>
+                </div>
             }
 
         </div>

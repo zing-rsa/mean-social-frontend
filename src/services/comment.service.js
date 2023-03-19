@@ -13,6 +13,8 @@ const usePostComments = () => {
   const [comments, setComments] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [commentCreating, setCommentCreating] = useState(false);
+  const [commentDeleting, setCommentDeleting] = useState(null);
 
   const fetchComments = useCallback(async (parent) => {
     setIsLoading(true);
@@ -33,7 +35,7 @@ const usePostComments = () => {
 
   const deleteComment = useCallback(async (comment_id, parent) => {
     try {
-      setIsLoading(true);
+      setCommentDeleting(comment_id);
       setIsError(false);
 
       await api({
@@ -57,12 +59,12 @@ const usePostComments = () => {
       setError(e.response.data.message || 'Unknown error while deleting comment');
       setIsError(true);
     }
-    setIsLoading(false);
+    setCommentDeleting(null);
   }, []);
 
   const createComment = useCallback(async (text, parent) => {
     try {
-      setIsLoading(true);
+      setCommentCreating(true);
       setIsError(false);
 
       await api({
@@ -87,10 +89,10 @@ const usePostComments = () => {
       setError(e.response.data.message || 'Unknown error while creating comment');
       setIsError(true);
     }
-    setIsLoading(false);
+    setCommentCreating(false);
   }, []);
 
-  return { comments, setComments, isLoading, isError, fetchComments, deleteComment, createComment };
+  return { comments, setComments, isLoading, commentCreating, commentDeleting, isError, fetchComments, deleteComment, createComment };
 }
 
 export { usePostComments };

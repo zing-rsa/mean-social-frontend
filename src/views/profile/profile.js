@@ -12,8 +12,8 @@ function Profile() {
     const { user } = useAuth();
     const { id: profile_id } = useParams();
 
-    const { posts,   isLoading: postsLoading, isError: postsError, fetchProfilePosts, createProfilePost, deleteProfilePost } = usePosts();
-    const { profile, isLoading: userLoading,  isError: userError,  fetchProfile, updateProfile } = useProfiles();
+    const { posts,   isLoading: postsLoading, postCreating, postDeleting, fetchPosts, createPost, deletePost } = usePosts();
+    const { profile, isLoading: userLoading, fetchProfile, updateProfile } = useProfiles();
 
     const navigate = useNavigate();
 
@@ -21,8 +21,8 @@ function Profile() {
 
     const populateProfileData = useCallback(async () => {
         await fetchProfile(profile_id);
-        await fetchProfilePosts(profile_id);
-    }, [fetchProfile, fetchProfilePosts, user]);
+        await fetchPosts(profile_id);
+    }, [fetchProfile, fetchPosts, user]);
 
     useEffect(() => {
         populateProfileData();
@@ -110,7 +110,7 @@ function Profile() {
                         <div className='profile-post-container'>
 
                             {profile._id === user._id &&
-                                <PostComposer create={createProfilePost} profile_id={profile._id} />
+                                <PostComposer create={createPost} isCreating={postCreating} profile_id={profile._id} />
                             }
 
                             { postsLoading &&
@@ -120,7 +120,7 @@ function Profile() {
                             {!postsLoading && posts &&
                                 <>
                                     {posts.map((item) =>
-                                        <Post key={item._id} delete={() => deleteProfilePost(item._id, user._id)} {...item} />
+                                        <Post key={item._id} isDeleting={postDeleting && postDeleting === item._id} delete={() => deletePost(item._id, user._id)} {...item} />
                                     )}
                                     <div className='feed-end'>
                                         {posts.length === 0 ? "Nothing to see here..." : "Thats all for now..."}

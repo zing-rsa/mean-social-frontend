@@ -1,2 +1,2 @@
-
-
+- notification for a deleted post? 
+    - delete notis for deleted posts, removed likes, deleted comments, unfollows

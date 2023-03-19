@@ -15,6 +15,43 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
+.post-creating-loader {
+    background-color: white;
+
+    width: 92%;
+    height: 225px;
+    margin: 20px 4%;
+
+    border-radius: 15px;
+    overflow: hidden;
+
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+@keyframes creatingShimmer {
+    0% {
+        background-position: 0px 0;
+    }
+
+    100% {
+        background-position: 120em 0;
+
+    }
+}
+
+.post-creating-animation {
+    animation-duration: 4s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: creatingShimmer;
+    animation-timing-function: linear;
+    background: fff;
+    background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
 .post-image-preview {
     max-height: 420px;
     width: 100%;

@@ -8,6 +8,7 @@ import PostComposer from './post-composer/post-composer'
 import Unsupported from './unsupported/unsupported'
 import AuthLoader from './auth-loader/auth-loader'
 import Hamburger from "./hamburger/hamburger";
+import Comments from './comments/comments'
 import Comment from './comment/comment'
 import Follows from './follows/follows'
 import Navbar from "./navbar/navbar";
@@ -31,6 +32,7 @@ export {
     AuthLoader,
     Hamburger,
     Follows,
+    Comments,
     Comment,
     Footer, 
     Navbar, 

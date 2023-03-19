@@ -1,12 +1,13 @@
 import { useCallback, useRef } from 'react';
 
-import { SecondaryButton } from '../'
+import { Loader, SecondaryButton } from '../'
 import './comment-composer.css'
 
 
-function CommentCompose({ parent, create }) {
+function CommentCompose({ parent, create, createLoading }) {
 
     const postButton = useRef(null);
+    const postInput = useRef(null);
 
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
@@ -14,6 +15,9 @@ function CommentCompose({ parent, create }) {
         create(e.target.comment.value, parent);
 
         e.target.reset();
+
+        postButton.current.style.visibility = 'hidden';
+        postInput.current.blur();
     }, []);
 
     const updateButton = (show) => {
@@ -31,10 +35,16 @@ function CommentCompose({ parent, create }) {
     return (
         <div className='comment-composer'>
             <form onSubmit={handleSubmit}>
-                <input type='text' name='comment' className='comment-composer-body' placeholder="reply..." 
+                <input ref={postInput} type='text' name='comment' className='comment-composer-body' placeholder="reply..." 
                 onFocus={() => updateButton(true)} onBlur={() => updateButton(false)}></input>
 
                 <SecondaryButton submit={true} refs={postButton} classes={'submit-comment'} text={'Post'} />
+
+                {createLoading &&
+                    <div className='comment-create-loader-container'>
+                        <Loader classes={'comment-create-loader'} />
+                    </div>
+                }
             </form>
         </div>
     )

@@ -33,3 +33,14 @@
     padding: 0px !important;
 }
 
+.comment-create-loader-container {
+    position: relative;
+}
+
+.comment-create-loader {
+    position: absolute;
+    height: 6px !important;
+    width: 6px !important;
+    top:10px;
+    left: -50px;
+}

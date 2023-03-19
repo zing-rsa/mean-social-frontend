@@ -1,8 +1,7 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useCallback, useRef} from 'react';
 import { Link } from 'react-router-dom';
 
-import { PostInteractions, CommentCompose, DeleteButton, Comment, Loader, Avatar } from '../';
-import { usePostComments } from '../../services/comment.service';
+import { PostInteractions, DeleteButton, Comments, Avatar, Loader } from '../';
 import { useAuth } from '../../providers/auth.provider';
 import config from '../../config';
 import './post.css'
@@ -17,16 +16,8 @@ function Post(props) {
 
     const { user } = useAuth();
 
-    const { comments, setComments, isLoading, isError, createComment, deleteComment } = usePostComments();
-
     const imagePlaceholder = useRef();
     const image = useRef();
-
-    useEffect(() => {
-        if (props.comments) {
-            setComments(props.comments);
-        }
-    }, []);
 
     const swapPlaceholder = useCallback(() => {
         setTimeout(() => {
@@ -67,7 +58,8 @@ function Post(props) {
                         </div>
                         {(user.isAdmin || user._id === props.owner._id) &&
                             <div className='post-details-delete'>
-                                <DeleteButton classes={'post-details-delete-button'} title={'Delete post'} cb={props.delete} />
+                                {props.isDeleting && <Loader classes={'post-details-delete-loader'}/>}
+                                {!props.isDeleting && <DeleteButton classes={'post-details-delete-button'} title={'Delete post'} cb={props.delete} />}
                             </div>
                         }
                         <div className='post-details-img'>
@@ -83,20 +75,8 @@ function Post(props) {
                         <PostInteractions post_id={props._id} likes={props.likes} />
                     </div>
 
-                    <CommentCompose parent={props._id} create={createComment} />
+                    <Comments preFetchedComments={props.comments} parentPost={props._id} />
 
-                    {comments && !isError && !isLoading &&
-                        comments.map((item) =>
-                            <Comment key={item._id} delete={() => deleteComment(item._id, props._id)} {...item} />)
-                    }
-                    {isLoading && !isError &&
-                        <Loader classes={'comments-loader'} />
-                    }
-                    {isError &&
-                        <div>
-                            Oops
-                        </div>
-                    }
                 </div>
             </div>
         </div>

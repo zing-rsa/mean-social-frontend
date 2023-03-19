@@ -13,33 +13,17 @@ const usePosts = () => {
   const [posts, setPosts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+  const [postCreating, setPostCreating] = useState(false);
+  const [postDeleting, setPostDeleting] = useState(null);
 
-  const fetchPosts = useCallback(async () => {
+  const fetchPosts = useCallback(async (profile_id=null) => {
     try {
       setIsError(false);
       setIsLoading(true);
-      
+
       const res = await api({
         method: 'GET',
-        url: 'posts',
-        headers: config.headers(getToken())
-      })
-
-      setPosts(res.data);
-    } catch (e) {
-      setIsError(true);
-    }
-    setIsLoading(false);
-
-  }, []);
-
-  const fetchProfilePosts = useCallback(async (user_id) => {
-    setIsError(false);
-    setIsLoading(true);
-    try {
-      const res = await api({
-        method: 'GET',
-        url: `users/${user_id}/posts`,
+        url: profile_id ? `users/${profile_id}/posts` : 'posts',
         headers: config.headers(getToken())
       })
 
@@ -50,37 +34,10 @@ const usePosts = () => {
     setIsLoading(false);
   }, []);
 
-  const createPost = useCallback(async (post) => {
+  const createPost = useCallback(async (post, profile_id=null) => {
     try {
-      setIsLoading(true);
+      setPostCreating(true);
       setIsError(false);
-      
-      await api({
-        method: "POST",
-        url: 'posts/create',
-        headers: config.headers(getToken()),
-        data: post
-      })
-      
-      const res = await api({
-        method: 'GET',
-        url: 'posts',
-        headers: config.headers(getToken())
-      })
-      
-      setPosts(res.data);
-      
-    } catch (e) {
-      setError(e.response.data.message || 'Unknown error creating post');
-      setIsError(true);
-    }
-    setIsLoading(false);
-  }, []);
-
-  const createProfilePost = useCallback(async (post, profile_id) => {
-    try {
-      setIsError(false);
-      setIsLoading(true);
 
       await api({
         method: "POST",
@@ -91,7 +48,7 @@ const usePosts = () => {
 
       const res = await api({
         method: 'GET',
-        url: `users/${profile_id}/posts`,
+        url: profile_id ? `users/${profile_id}/posts` : 'posts' ,
         headers: config.headers(getToken())
       })
 
@@ -101,13 +58,13 @@ const usePosts = () => {
       setError(e.response.data.message || 'Unknown error creating post');
       setIsError(true);
     }
-    setIsLoading(false);
+    setPostCreating(false);
   }, []);
 
-  const deletePost = useCallback(async (post_id) => {
+  const deletePost = useCallback(async (post_id, profile_id = null) => {
     try {
+      setPostDeleting(post_id);
       setIsError(false);
-      setIsLoading(true);
 
       await api({
         method: "DELETE",
@@ -120,7 +77,7 @@ const usePosts = () => {
 
       const res = await api({
         method: 'GET',
-        url: 'posts',
+        url: profile_id ? `users/${profile_id}/posts`: 'posts',
         headers: config.headers(getToken())
       })
 
@@ -130,41 +87,10 @@ const usePosts = () => {
       setError(e.response.data.message || 'Unknown error deleting post');
       setIsError(true)
     }
-    setIsLoading(false);
-
+    setPostDeleting(null);
   }, [])
 
-  const deleteProfilePost = useCallback(async (post_id, user_id) => {
-    try {
-      setIsError(false);
-      setIsLoading(true);
-
-      await api({
-        method: "DELETE",
-        url: 'posts/delete',
-        headers: config.headers(getToken()),
-        data: {
-          _id: post_id
-        }
-      });
-
-      const res = await api({
-        method: 'GET',
-        url: `users/${user_id}/posts`,
-        headers: config.headers(getToken())
-      })
-
-      setPosts(res.data);
-
-    } catch (e) {
-      setError(e.response.data.message || 'Unknown error deleting post');
-      setIsError(true)
-    }
-    setIsLoading(false);
-
-  }, [])
-
-  return { posts, isLoading, isError, fetchPosts, fetchProfilePosts, createPost, createProfilePost, deletePost, deleteProfilePost };
+  return { posts, isLoading, postCreating, postDeleting, isError, fetchPosts, createPost, deletePost };
 }
 
 export { usePosts };
