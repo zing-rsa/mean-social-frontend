@@ -31,6 +31,7 @@ function Post(props) {
 
     return (
         <div className='post-container' id={props._id}>
+            { props.isDeleting && <div className='post-deleting-cover'></div>}
             <div className='post'>
 
                 {props.image &&

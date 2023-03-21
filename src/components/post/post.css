@@ -8,6 +8,15 @@
     overflow: hidden;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     transition: box-shadow 0.5s;
+    position: relative;
+}
+
+.post-deleting-cover {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.05);
+    position: absolute;
+    z-index: 10;
 }
 
 .post {
@@ -45,7 +54,44 @@
     width: 100%;
 }
 
-@keyframes placeHolderShimmer {
+.image-placeholder-animation {
+    background: linear-gradient(182deg, #dadada, #ababab);
+    background-size: 400% 400%;
+
+    -webkit-animation: AnimationName 1.5s linear infinite;
+    -moz-animation: AnimationName 1.5s linear infinite;
+    -o-animation: AnimationName 1.5s linear infinite;
+    animation: AnimationName 1.5s linear infinite;
+
+    height: 110%;
+    width: 100%;
+    z-index: 1;
+    position: absolute;
+    top:-20px;
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:50% 0%}
+    50%{background-position:51% 100%}
+    100%{background-position:50% 0%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:50% 0%}
+    50%{background-position:51% 100%}
+    100%{background-position:50% 0%}
+}
+@-o-keyframes AnimationName {
+    0%{background-position:50% 0%}
+    50%{background-position:51% 100%}
+    100%{background-position:50% 0%}
+}
+@keyframes AnimationName {
+    0%{background-position:50% 0%}
+    50%{background-position:51% 100%}
+    100%{background-position:50% 0%}
+}
+
+/* @keyframes placeHolderShimmer {
     0% {
         background-position: 0px 0;
     }
@@ -69,7 +115,7 @@
     z-index: 1;
     position: absolute;
     top:-20px;
-}
+} */
 
 
 .post-body {

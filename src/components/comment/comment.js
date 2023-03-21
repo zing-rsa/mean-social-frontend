@@ -9,6 +9,7 @@ function Comment(props) {
 
     return (
         <div className='comment'>
+            {props.isDeleting && <div className='comment-deleting-cover'></div>}
             <Avatar classes={'comment-avatar'} src={props.owner.avatar} link={`/profile/${props.owner._id}`} />
             <div className='comment-text'>
 

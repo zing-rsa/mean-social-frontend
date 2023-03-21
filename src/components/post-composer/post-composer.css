@@ -28,6 +28,42 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
+.post-creating-animation {
+    background: linear-gradient(182deg, #dadada, #c7c7c7);
+    background-size: 400% 400%;
+
+    -webkit-animation: AnimationName 1.5s ease-in infinite;
+    -moz-animation: AnimationName 1.5s ease-in infinite;
+    -o-animation: AnimationName 1.5s ease-in infinite;
+    animation: AnimationName 1.5s ease-in infinite;
+
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:50% 0%}
+    50%{background-position:51% 100%}
+    100%{background-position:50% 0%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:50% 0%}
+    50%{background-position:51% 100%}
+    100%{background-position:50% 0%}
+}
+@-o-keyframes AnimationName {
+    0%{background-position:50% 0%}
+    50%{background-position:51% 100%}
+    100%{background-position:50% 0%}
+}
+@keyframes AnimationName {
+    0%{background-position:50% 0%}
+    50%{background-position:51% 100%}
+    100%{background-position:50% 0%}
+}
+
+/* 
 @keyframes creatingShimmer {
     0% {
         background-position: 0px 0;
@@ -50,7 +86,7 @@
     height: 100%;
     width: 100%;
     z-index: 1;
-}
+} */
 
 .post-image-preview {
     max-height: 420px;
