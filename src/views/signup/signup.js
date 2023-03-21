@@ -183,10 +183,12 @@ function Signup() {
                             <div className='validation-error'>Invalid email</div>
                         </div>
                     }
-                    <span className='grid-item signup-text username-container'>
-                        @<input type='text' name='username' placeholder='username'
+                    <div className='grid-item signup-text username-container'>
+                        <span className='username-at'>@</span>
+                        <input type='text' name='username' placeholder='username'
                             onBlur={(e) => validateUserInput(e.target.value, 'username')}></input>
-                    </span>
+                    
+                    </div>
                     {usernameInvalid &&
                         <div className='validation-error-container'>
                             <div className='validation-error'>Min 3, allowed chars: <b>. _ -</b> </div>

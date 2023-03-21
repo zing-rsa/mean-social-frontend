@@ -20,6 +20,7 @@ input {
   background-color: white;
   border: none !important;
   outline: none !important;
+  padding:0px;
 } 
 
 input:active {
