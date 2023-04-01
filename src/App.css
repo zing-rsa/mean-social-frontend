@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+
+
 html, body, ul, p {    
   margin: 0;
   padding: 0;
@@ -8,7 +10,7 @@ html, body, ul, p {
 body {
   font-family: Arial, sans-serif;
   background-color: white;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif !important;
 }
 
 a, a:link, a:visited, a:hover {
@@ -46,7 +48,11 @@ textarea:active {
   overflow: hidden; 
 }
 
-/* width */
+/* chrome */
 ::-webkit-scrollbar {
   width: 0px;
+}
+
+* { /* good ol' firefox*/
+    scrollbar-width: none;
 }

@@ -1,13 +1,13 @@
 .button-secondary {
-    color: rgb(26, 32, 43);
-    background-color: white;
-
     padding: 5px;
-    border-width: 2px;
+    
+    border: solid 2px black;
     border-radius: 100px;
     
     font-weight: 700;
     
+    color: rgb(26, 32, 43);
+    background-color: white;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     
   }
