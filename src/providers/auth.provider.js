@@ -83,7 +83,6 @@ const AuthProvider = ({ children }) => {
         setAuthLoading(true);
 
         try {
-            console.log('sending')
             const res = await axios({
                 method: "POST",
                 url: config.api_url + 'auth/signup',
@@ -154,7 +153,6 @@ const AuthProvider = ({ children }) => {
                     setToken(null);
                     setUser(null);
                 } catch (e){
-                    console.error(e);
                 }
             }
         }

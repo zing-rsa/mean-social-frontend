@@ -118,7 +118,7 @@ function Signup() {
                 setUsernameInvalid(!/^(?=.{3,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._-]+(?<![_.])$/.test(value));
                 break;
             case 'pass':
-                setPassInvalid(!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/.test(value));
+                setPassInvalid(!/^[a-zA-Z0-9_!\-.@*#$^&]{5,16}$/.test(value));
                 break;
         }
     }, []);
@@ -191,14 +191,14 @@ function Signup() {
                     </div>
                     {usernameInvalid &&
                         <div className='validation-error-container'>
-                            <div className='validation-error'>Min 3, allowed chars: <b>. _ -</b> </div>
+                            <div className='validation-error'>(3-20) Allowed: <b>_ - .</b> </div>
                         </div>
                     }
                     <input className='grid-item signup-text' type='password' name='pass' placeholder='pass'
                         onBlur={(e) => validateUserInput(e.target.value, 'pass')}></input>
                     {passInvalid &&
                         <div className='validation-error-container'>
-                            <div className='validation-error'>Min 5, chars and numbers</div>
+                            <div className='validation-error'>(5-16)</div>
                         </div>
                     }
                 </div>
