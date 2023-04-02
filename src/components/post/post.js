@@ -1,3 +1,4 @@
+import ReactTimeAgo from 'react-time-ago'
 import { useCallback, useRef} from 'react';
 import { Link } from 'react-router-dom';
 
@@ -53,7 +54,7 @@ function Post(props) {
 
                             <div className='post-meta'>
                                 <div>{props.owner.username}</div>
-                                <div>{timestamp(props.timestamp)}</div>
+                                <ReactTimeAgo date={props.timestamp} timeStyle="twitter"></ReactTimeAgo>
                             </div>
 
                         </div>
