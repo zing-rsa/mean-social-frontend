@@ -7,11 +7,6 @@ import { useAuth } from '../../providers/auth.provider';
 import config from '../../config';
 import './post.css'
 
-const timestamp = (input) => {
-    let date = input.split('T')[0]
-    let time = input.split('T')[1]
-    return date + ' ' + time.slice(0, 5)
-}
 
 function Post(props) {
 
@@ -54,7 +49,7 @@ function Post(props) {
 
                             <div className='post-meta'>
                                 <div>{props.owner.username}</div>
-                                <ReactTimeAgo date={props.timestamp} timeStyle="twitter"></ReactTimeAgo>
+                                <ReactTimeAgo date={new Date(props.timestamp)} timeStyle="twitter-minute"></ReactTimeAgo>
                             </div>
 
                         </div>

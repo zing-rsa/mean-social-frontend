@@ -106,10 +106,16 @@ function Signup() {
 
         switch (field) {
             case 'name':
-                setNameInvalid(!/^[A-Za-z]{2,}$/.test(value));
+                setNameInvalid(
+                    !/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,}$/u
+                    .test(value)
+                );
                 break;
             case 'surname':
-                setSurnameInvalid(!/^[A-Za-z]{2,}$/.test(value));
+                setSurnameInvalid(
+                    !/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,}$/u
+                    .test(value)
+                );
                 break;
             case 'email':
                 setEmailInvalid(!/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/.test(value));
@@ -194,7 +200,7 @@ function Signup() {
                             <div className='validation-error'>(3-20) Allowed: <b>_ - .</b> </div>
                         </div>
                     }
-                    <input className='grid-item signup-text' type='password' name='pass' placeholder='pass'
+                    <input className='grid-item signup-text' type='password' name='pass' placeholder='password'
                         onBlur={(e) => validateUserInput(e.target.value, 'pass')}></input>
                     {passInvalid &&
                         <div className='validation-error-container'>
