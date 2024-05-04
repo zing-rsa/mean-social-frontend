@@ -9,7 +9,7 @@ function Avatar(props) {
 
     return (
         <div className={`${props.classes} avatar-container`} onClick={() => props.link && navigate(props.link)}>
-            <img src={props.src ? (config.media_url(props.src)) : profilePlaceholder} alt={props.alt} />
+            <img src={props.src ? (props.src) : profilePlaceholder} alt={props.alt} />
         </div>
     )
 }

@@ -74,7 +74,7 @@ function Profile() {
                                     </div>
                                 }
                                 <div className='profile-cover'>
-                                    {profile.banner && <img alt='' src={config.media_url(profile.banner)} />}
+                                    {profile.banner && <img alt='' src={profile.banner} />}
                                 </div>
 
                                 {profile._id === user._id &&

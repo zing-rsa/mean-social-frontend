@@ -36,7 +36,7 @@ function Post(props) {
                             <div className='image-placeholder-animation'></div>
                         </div>
 
-                        <img ref={image} onLoad={swapPlaceholder} src={config.media_url(props.image)} />
+                        <img ref={image} onLoad={swapPlaceholder} src={props.image} />
                     </div>
                 }
                 <div className='post-body'>
